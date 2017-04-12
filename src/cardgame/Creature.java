@@ -5,6 +5,7 @@
  */
 package cardgame;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,4 +30,10 @@ public interface Creature extends Permanent {
     // returns only the effects that can be played currently
     // depending on state, e.g., tapped/untapped
     List<Effect> avaliableEffects();
+
+    public void addTarget(Object target);
+
+    public ArrayList getTarget();
+
+    public void clearTarget();
 }

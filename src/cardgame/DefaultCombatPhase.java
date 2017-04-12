@@ -20,33 +20,42 @@ public class DefaultCombatPhase implements Phase {
         
         CardGame.instance.getTriggers().trigger(Triggers.COMBAT_FILTER);
         // TODO combat
-        while(attacking > 0){
-            System.out.println(currentPlayer.name() + "choose an attacking creature, 0 to pass");
-            canAttackCreatures = untappedCreatures(currentPlayer);
-            this.showCreatures(canAttackCreatures);
-            attacking = reader.nextInt();
-            if(attacking > 0){
-                c = canAttackCreatures.get(attacking-1);
-                c.tap();
-                attackingCreatures.add((AbstractCreature) c);
+        if(!currentPlayer.getCreatures().isEmpty()){
+            while(attacking > 0){
+                System.out.println(currentPlayer.name() + "choose an attacking creature, 0 to pass");
+                canAttackCreatures = untappedCreatures(currentPlayer);
+                if(canAttackCreatures.isEmpty())
+                    System.out.println("You don't have creatures that can attack.");
+                this.showCreatures(canAttackCreatures);
+                attacking = reader.nextInt();
+                if(attacking > 0){
+                    c = canAttackCreatures.get(attacking-1);
+                    c.tap();
+                    c.addTarget(opponentPlayer);
+                    attackingCreatures.add((AbstractCreature) c);
+                }
             }
         }
         //assunto parte dichiarazione attaccanti effettuata
         chargeCombatStack(opponentPlayer); // primo caricamento dello stack e risoluzione
         //definizione di chi difende
-        while(defending > 0){
-            System.out.println(currentPlayer.name() + "choose an defending creature, 0 to pass");
-            canDefendCreatures = untappedCreatures(opponentPlayer);
-            this.showCreatures(canDefendCreatures);
-            defending = reader.nextInt();
-            if(defending > 0){
-                c = canDefendCreatures.get(defending);
-                c.tap();
-                defendingCreatures.add((AbstractCreature) c);
-                System.out.println(currentPlayer.name() + "choose an attacking creature to defend, 0 to pass");
-                this.showCreatures(attackingCreatures);
-                attacking = reader.nextInt();
-                c.defend(attackingCreatures.get(attacking));
+        if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){
+            while(defending > 0){
+                System.out.println(currentPlayer.name() + "choose an defending creature, 0 to pass");
+                canDefendCreatures = untappedCreatures(opponentPlayer);
+                this.showCreatures(canDefendCreatures);
+                if(canDefendCreatures.isEmpty())
+                    System.out.println("You don't have creatures that can defend.");
+                defending = reader.nextInt();
+                if(defending > 0){
+                    c = canDefendCreatures.get(defending);
+                    c.tap();
+                    defendingCreatures.add((AbstractCreature) c);
+                    System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
+                    this.showCreatures(attackingCreatures);
+                    attacking = reader.nextInt();
+                    c.defend(attackingCreatures.get(attacking));
+                }
             }
         }
         chargeCombatStack(currentPlayer); // secondo caricamneto dello stack e risoluzione

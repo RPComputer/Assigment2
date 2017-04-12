@@ -5,6 +5,8 @@
  */
 package cardgame;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author atorsell
@@ -14,6 +16,7 @@ public abstract class AbstractCreature implements Creature {
     protected Player owner;
     protected boolean isTapped=false;
     protected int damageLeft = getToughness();
+    public ArrayList target = new ArrayList();
     
         protected AbstractCreature(Player owner) { this.owner=owner; }
         
@@ -44,9 +47,34 @@ public abstract class AbstractCreature implements Creature {
     @Override
         public boolean isTapped() { return isTapped; }
     @Override
-        public void attack() {} // to do in assignment 2
+        public void attack() {
+            int attackLeft = this.getPower();
+            if(target.size() == 1 && target.get(1) instanceof Player){
+                Player p = (Player) target.get(1);
+                p.inflictDamage(attackLeft);
+            }
+            else{
+                Creature c;
+                int takeDamage, takenDamage = 0;
+                for(Object t : target){
+                    c = (Creature) t;
+                    takeDamage = c.getToughness();
+                    takenDamage += c.getPower();
+                    if(attackLeft > 0)
+                        c.inflictDamage(attackLeft);
+                    attackLeft -= takeDamage;
+                }
+                this.inflictDamage(takenDamage);
+            }
+            target.clear();
+        } // to do in assignment 2
     @Override
-        public void defend(Creature c) {} // to do in assignment 2
+        public void defend(Creature c) {
+            ArrayList t = c.getTarget();
+            if(t.get(1) instanceof Player)
+                c.clearTarget();
+            c.addTarget(this);
+        } // to do in assignment 2
     @Override
         public void inflictDamage(int dmg) { 
             damageLeft -= dmg; 
@@ -71,5 +99,20 @@ public abstract class AbstractCreature implements Creature {
     @Override
         public String toString() {
             return name() + " (Creature)";
+        }
+        
+    @Override
+        public void addTarget (Object t){
+            this.target.add(t);
+        }
+        
+    @Override
+        public ArrayList getTarget(){
+            return this.target;
+        }
+        
+    @Override
+        public void clearTarget(){
+            this.target.clear();
         }
 }
