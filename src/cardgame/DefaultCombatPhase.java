@@ -14,7 +14,6 @@ public class DefaultCombatPhase implements Phase {
         ArrayList<AbstractCreature> attackingCreatures = new ArrayList<>();
         ArrayList<AbstractCreature> canAttackCreatures;
         ArrayList<AbstractCreature> canDefendCreatures;
-        ArrayList<AbstractCreature> defendingCreatures = new ArrayList<>();
         Creature c;
         System.out.println(currentPlayer.name() + ": combat phase");
         
@@ -23,7 +22,7 @@ public class DefaultCombatPhase implements Phase {
         if(!currentPlayer.getCreatures().isEmpty()){
             while(attacking > 0){
                 System.out.println(currentPlayer.name() + "choose an attacking creature, 0 to pass");
-                canAttackCreatures = untappedCreatures(currentPlayer);
+                canAttackCreatures = attackers(currentPlayer);
                 if(canAttackCreatures.isEmpty())
                     System.out.println("You don't have creatures that can attack.");
                 this.showCreatures(canAttackCreatures);
@@ -42,7 +41,7 @@ public class DefaultCombatPhase implements Phase {
         if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){
             while(defending > 0){
                 System.out.println(currentPlayer.name() + "choose an defending creature, 0 to pass");
-                canDefendCreatures = untappedCreatures(opponentPlayer);
+                canDefendCreatures = defenders(opponentPlayer);
                 this.showCreatures(canDefendCreatures);
                 if(canDefendCreatures.isEmpty())
                     System.out.println("You don't have creatures that can defend.");
@@ -50,7 +49,6 @@ public class DefaultCombatPhase implements Phase {
                 if(defending > 0){
                     c = canDefendCreatures.get(defending);
                     c.tap();
-                    defendingCreatures.add((AbstractCreature) c);
                     System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
                     this.showCreatures(attackingCreatures);
                     attacking = reader.nextInt();
@@ -120,11 +118,24 @@ public class DefaultCombatPhase implements Phase {
         return true;
     }
     
-    private ArrayList untappedCreatures(Player p){
+    private ArrayList attackers(Player p){
         ArrayList<Creature> untapped = new ArrayList<>();
         int i = 0;
         for( Creature c:p.getCreatures()) {
-            if ( !c.isTapped()) {
+            if ( !c.isTapped() && c.getAtt()) {
+                untapped.add(c);
+                System.out.println(Integer.toString(i+1)+") " + c.toString());
+                ++i;
+            }
+        }
+        return untapped;
+    }
+    
+    private ArrayList defenders(Player p){
+        ArrayList<Creature> untapped = new ArrayList<>();
+        int i = 0;
+        for( Creature c:p.getCreatures()) {
+            if ( !c.isTapped() && c.getDef()) {
                 untapped.add(c);
                 System.out.println(Integer.toString(i+1)+") " + c.toString());
                 ++i;

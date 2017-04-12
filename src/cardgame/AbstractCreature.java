@@ -17,6 +17,13 @@ public abstract class AbstractCreature implements Creature {
     protected boolean isTapped=false;
     protected int damageLeft = getToughness();
     public ArrayList target = new ArrayList();
+    public boolean att;
+    public boolean def;
+    
+    @Override
+    public boolean getAtt(){return att;}
+    @Override
+    public boolean getDef(){return def;}
     
         protected AbstractCreature(Player owner) { this.owner=owner; }
         

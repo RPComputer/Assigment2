@@ -36,4 +36,8 @@ public interface Creature extends Permanent {
     public ArrayList getTarget();
 
     public void clearTarget();
+
+    public boolean getDef();
+
+    public boolean getAtt();
 }
