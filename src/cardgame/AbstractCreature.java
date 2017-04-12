@@ -14,7 +14,7 @@ public abstract class AbstractCreature implements Creature {
     protected Player owner;
     protected boolean isTapped=false;
     protected int damageLeft = getToughness();
-        
+    
         protected AbstractCreature(Player owner) { this.owner=owner; }
         
     @Override
