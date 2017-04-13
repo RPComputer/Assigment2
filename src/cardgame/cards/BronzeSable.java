@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
 import cardgame.AbstractCreature;
@@ -10,21 +6,21 @@ import cardgame.AbstractCreatureCardEffect;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author atorsell
- */
 public class BronzeSable implements Card {
     
     private class BronzeSableEffect extends AbstractCreatureCardEffect {
         public BronzeSableEffect(Player p, Card c) { super(p,c); }
         @Override
-        protected Creature createCreature() { return new BronzeSableCreature(owner); }
+        protected Creature createCreature() {
+            Creature c =  new BronzeSableCreature(owner);
+            return new CreatureImage(owner, c);
+        }
     }
     @Override
     public Effect getEffect(Player p) { return new BronzeSableEffect(p,this); }
@@ -53,11 +49,6 @@ public class BronzeSable implements Card {
         
         @Override
         public String name() { return "BronzeSable"; }
-        
-        @Override
-        public void attack() {}
-        @Override
-        public void defend(Creature c) {}
         @Override
         public int getPower() { return 2; }
         @Override

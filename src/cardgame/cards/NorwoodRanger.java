@@ -10,6 +10,7 @@ import cardgame.AbstractCreatureCardEffect;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
 import java.util.ArrayList;
@@ -24,7 +25,10 @@ public class NorwoodRanger implements Card {
     private class NorwoodRangerEffect extends AbstractCreatureCardEffect {
         public NorwoodRangerEffect(Player p, Card c) { super(p,c); }
         @Override
-        protected Creature createCreature() { return new NorwoodRangerCreature(owner); }
+        protected Creature createCreature() {
+            Creature c =  new NorwoodRangerCreature(owner);
+            return new CreatureImage(owner, c);
+        }
     }
     @Override
     public Effect getEffect(Player p) { return new NorwoodRangerEffect(p,this); }
@@ -53,11 +57,6 @@ public class NorwoodRanger implements Card {
         
         @Override
         public String name() { return "NorwoodRanger"; }
-        
-        @Override
-        public void attack() {}
-        @Override
-        public void defend(Creature c) {}
         @Override
         public int getPower() { return 1; }
         @Override
