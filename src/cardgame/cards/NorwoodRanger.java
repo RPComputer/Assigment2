@@ -53,11 +53,6 @@ public class NorwoodRanger implements Card {
         
         @Override
         public String name() { return "NorwoodRanger"; }
-        
-        @Override
-        public void attack() {}
-        @Override
-        public void defend(Creature c) {}
         @Override
         public int getPower() { return 1; }
         @Override

@@ -75,10 +75,10 @@ public class CardGame {
     public void setTurnManager(TurnManager m) { turnManagerStack.push(m); }
     public void removeTurnManager(TurnManager m) { turnManagerStack.remove(m); }
     
-    Player getPlayer(int i) { return Players[i]; }    
-    Player getCurrentPlayer() { return turnManagerStack.peek().getCurrentPlayer(); }
-    Player getCurrentAdversary() { return turnManagerStack.peek().getCurrentAdversary(); }
-    Player nextPlayer() { return turnManagerStack.peek().nextPlayer(); }
+    public Player getPlayer(int i) { return Players[i]; }    
+    public Player getCurrentPlayer() { return turnManagerStack.peek().getCurrentPlayer(); }
+    public Player getCurrentAdversary() { return turnManagerStack.peek().getCurrentAdversary(); }
+    public Player nextPlayer() { return turnManagerStack.peek().nextPlayer(); }
     
     
     // Stack access
