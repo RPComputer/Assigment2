@@ -75,6 +75,7 @@ public class Player {
     
     void executeTurn() {
         System.out.println(name() + "'s turn");
+        CardGame.instance.getTriggers().trigger(Triggers.START_TURN_FILTER);
         
         // print out the fields
         System.out.println("=== Field ===");
@@ -103,6 +104,7 @@ public class Player {
         while ((curPhase=nextPhase())!=null) {
             curPhase.execute();
         }
+        CardGame.instance.getTriggers().trigger(Triggers.END_TURN_FILTER);
     }
     
     

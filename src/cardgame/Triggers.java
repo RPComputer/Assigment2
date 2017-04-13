@@ -58,5 +58,6 @@ public class Triggers {
     public static final int EXIT_CREATURE_FILTER=64;
     public static final int ENTER_ENCHANTMENT_FILTER=128;
     public static final int EXIT_ENCHANTMENT_FILTER=256;
-    
+    public static final int START_TURN_FILTER=512;
+    public static final int END_TURN_FILTER=1024;
 }

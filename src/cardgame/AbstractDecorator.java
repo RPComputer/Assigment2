@@ -7,10 +7,16 @@ import java.util.List;
 public abstract class AbstractDecorator implements Creature{
     private final CreatureImage head;
     private Creature next;
+    private Creature prev;
     
-    public AbstractDecorator(CreatureImage c, Creature n){
+    public AbstractDecorator(CreatureImage c){
         this.head = c;
-        this.next = n;
+        this.next = c.getPointer();
+        this.prev = c;
+    }
+    
+    public CreatureImage getHead(){
+        return this.head;
     }
     
     public Creature getNext(){
@@ -19,6 +25,14 @@ public abstract class AbstractDecorator implements Creature{
     
     public void setNext(Creature n){
         this.next = n;
+    }
+    
+    public Creature getPrev(){
+        return prev;
+    }
+    
+    public void setPrev(Creature n){
+        this.prev = n;
     }
 
     @Override
