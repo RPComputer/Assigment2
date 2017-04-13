@@ -10,6 +10,7 @@ import cardgame.AbstractCreatureCardEffect;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
 import java.util.ArrayList;
@@ -24,7 +25,10 @@ public class Reflexologist implements Card {
     private class ReflexologistEffect extends AbstractCreatureCardEffect {
         public ReflexologistEffect(Player p, Card c) { super(p,c); }
         @Override
-        protected Creature createCreature() { return new ReflexologistCreature(owner); }
+        protected Creature createCreature() {
+            Creature c =  new ReflexologistCreature(owner);
+            return new CreatureImage(owner, c);
+        }
     }
     @Override
     public Effect getEffect(Player p) { return new ReflexologistEffect(p,this); }

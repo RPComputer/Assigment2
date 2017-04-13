@@ -6,6 +6,7 @@ import cardgame.AbstractCreatureCardEffect;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
 import java.util.ArrayList;
@@ -16,7 +17,10 @@ public class BronzeSable implements Card {
     private class BronzeSableEffect extends AbstractCreatureCardEffect {
         public BronzeSableEffect(Player p, Card c) { super(p,c); }
         @Override
-        protected Creature createCreature() { return new BronzeSableCreature(owner); }
+        protected Creature createCreature() {
+            Creature c =  new BronzeSableCreature(owner);
+            return new CreatureImage(owner, c);
+        }
     }
     @Override
     public Effect getEffect(Player p) { return new BronzeSableEffect(p,this); }

@@ -14,6 +14,14 @@ public class CreatureImage implements Creature{
         this.pointer = pointer;
     }
     
+    public void setPointer(Creature np){
+        this.pointer = np;
+    }
+    
+    public Creature getPointer(){
+        return this.pointer;
+    }
+    
     @Override
     public int getPower() {
         return pointer.getPower();
