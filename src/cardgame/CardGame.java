@@ -93,5 +93,5 @@ public class CardGame {
     
     //IO resources  to be dropped in final version
     private final Scanner reader = new Scanner(System.in);
-    Scanner getScanner() { return reader; }
+    public Scanner getScanner() { return reader; }
 }
