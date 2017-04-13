@@ -42,9 +42,10 @@ public class AetherFlash implements Card {
         }
         
         @Override
-        public void remove() {
+        public boolean remove() {
             super.remove();
             CardGame.instance.getTriggers().deregister(GreetingAction);
+            return true;
         }
         
         @Override

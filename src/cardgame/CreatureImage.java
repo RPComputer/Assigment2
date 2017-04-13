@@ -122,4 +122,9 @@ public class CreatureImage implements Creature{
         else return false;
     }
     
+    public void checker(){
+        if(pointer.getToughness() <= 0){
+            this.remove();
+        }
+    }
 }
