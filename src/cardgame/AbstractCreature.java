@@ -98,9 +98,8 @@ public abstract class AbstractCreature implements Creature {
         }
     
     @Override
-        public void remove() {
-            owner.getCreatures().remove(this);
-            CardGame.instance.getTriggers().trigger(Triggers.EXIT_CREATURE_FILTER,this);
+        public boolean remove() {
+            return true;
         }
     
     @Override

@@ -52,9 +52,9 @@ public class FriendlyEnvironment implements Card {
         }
         
         @Override
-        public void remove() {
-            super.remove();
+        public boolean remove() {
             CardGame.instance.getTriggers().deregister(GreetingAction);
+            return super.remove();
         }
         
         @Override
