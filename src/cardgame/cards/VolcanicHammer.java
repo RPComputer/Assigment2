@@ -27,12 +27,35 @@ public class VolcanicHammer implements Card {
     public Effect getEffect(Player p) {
         int choice;
         Scanner reader = CardGame.instance.getScanner();
-        System.out.println("Choose your target: 0 for creatures, 1 for players");
-        choice = reader.nextInt();
+        do{
+            System.out.println("Choose your target: 0 for creatures, 1 for players");
+            choice = reader.nextInt();
+            
+            if (choice != 0 && choice!= 1) {
+                System.out.println("Not valid input!");
+            }
+            
+            
+        } while(choice == 0 || choice == 1);
         
-        if (choice == 0) {}
-        else if (choice == 1) {}
-        else { /*error*/ }
+        if (choice==0) {
+            // CREATURES
+            
+            /* TODO */
+        } else /*choice == 1*/ {
+            // PLAYERS
+            do{
+                System.out.println("Choose your target: 0 for your opponent, 1 for yourself");
+                choice = reader.nextInt();
+            } while(choice == 0 || choice == 1);
+            
+            if (choice==0) {
+                CardGame.instance.getCurrentAdversary().inflictDamage(3);
+            } else /*choice == 1*/ {
+                CardGame.instance.getCurrentPlayer().inflictDamage(3);
+            }
+            
+        }
         
         return new VolcanicHammerEffect(); }
     
