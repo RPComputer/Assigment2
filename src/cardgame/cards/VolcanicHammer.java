@@ -41,7 +41,36 @@ public class VolcanicHammer implements Card {
         if (choice==0) {
             // CREATURES
             
-            /* TODO */
+            do{
+                System.out.println("Choose your target: 0 for your opponent's creatures, 1 for yours");
+                choice = reader.nextInt();
+            } while(choice == 0 || choice == 1);
+            
+            if (choice==0) {
+                // OPPONENT PLAYER'S CREATURES
+                int i = 0;
+                for ( Creature c: CardGame.instance.getCurrentAdversary().getCreatures()) {
+                    System.out.println( i + ") for " + c.name() );
+                    i++;
+                }
+                
+                choice = reader.nextInt();
+                CardGame.instance.getCurrentAdversary().getCreatures().get(choice).inflictDamage(3);
+                
+            } else /*choice == 1*/ {
+                // YOUR OWN CREATURES
+                int i = 0;
+                for ( Creature c: CardGame.instance.getCurrentPlayer().getCreatures()) {
+                    System.out.println( i + ") for " + c.name() );
+                    i++;
+                }
+                
+                choice = reader.nextInt();
+                CardGame.instance.getCurrentPlayer().getCreatures().get(choice).inflictDamage(3);
+   
+            }
+            
+            
         } else /*choice == 1*/ {
             // PLAYERS
             do{
@@ -50,8 +79,10 @@ public class VolcanicHammer implements Card {
             } while(choice == 0 || choice == 1);
             
             if (choice==0) {
+                // OPPONENT PLAYER
                 CardGame.instance.getCurrentAdversary().inflictDamage(3);
             } else /*choice == 1*/ {
+                // CURRENT PLAYER
                 CardGame.instance.getCurrentPlayer().inflictDamage(3);
             }
             
