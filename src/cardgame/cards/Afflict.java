@@ -17,37 +17,11 @@ import java.util.Scanner;
 public class Afflict implements Card {
     
     private class AfflictEffect extends AbstractCardEffect {
-        public AfflictEffect(Player p, Card c) { super(p,c); }
+        CreatureImage target;        
+        public AfflictEffect(Player p, Card c, CreatureImage cr) { super(p,c); target = cr;}
         @Override
         public void resolve() {
-            int choosen;
-            Scanner reader = CardGame.instance.getScanner();
-            System.out.println("Choose a creature to afflict, 0 to see the other player creatures:");
-            this.showCreatures(CardGame.instance.getCurrentAdversary().getCreatures());
-            choosen = reader.nextInt();
-            if(choosen > 0){
-                CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
-                c.inflictDamage(1);
-                AfflictDecorator a = new AfflictDecorator(c);
-            }
-            else{
-                System.out.println("Choose a creature to afflict, 0 to do nothing");
-                this.showCreatures(CardGame.instance.getCurrentPlayer().getCreatures());
-                choosen = reader.nextInt();
-                if(choosen > 0){
-                    CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
-                    c.inflictDamage(1);
-                    AfflictDecorator a = new AfflictDecorator(c);
-                }
-            }
-        }
-        
-        private void showCreatures(List<Creature> l){
-            int i = 0;
-            for( Creature c: l) {
-                System.out.println(Integer.toString(i+1)+") " + c.toString());
-                ++i;
-            }
+            AfflictDecorator d = new AfflictDecorator(target);
         }
     }
     
@@ -72,7 +46,34 @@ public class Afflict implements Card {
     
     @Override
     public Effect getEffect(Player owner) {
-        return new AfflictEffect(owner, this); 
+        int choosen;
+        Scanner reader = CardGame.instance.getScanner();
+        System.out.println("Choose a creature to afflict, 0 to see the other player creatures:");
+        this.showCreatures(CardGame.instance.getCurrentAdversary().getCreatures());
+        choosen = reader.nextInt();
+        if(choosen > 0){
+            CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
+            return new AfflictEffect(owner, this, c);
+        }
+        else{
+            System.out.println("Choose a creature to afflict, 0 to do nothing");
+            this.showCreatures(CardGame.instance.getCurrentPlayer().getCreatures());
+            choosen = reader.nextInt();
+            if(choosen > 0){
+                CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
+                return new AfflictEffect(owner, this, c);
+            }
+            else return new AfflictEffect(owner, this, null);
+        }
+    }
+    
+    
+    private void showCreatures(List<Creature> l){
+        int i = 0;
+        for( Creature c: l) {
+            System.out.println(Integer.toString(i+1)+") " + c.toString());
+            ++i;
+        }
     }
     
     @Override
