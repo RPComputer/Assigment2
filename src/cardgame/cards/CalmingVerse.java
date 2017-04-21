@@ -35,7 +35,7 @@ public class CalmingVerse implements Card {
     @Override
     public String name() { return "CalmingVerse"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Sorcery"; }
     @Override
     public String ruleText() { return "Destroys all enchantments you don't control"; }
     @Override

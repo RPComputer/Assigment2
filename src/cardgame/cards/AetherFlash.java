@@ -25,7 +25,7 @@ public class AetherFlash implements Card {
             super(owner);
         }
         
-        private final TriggerAction GreetingAction = new TriggerAction() {
+        private final TriggerAction EnterDamage = new TriggerAction() {
                 @Override
                 public void execute(Object args) {
                     if (args != null  && args instanceof Creature) {
@@ -38,27 +38,27 @@ public class AetherFlash implements Card {
         @Override
         public void insert() {
             super.insert();
-            CardGame.instance.getTriggers().register(Triggers.ENTER_CREATURE_FILTER, GreetingAction);
+            CardGame.instance.getTriggers().register(Triggers.ENTER_CREATURE_FILTER, EnterDamage);
         }
         
         @Override
         public boolean remove() {
             super.remove();
-            CardGame.instance.getTriggers().deregister(GreetingAction);
+            CardGame.instance.getTriggers().deregister(EnterDamage);
             return true;
         }
         
         @Override
-        public String name() { return "Aether Flash"; }
+        public String name() { return "AetherFlash"; }
     }
     
     
     @Override
-    public String name() { return "Aether Flash"; }
+    public String name() { return "AetherFlash"; }
     @Override
     public String type() { return "Enchantment"; }
     @Override
-    public String ruleText() { return "Whenever a creature enters the game " + name() + " deals 2 damage to it"; }
+    public String ruleText() { return "Whenever a creature enters the game deals 2 damage to it"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override
