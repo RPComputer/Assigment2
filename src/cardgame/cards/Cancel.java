@@ -48,9 +48,9 @@ public class Cancel implements Card {
     @Override
     public String name() { return "Cancel"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Instant"; }
     @Override
-    public String ruleText() { return "Counter target spell " + name() + " welcomes it"; }
+    public String ruleText() { return "Counter target spell"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override

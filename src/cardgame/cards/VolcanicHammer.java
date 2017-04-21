@@ -43,7 +43,7 @@ public class VolcanicHammer implements Card {
             }
             
             
-        } while(choice == 0 || choice == 1);
+        } while(choice != 0 && choice != 1);
         
         if (choice==0) {
             // CREATURES
@@ -51,7 +51,10 @@ public class VolcanicHammer implements Card {
             do{
                 System.out.println("Choose your target: 0 for your opponent's creatures, 1 for yours");
                 choice = reader.nextInt();
-            } while(choice == 0 || choice == 1);
+                if (choice != 0 && choice!= 1) {
+                    System.out.println("Not valid input!");
+                }
+            } while(choice != 0 && choice != 1);
             
             if (choice==0) {
                 // OPPONENT PLAYER'S CREATURES
@@ -90,7 +93,10 @@ public class VolcanicHammer implements Card {
             do{
                 System.out.println("Choose your target: 0 for your opponent, 1 for yourself");
                 choice = reader.nextInt();
-            } while(choice == 0 || choice == 1);
+                if (choice != 0 && choice!= 1) {
+                    System.out.println("Not valid input!");
+                }
+            } while(choice != 0 && choice != 1);
             
             if (choice==0) {
                 // OPPONENT PLAYER
