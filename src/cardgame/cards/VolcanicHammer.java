@@ -1,30 +1,37 @@
 
 package cardgame.cards;
 
-import cardgame.AbstractEffect;
+import cardgame.AbstractCardEffect;
 import cardgame.Card;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.CreatureImage;
 import java.util.Scanner;
 
 public class VolcanicHammer implements Card {
-    private class VolcanicHammerEffect extends AbstractEffect {
+    private class VolcanicHammerEffect extends AbstractCardEffect {
+        Player target1 = null;
+        CreatureImage target2 = null;
         
+        public VolcanicHammerEffect(Player o, Card c, Object t){
+            super(o, c);
+            if(t instanceof Player)
+                target1 = (Player) t;
+            else
+                target2 = (CreatureImage) t;
+        }
         @Override
         public void resolve () {
-            for(Creature a : CardGame.instance.getCurrentPlayer().getCreatures()){
-                a.inflictDamage(3);
-            }
-
-            for(Creature a : CardGame.instance.getCurrentAdversary().getCreatures()){
-                a.inflictDamage(3);
-            }
+            if(target1 == null)
+                target2.inflictDamage(3);
+            else target1.inflictDamage(3);
         }
     }
     @Override
     public Effect getEffect(Player p) {
+        // INIZIO ALGORITMO
         int choice;
         Scanner reader = CardGame.instance.getScanner();
         do{
@@ -40,7 +47,7 @@ public class VolcanicHammer implements Card {
         
         if (choice==0) {
             // CREATURES
-            
+            CreatureImage target = null;
             do{
                 System.out.println("Choose your target: 0 for your opponent's creatures, 1 for yours");
                 choice = reader.nextInt();
@@ -48,6 +55,7 @@ public class VolcanicHammer implements Card {
             
             if (choice==0) {
                 // OPPONENT PLAYER'S CREATURES
+                
                 int i = 0;
                 for ( Creature c: CardGame.instance.getCurrentAdversary().getCreatures()) {
                     System.out.println( i + ") for " + c.name() );
@@ -55,7 +63,10 @@ public class VolcanicHammer implements Card {
                 }
                 
                 choice = reader.nextInt();
-                CardGame.instance.getCurrentAdversary().getCreatures().get(choice).inflictDamage(3);
+                
+                CreatureImage creatureTarget = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choice);
+                
+                return new VolcanicHammerEffect(p, this, creatureTarget);
                 
             } else /*choice == 1*/ {
                 // YOUR OWN CREATURES
@@ -66,7 +77,10 @@ public class VolcanicHammer implements Card {
                 }
                 
                 choice = reader.nextInt();
-                CardGame.instance.getCurrentPlayer().getCreatures().get(choice).inflictDamage(3);
+                
+                CreatureImage creatureTarget = (CreatureImage) CardGame.instance.getCurrentPlayer().getCreatures().get(choice);
+                
+                return new VolcanicHammerEffect(p, this, creatureTarget);
    
             }
             
@@ -80,15 +94,20 @@ public class VolcanicHammer implements Card {
             
             if (choice==0) {
                 // OPPONENT PLAYER
-                CardGame.instance.getCurrentAdversary().inflictDamage(3);
+                
+                Player playerTarget = CardGame.instance.getCurrentAdversary();
+               
+                return new VolcanicHammerEffect(p, this, playerTarget);
             } else /*choice == 1*/ {
                 // CURRENT PLAYER
-                CardGame.instance.getCurrentPlayer().inflictDamage(3);
+                
+                Player playerTarget = CardGame.instance.getCurrentPlayer();
+                
+                return new VolcanicHammerEffect(p, this, playerTarget);
             }
             
         }
-        
-        return new VolcanicHammerEffect(); }
+    }
     
     
     @Override
