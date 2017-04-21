@@ -13,6 +13,8 @@ public abstract class AbstractCardEffect extends AbstractEffect {
     protected Player owner;
     protected Card card;
     
+    public String getCardName(){ return card.name(); }
+    
     protected AbstractCardEffect(Player p, Card c) { owner=p; card=c; }
     
     public boolean play() { 

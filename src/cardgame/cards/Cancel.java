@@ -34,13 +34,16 @@ public class Cancel implements Card {
         public void resolve () {
             ArrayList <Effect> l = new ArrayList<>();
             int i=0;
-            
+      
             for (Effect c: CardGame.instance.getStack()){
-                
-                l.get(i)=c;
-                i++;
-                l.iterator().next();                                    
+                l.add(c);                                 
             }    
+            
+            System.out.println("Choose an effect to cancel");
+            for (Effect e: l){
+                System.out.println(i+""+e.toString()); // da cambiare getString in getCardName
+                i++;
+            }  
             
             Scanner s = new Scanner (System.in);
             i=s.nextInt();
@@ -75,8 +78,7 @@ public class Cancel implements Card {
             CardGame.instance.getTriggers().register(Triggers.ENTER_CREATURE_FILTER, GreetingAction);
         }
         
-        @Override
-        public void remove() {
+        public void removeEffect() { // ho cambiato remove() in removeEffect()  
             super.remove();
             CardGame.instance.getTriggers().deregister(GreetingAction);
         }
