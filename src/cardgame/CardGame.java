@@ -13,6 +13,7 @@ import java.util.Scanner;
 import cardgame.cards.Homeopathy;
 import cardgame.cards.Reflexologist;
 import cardgame.cards.FriendlyEnvironment;
+import java.util.HashMap;
 
 /**
  *
@@ -34,6 +35,11 @@ public class CardGame {
         instance.getPlayer(1).setDeck(deck.iterator());
         
         instance.run();
+    }
+    
+    public static HashMap<String, CardFactory> factoryMap = new HashMap<>();
+    public static void register(String s, CardFactory f) {
+        factoryMap.put(s, f);
     }
     
     //Signleton and instance access

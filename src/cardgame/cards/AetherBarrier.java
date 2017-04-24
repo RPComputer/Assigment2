@@ -6,13 +6,23 @@ import cardgame.Enchantment;
 import cardgame.Player;
 import cardgame.AbstractEnchantmentCardEffect;
 import cardgame.AbstractEnchantment;
+import cardgame.CardFactory;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
 import java.util.Scanner;
 
 public class AetherBarrier implements Card {
+    private class AetherBarrierFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new AetherBarrier();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("AetherBarrier", );
+    
     private class AetherBarrierEffect extends AbstractEnchantmentCardEffect {
         public AetherBarrierEffect(Player p, Card c) { super(p,c); }
         @Override
