@@ -48,7 +48,7 @@ public class AggressiveUrge implements Card {
     public Effect getEffect(Player owner) {
         int choosen;
         Scanner reader = CardGame.instance.getScanner();
-        System.out.println("Choose a creature to power up, 0 to see the other player creatures:");
+        System.out.println("Choose a creature to power up, 0 to see the other player creatures:\n");
         this.showCreatures(CardGame.instance.getCurrentAdversary().getCreatures());
         choosen = reader.nextInt();
         if(choosen > 0){
@@ -56,7 +56,7 @@ public class AggressiveUrge implements Card {
             return new AggressiveUrgeEffect(owner, this, c);
         }
         else{
-            System.out.println("Choose a creature to power up, 0 to do nothing");
+            System.out.println("Choose a creature to power up, 0 to do nothing\n");
             this.showCreatures(CardGame.instance.getCurrentPlayer().getCreatures());
             choosen = reader.nextInt();
             if(choosen > 0){
@@ -71,7 +71,7 @@ public class AggressiveUrge implements Card {
     private void showCreatures(List<Creature> l){
         int i = 0;
         for( Creature c: l) {
-            System.out.println(Integer.toString(i+1)+") " + c.toString());
+            System.out.println(Integer.toString(i+1)+") " + c.toString()+ "\n");
             ++i;
         }
     }

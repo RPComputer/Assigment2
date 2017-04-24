@@ -40,7 +40,7 @@ public class FriendlyEnvironment implements Card {
                 public void execute(Object args) {
                     if (args != null  && args instanceof Creature) {
                         Creature c = (Creature)args;
-                        System.out.println( name() + " says: \"Welcome " + c.name() +"!\"" );
+                        System.out.println( name() + " says: \"Welcome " + c.name() +"!\"\n" );
                     }
                 }
             };
