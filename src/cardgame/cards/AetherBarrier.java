@@ -31,12 +31,12 @@ public class AetherBarrier implements Card {
                     Scanner reader = CardGame.instance.getScanner();
                     System.out.println("Choose a permanent to be sacrificed\n");
                     for(Creature c:CardGame.instance.getCurrentPlayer().getCreatures()){
-                        System.out.println( i + ") " + c.name() );
+                        System.out.println( i + ") " + c.name() + "\n");
                         i++;
                     }
                     split = i;
                     for(Enchantment e:CardGame.instance.getCurrentPlayer().getEnchantments()){
-                        System.out.println( i + ") " + e.name() );
+                        System.out.println( i + ") " + e.name() + "\n");
                         i++;
                     }
                     choice = reader.nextInt();

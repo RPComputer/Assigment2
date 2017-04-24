@@ -35,11 +35,11 @@ public class VolcanicHammer implements Card {
         int choice;
         Scanner reader = CardGame.instance.getScanner();
         do{
-            System.out.println("Choose your target: 0 for creatures, 1 for players");
+            System.out.println("Choose your target: 0 for creatures, 1 for players\n");
             choice = reader.nextInt();
             
             if (choice != 0 && choice!= 1) {
-                System.out.println("Not valid input!");
+                System.out.println("Not valid input!\n");
             }
             
             
@@ -49,10 +49,10 @@ public class VolcanicHammer implements Card {
             // CREATURES
             CreatureImage target = null;
             do{
-                System.out.println("Choose your target: 0 for your opponent's creatures, 1 for yours");
+                System.out.println("Choose your target: 0 for your opponent's creatures, 1 for yours\n");
                 choice = reader.nextInt();
                 if (choice != 0 && choice!= 1) {
-                    System.out.println("Not valid input!");
+                    System.out.println("Not valid input!\n");
                 }
             } while(choice != 0 && choice != 1);
             
@@ -61,7 +61,7 @@ public class VolcanicHammer implements Card {
                 
                 int i = 0;
                 for ( Creature c: CardGame.instance.getCurrentAdversary().getCreatures()) {
-                    System.out.println( i + ") for " + c.name() );
+                    System.out.println( i + ") for " + c.name() + "\n");
                     i++;
                 }
                 
@@ -75,7 +75,7 @@ public class VolcanicHammer implements Card {
                 // YOUR OWN CREATURES
                 int i = 0;
                 for ( Creature c: CardGame.instance.getCurrentPlayer().getCreatures()) {
-                    System.out.println( i + ") for " + c.name() );
+                    System.out.println( i + ") for " + c.name() + "\n");
                     i++;
                 }
                 
@@ -91,10 +91,10 @@ public class VolcanicHammer implements Card {
         } else /*choice == 1*/ {
             // PLAYERS
             do{
-                System.out.println("Choose your target: 0 for your opponent, 1 for yourself");
+                System.out.println("Choose your target: 0 for your opponent, 1 for yourself\n");
                 choice = reader.nextInt();
                 if (choice != 0 && choice!= 1) {
-                    System.out.println("Not valid input!");
+                    System.out.println("Not valid input!\n");
                 }
             } while(choice != 0 && choice != 1);
             
