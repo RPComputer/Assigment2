@@ -26,6 +26,7 @@ public class Cancel implements Card {
     public Effect getEffect(Player p) {
         ArrayList <Effect> l = new ArrayList<>();
         int i=0;
+        int choice;
 
         for (Effect c: CardGame.instance.getStack()){
             l.add(c);                                 
@@ -38,15 +39,17 @@ public class Cancel implements Card {
         }  
         
         Scanner s = new Scanner (System.in);
-        try{
-            i=s.nextInt();
-        }
-        catch (NumberFormatException error) {
-            System.out.println("The input is not valid, try again.\n");
-            i=s.nextInt();
-        }
+        do{
+            try{
+                choice=s.nextInt();
+            }
+            catch (NumberFormatException error) {
+                System.out.println("The input is not valid, try again.\n");
+                choice=-1;
+            }
+        }while(choice<0 || choice>i-1);
         
-        Effect e = l.get(i);
+        Effect e = l.get(choice);
         return (Effect) new CancelEffect(p, this, e);
     }
     
