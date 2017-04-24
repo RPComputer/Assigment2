@@ -34,28 +34,28 @@ public class AuraBlast implements Card {
         int choice;
         Scanner s = new Scanner (System.in);
         do{
-            System.out.println("Choose your target: 0 for your opponent's enchantments, 1 for yours");
+            System.out.println("Choose your target: 0 for your opponent's enchantments, 1 for yours\n");
             
             try{
                 choice = s.nextInt();
             }
             catch (NumberFormatException error) {
-                System.out.println("The input is not valid, try again.");
+                System.out.println("The input is not valid, try again.\n");
                 choice = s.nextInt();
             }
             
             if (choice != 0 && choice!= 1) {
-                System.out.println("Not valid input!");
+                System.out.println("Not valid input!\n");
             }
         } while(choice != 0 && choice != 1);
 
         if (choice==0) {
             
-            System.out.println("Your target is one of your opponent's enchantments.\nChoose which one to destroy!");
+            System.out.println("Your target is one of your opponent's enchantments.\nChoose which one to destroy!\n");
             
             int i = 0;
             for ( Enchantment e: CardGame.instance.getCurrentAdversary().getEnchantments()) {
-                System.out.println( i + ") for " + e.name() );
+                System.out.println( i + ") for " + e.name() + "\n");
                 i++;
             }
             
@@ -63,7 +63,7 @@ public class AuraBlast implements Card {
                 choice = s.nextInt();
             }
             catch (NumberFormatException error) {
-                System.out.println("The input is not valid, try again.");
+                System.out.println("The input is not valid, try again.\n");
                 choice = s.nextInt();
             }
             
@@ -72,11 +72,11 @@ public class AuraBlast implements Card {
         }
         else{
             
-            System.out.println("Your target is one of your enchantments.\nChoose which one to destroy!");
+            System.out.println("Your target is one of your enchantments.\nChoose which one to destroy!\n");
             
             int i = 0;
             for ( Enchantment e: CardGame.instance.getCurrentPlayer().getEnchantments()) {
-                System.out.println( i + ") for " + e.name() );
+                System.out.println( i + ") for " + e.name() + "\n");
                 i++;
             }
             
@@ -84,7 +84,7 @@ public class AuraBlast implements Card {
                 choice = s.nextInt();
             }
             catch (NumberFormatException error) {
-                System.out.println("The input is not valid, try again.");
+                System.out.println("The input is not valid, try again.\n");
                 choice = s.nextInt();
             }
             
