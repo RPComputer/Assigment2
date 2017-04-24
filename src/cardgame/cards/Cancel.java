@@ -36,9 +36,16 @@ public class Cancel implements Card {
             System.out.println(i+") " + e.toString()); // da cambiare getString in getCardName
             i++;
         }  
-
+        
         Scanner s = new Scanner (System.in);
-        i=s.nextInt();
+        try{
+            i=s.nextInt();
+        }
+        catch (NumberFormatException error) {
+            System.out.println("The input is not valid, try again.");
+            i=s.nextInt();
+        }
+        
         Effect e = l.get(i);
         return (Effect) new CancelEffect(p, this, e);
     }

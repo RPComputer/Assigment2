@@ -35,29 +35,59 @@ public class AuraBlast implements Card {
         Scanner s = new Scanner (System.in);
         do{
             System.out.println("Choose your target: 0 for your opponent's enchantments, 1 for yours");
-            choice = s.nextInt();
+            
+            try{
+                choice = s.nextInt();
+            }
+            catch (NumberFormatException error) {
+                System.out.println("The input is not valid, try again.");
+                choice = s.nextInt();
+            }
+            
             if (choice != 0 && choice!= 1) {
                 System.out.println("Not valid input!");
             }
         } while(choice != 0 && choice != 1);
 
         if (choice==0) {
+            
+            System.out.println("Your target is one of your opponent's enchantments.\nChoose which one to destroy!");
+            
             int i = 0;
             for ( Enchantment e: CardGame.instance.getCurrentAdversary().getEnchantments()) {
                 System.out.println( i + ") for " + e.name() );
                 i++;
             }
-            choice = s.nextInt();
+            
+            try{
+                choice = s.nextInt();
+            }
+            catch (NumberFormatException error) {
+                System.out.println("The input is not valid, try again.");
+                choice = s.nextInt();
+            }
+            
             Enchantment e = CardGame.instance.getCurrentAdversary().getEnchantments().get(choice);
             return new AuraBlastEffect(p, this, CardGame.instance.getCurrentAdversary(), e);
         }
         else{
+            
+            System.out.println("Your target is one of your enchantments.\nChoose which one to destroy!");
+            
             int i = 0;
             for ( Enchantment e: CardGame.instance.getCurrentPlayer().getEnchantments()) {
                 System.out.println( i + ") for " + e.name() );
                 i++;
             }
-            choice = s.nextInt();
+            
+            try{
+                choice = s.nextInt();
+            }
+            catch (NumberFormatException error) {
+                System.out.println("The input is not valid, try again.");
+                choice = s.nextInt();
+            }
+            
             Enchantment e = CardGame.instance.getCurrentPlayer().getEnchantments().get(choice);
             return new AuraBlastEffect(p, this, CardGame.instance.getCurrentAdversary(), e);
         }
