@@ -51,6 +51,8 @@ public class Afflict implements Card {
         System.out.println("Choose a creature to afflict, 0 to see the other player creatures:\n");
         this.showCreatures(CardGame.instance.getCurrentAdversary().getCreatures());
         
+        int length = CardGame.instance.getCurrentAdversary().getCreatures().size();
+        
         do {
             try{
                 choosen = reader.nextInt();
@@ -58,7 +60,7 @@ public class Afflict implements Card {
                 System.out.println("The input is not valid, try again.\n");
                 choosen = -1;
             }
-        }while(choosen==-1); 
+        }while(choosen<0 || choosen>length); 
         
         if(choosen > 0){
             CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
@@ -68,6 +70,8 @@ public class Afflict implements Card {
             System.out.println("Choose a creature to afflict, 0 to do nothing\n");
             this.showCreatures(CardGame.instance.getCurrentPlayer().getCreatures());
             
+            length = CardGame.instance.getCurrentPlayer().getCreatures().size();
+            
             do {
                 try{
                     choosen = reader.nextInt();
@@ -75,7 +79,7 @@ public class Afflict implements Card {
                     System.out.println("The input is not valid, try again.\n");
                     choosen = -1;
                 }
-            }while(choosen==-1); 
+            }while(choosen<0 || choosen> length); 
             
             if(choosen > 0){
                 CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);

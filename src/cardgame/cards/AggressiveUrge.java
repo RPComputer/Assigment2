@@ -50,7 +50,18 @@ public class AggressiveUrge implements Card {
         Scanner reader = CardGame.instance.getScanner();
         System.out.println("Choose a creature to power up, 0 to see the other player creatures:\n");
         this.showCreatures(CardGame.instance.getCurrentAdversary().getCreatures());
-        choosen = reader.nextInt();
+        
+        int length = CardGame.instance.getCurrentAdversary().getCreatures().size();
+        
+        do {
+            try{
+                choosen = reader.nextInt();
+            }catch (NumberFormatException error) {
+                System.out.println("The input is not valid, try again.\n");
+                choosen = -1;
+            }
+        }while(choosen<0 || choosen> length); 
+        
         if(choosen > 0){
             CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
             return new AggressiveUrgeEffect(owner, this, c);
@@ -58,7 +69,18 @@ public class AggressiveUrge implements Card {
         else{
             System.out.println("Choose a creature to power up, 0 to do nothing\n");
             this.showCreatures(CardGame.instance.getCurrentPlayer().getCreatures());
-            choosen = reader.nextInt();
+            
+            length = CardGame.instance.getCurrentPlayer().getCreatures().size();
+            
+            do {
+                try{
+                    choosen = reader.nextInt();
+                }catch (NumberFormatException error) {
+                    System.out.println("The input is not valid, try again.\n");
+                    choosen = -1;
+                }
+            }while(choosen<0 || choosen> length);     
+            
             if(choosen > 0){
                 CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
                 return new AggressiveUrgeEffect(owner, this, c);
