@@ -2,11 +2,12 @@
 package cardgame.cards;
 
 import cardgame.AbstractEffect;
+import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Effect;
 import cardgame.Player;
 
-public class DayOfJudgment {
+public class DayOfJudgment implements Card{
     private class DayOfJudgmentEffect extends AbstractEffect {
         
         @Override

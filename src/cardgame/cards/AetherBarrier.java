@@ -21,7 +21,8 @@ public class AetherBarrier implements Card {
             return new AetherBarrier();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("AetherBarrier", );
+    @SuppressWarnings("FieldMayBeFinal")
+    private static StaticInitializer initializer = new StaticInitializer("AetherBarrier", new AetherBarrierFactory());
     
     private class AetherBarrierEffect extends AbstractEnchantmentCardEffect {
         public AetherBarrierEffect(Player p, Card c) { super(p,c); }
