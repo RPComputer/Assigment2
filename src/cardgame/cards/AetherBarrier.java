@@ -50,7 +50,17 @@ public class AetherBarrier implements Card {
                         System.out.println( i + ") " + e.name() + "\n");
                         i++;
                     }
-                    choice = reader.nextInt();
+                    
+                    do{
+                        try{
+                            choice = reader.nextInt();
+                        }
+                        catch (NumberFormatException error) {
+                            System.out.println("The input is not valid, try again.\n");
+                            choice = -1;
+                        }
+                    } while (choice<0 || choice>i-1);
+                    
                     if(choice > split){
                         CardGame.instance.getCurrentPlayer().getEnchantments().remove(choice-split);
                     }

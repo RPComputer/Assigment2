@@ -36,12 +36,18 @@ public class VolcanicHammer implements Card {
         Scanner reader = CardGame.instance.getScanner();
         do{
             System.out.println("Choose your target: 0 for creatures, 1 for players\n");
-            choice = reader.nextInt();
             
-            if (choice != 0 && choice!= 1) {
-                System.out.println("Not valid input!\n");
+            try{
+                    choice = reader.nextInt();
+            }
+            catch (NumberFormatException error) {
+                System.out.println("The input is not valid, try again.\n");
+                choice = -1;
             }
             
+            if (choice != 0 && choice!= 1) {
+                System.out.println("The input is not valid, try again.\n");
+            }
             
         } while(choice != 0 && choice != 1);
         
@@ -50,22 +56,44 @@ public class VolcanicHammer implements Card {
             CreatureImage target = null;
             do{
                 System.out.println("Choose your target: 0 for your opponent's creatures, 1 for yours\n");
-                choice = reader.nextInt();
-                if (choice != 0 && choice!= 1) {
-                    System.out.println("Not valid input!\n");
+                
+                try{
+                    choice = reader.nextInt();
                 }
+                catch (NumberFormatException error) {
+                    System.out.println("The input is not valid, try again.\n");
+                    choice = -1;
+                }
+                
+                if (choice != 0 && choice!= 1) {
+                    System.out.println("The input is not valid, try again.\n");
+                }
+                
             } while(choice != 0 && choice != 1);
             
             if (choice==0) {
                 // OPPONENT PLAYER'S CREATURES
-                
-                int i = 0;
-                for ( Creature c: CardGame.instance.getCurrentAdversary().getCreatures()) {
-                    System.out.println( i + ") for " + c.name() + "\n");
-                    i++;
-                }
-                
-                choice = reader.nextInt();
+                int i;
+                do{
+                    System.out.println("Choose your opponent player's creatures:\n");
+                    i = 0;
+                    for ( Creature c: CardGame.instance.getCurrentAdversary().getCreatures()) {
+                        System.out.println( i + ") for " + c.name() + "\n");
+                        i++;
+                    }
+                    try{
+                        choice = reader.nextInt();
+                    }
+                    catch (NumberFormatException error) {
+                        System.out.println("The input is not valid, try again.\n");
+                        choice = -1;
+                    }
+
+                    if (choice < 0 || choice >= i) {
+                        System.out.println("The input is not valid, try again.\n");
+                    }
+
+                } while(choice < 0 || choice >= i);
                 
                 CreatureImage creatureTarget = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choice);
                 
@@ -73,13 +101,30 @@ public class VolcanicHammer implements Card {
                 
             } else /*choice == 1*/ {
                 // YOUR OWN CREATURES
-                int i = 0;
-                for ( Creature c: CardGame.instance.getCurrentPlayer().getCreatures()) {
-                    System.out.println( i + ") for " + c.name() + "\n");
-                    i++;
-                }
-                
-                choice = reader.nextInt();
+                int i;
+                do{
+                    System.out.println("Choose your creatures:\n");
+                    
+                    i = 0;
+                    for ( Creature c: CardGame.instance.getCurrentPlayer().getCreatures()) {
+                        System.out.println( i + ") for " + c.name() + "\n");
+                        i++;
+                    }
+                    
+                    try{
+                        choice = reader.nextInt();
+                    }
+                    
+                    catch (NumberFormatException error) {
+                        System.out.println("The input is not valid, try again.\n");
+                        choice = -1;
+                    }
+
+                    if (choice < 0 || choice >= i) {
+                        System.out.println("The input is not valid, try again.\n");
+                    }
+
+                } while(choice < 0 || choice >= i);
                 
                 CreatureImage creatureTarget = (CreatureImage) CardGame.instance.getCurrentPlayer().getCreatures().get(choice);
                 
@@ -87,15 +132,23 @@ public class VolcanicHammer implements Card {
    
             }
             
-            
         } else /*choice == 1*/ {
             // PLAYERS
             do{
                 System.out.println("Choose your target: 0 for your opponent, 1 for yourself\n");
-                choice = reader.nextInt();
-                if (choice != 0 && choice!= 1) {
-                    System.out.println("Not valid input!\n");
+                
+                try{
+                    choice = reader.nextInt();
                 }
+                catch (NumberFormatException error) {
+                    System.out.println("The input is not valid, try again.\n");
+                    choice = -1;
+                }
+                
+                if (choice != 0 && choice!= 1) {
+                    System.out.println("The input is not valid, try again.\n");
+                }
+                
             } while(choice != 0 && choice != 1);
             
             if (choice==0) {
