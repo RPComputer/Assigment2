@@ -2,13 +2,10 @@
 package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
-import java.util.ArrayList;
 import cardgame.Card;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
-import cardgame.Enchantment;
-import java.util.Scanner;
 
 public class CalmingVerse implements Card {
     private class CalmingVerseEffect extends AbstractCardEffect {
