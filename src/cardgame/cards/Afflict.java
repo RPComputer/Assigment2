@@ -56,11 +56,12 @@ public class Afflict implements Card {
     @Override
     public Effect getEffect(Player owner) {
         int choosen;
+        Player opponent = CardGame.instance.getOpponent(owner);
         Scanner reader = CardGame.instance.getScanner();
-        System.out.println("Choose a creature to afflict, 0 to see the other player creatures:\n");
-        this.showCreatures(CardGame.instance.getCurrentAdversary().getCreatures());
+        System.out.println("Choose a creature to afflict, 0 to see the your creatures:\n");
+        this.showCreatures(opponent.getCreatures());
         
-        int length = CardGame.instance.getCurrentAdversary().getCreatures().size();
+        int length = opponent.getCreatures().size();
         
         do {
             try{
@@ -72,14 +73,14 @@ public class Afflict implements Card {
         }while(choosen<0 || choosen>length); 
         
         if(choosen > 0){
-            CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
+            CreatureImage c = (CreatureImage) opponent.getCreatures().get(choosen);
             return new AfflictEffect(owner, this, c);
         }
         else{
             System.out.println("Choose a creature to afflict, 0 to do nothing\n");
-            this.showCreatures(CardGame.instance.getCurrentPlayer().getCreatures());
+            this.showCreatures(owner.getCreatures());
             
-            length = CardGame.instance.getCurrentPlayer().getCreatures().size();
+            length = owner.getCreatures().size();
             
             do {
                 try{
@@ -91,11 +92,11 @@ public class Afflict implements Card {
             }while(choosen<0 || choosen> length); 
             
             if(choosen > 0){
-                CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
+                CreatureImage c = (CreatureImage) owner.getCreatures().get(choosen);
                 return new AfflictEffect(owner, this, c);
-            }
-            else return new AfflictEffect(owner, this, null);
+            };
         }
+        return null;
     }
     
     

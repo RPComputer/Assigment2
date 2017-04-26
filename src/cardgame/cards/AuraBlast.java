@@ -57,11 +57,11 @@ public class AuraBlast implements Card {
         }while(choice!=0 && choice!=1);
 
         if (choice==0) {
-            
+            Player opponent = CardGame.instance.getOpponent(p);
             System.out.println("Your target is one of your opponent's enchantments.\nChoose which one to destroy!\n");
             
             int i = 0;
-            for ( Enchantment e: CardGame.instance.getCurrentAdversary().getEnchantments()) {
+            for ( Enchantment e: opponent.getEnchantments()) {
                 System.out.println( i + ") for " + e.name() + "\n");
                 i++;
             }
@@ -76,15 +76,15 @@ public class AuraBlast implements Card {
                 }
             } while (choice<0 || choice>i-1);
             
-            Enchantment e = CardGame.instance.getCurrentAdversary().getEnchantments().get(choice);
-            return new AuraBlastEffect(p, this, CardGame.instance.getCurrentAdversary(), e);
+            Enchantment e = opponent.getEnchantments().get(choice);
+            return new AuraBlastEffect(p, this, opponent, e);
         }
         else{
             
             System.out.println("Your target is one of your enchantments.\nChoose which one to destroy!\n");
             
             int i = 0;
-            for ( Enchantment e: CardGame.instance.getCurrentPlayer().getEnchantments()) {
+            for ( Enchantment e: p.getEnchantments()) {
                 System.out.println( i + ") for " + e.name() + "\n");
                 i++;
             }
@@ -99,8 +99,8 @@ public class AuraBlast implements Card {
                 }
             } while (choice<0 || choice>i-1);
                 
-            Enchantment e = CardGame.instance.getCurrentPlayer().getEnchantments().get(choice);
-            return new AuraBlastEffect(p, this, CardGame.instance.getCurrentAdversary(), e);
+            Enchantment e = p.getEnchantments().get(choice);
+            return new AuraBlastEffect(p, this, p, e);
         }
 
         
