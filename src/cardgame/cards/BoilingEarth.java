@@ -31,6 +31,21 @@ public class BoilingEarth implements Card {
                 a.inflictDamage(1);
             }
         }
+
+        @Override
+        public boolean isTargetEffect() {
+            return false;
+        }
+
+        @Override
+        public void setTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public Object getTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
     }
     @Override
     public Effect getEffect(Player p) { return new BoilingEarthEffect(); }

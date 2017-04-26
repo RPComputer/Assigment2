@@ -11,6 +11,7 @@ import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
+import java.util.Scanner;
 
 public class Fatigue implements Card {
     private static class FatigueFactory implements CardFactory{
@@ -39,9 +40,48 @@ public class Fatigue implements Card {
             target = CardGame.instance.getCurrentAdversary();
             CardGame.instance.getTriggers().register(Triggers.START_TURN_FILTER, AdversaryTurn);
         }
+
+        @Override
+        public boolean isTargetEffect() {
+            return true;
+        }
+
+        @Override
+        public void setTarget() {
+            System.out.println("Choose the player who will skip his next combat phase, 0 for the first, 1 for second.\n");
+            System.out.println(CardGame.instance.getCurrentPlayer().name() + "   " + CardGame.instance.getCurrentAdversary().name());
+            
+            int choice;
+            Scanner s = new Scanner (System.in);
+            
+            do{
+                try{
+                    choice = s.nextInt();
+                }
+                catch (NumberFormatException error) {
+                    System.out.println("The input is not valid, try again.\n");
+                    choice = -1;
+                }
+            }while(choice!=0 && choice!=1);
+            
+            if (choice==0) {
+                this.target = CardGame.instance.getCurrentPlayer();
+            } else {
+                this.target = CardGame.instance.getCurrentAdversary(); 
+            }
+        }
+
+        @Override
+        public Object getTarget() {
+            return target;
+        }
     }
     @Override
-    public Effect getEffect(Player p) { return new FatigueEffect(); }
+    public Effect getEffect(Player p) {
+        FatigueEffect e = new FatigueEffect();
+        e.setTarget();
+        return e;
+    }
     
     
     @Override
