@@ -31,15 +31,31 @@ public class Player {
     public void setDeck(Iterator<Card> deck) { library.add(deck); }
     public Library getDeck() { return library; }
     
+    public PlayerDamageModificator modificators = null;
     
+    public void addModificator(PlayerDamageModificator m){
+        if(modificators == null)
+            modificators = m;
+        else modificators.insert(m);
+    }
+    
+    public void deleteModificator(PlayerDamageModificator s){
+        modificators.delete(s);
+    }
     
     private int life=10;
     public int getLife() {return life;}
     
     // need to attach strategy/decorator
-    public void inflictDamage(int pts) {
+    public void inflictPureDamage(int pts) {
         life -= pts;
         if (life <=0) lose("received fatal damage");
+    }
+    
+    public void inflictDamage(int pts) {
+        if(modificators == null)
+            this.inflictPureDamage(pts);
+        else modificators.inflictDamage(pts);
     }
     
     public void heal(int pts) { life += pts; }

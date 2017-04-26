@@ -40,4 +40,6 @@ public interface Creature extends Permanent {
     public boolean getDef();
 
     public boolean getAtt();
+
+    public ArrayList<String> getDTypes();
 }

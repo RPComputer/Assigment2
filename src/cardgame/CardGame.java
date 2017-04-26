@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Scanner;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,8 +26,7 @@ public class CardGame {
     public static void main(String[] args) {
         //create decks
         ArrayList<Card> deck = new ArrayList<>();
-        Collection<CardFactory> fact = factoryMap.values();
-        for(CardFactory f : fact){
+        for(CardFactory f : factoryList){
             deck.add(f.create());
         }
         
@@ -39,9 +36,9 @@ public class CardGame {
         instance.run();
     }
     
-    private static HashMap<String, CardFactory> factoryMap = new HashMap<>();
-    public static void register(String s, CardFactory f) {
-        factoryMap.put(s, f);
+    private static ArrayList<CardFactory> factoryList = new ArrayList<>();
+    public static void register(CardFactory f) {
+        factoryList.add(f);
     }
     
     //Signleton and instance access

@@ -2,7 +2,7 @@
 package cardgame;
 
 public class StaticInitializer {
-    public StaticInitializer(String s, CardFactory c){
-        CardGame.register(s, c);
+    public StaticInitializer(CardFactory c){
+        CardGame.register(c);
     }
 }

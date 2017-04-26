@@ -127,4 +127,11 @@ public class CreatureImage implements Creature{
             this.remove();
         }
     }
+    
+    @Override
+    public ArrayList<String> getDTypes(){
+        if(pointer != null)
+            pointer.getDTypes();
+        return null;
+    }
 }

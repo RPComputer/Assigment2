@@ -121,4 +121,9 @@ public abstract class AbstractCreature implements Creature {
         public void clearTarget(){
             this.target.clear();
         }
+        
+    @Override
+        public ArrayList<String> getDTypes(){
+            return null;
+        }
 }

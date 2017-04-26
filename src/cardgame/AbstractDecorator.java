@@ -132,4 +132,7 @@ public abstract class AbstractDecorator implements Creature{
         return next.remove();
     }
     
+    public ArrayList<String> getDTypes(){
+        return next.getDTypes();
+    }
 }
