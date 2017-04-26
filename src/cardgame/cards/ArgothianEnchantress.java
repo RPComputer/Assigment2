@@ -12,7 +12,7 @@ import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
-import java.util.ArrayList;
+import cardgame.Triggers;
 import java.util.List;
 
 public class ArgothianEnchantress implements Card {
@@ -29,40 +29,24 @@ public class ArgothianEnchantress implements Card {
         public ArgothianEnchantressEffect(Player p, Card c) { super(p,c); }
         @Override
         protected Creature createCreature() {
-            Creature c =  new ArgothianEnchantressCreature (owner);
-            return new CreatureImage(owner, c);
-            
+            ArgothianEnchantressCreature c =  new ArgothianEnchantressCreature (owner);
+            CreatureImage cr = new CreatureImage(owner, c);
+            c.activateATriggers(cr);
+            return cr;
         }
-        
-        private final TriggerAction SaltaStack = new TriggerAction() { 
-            
-            @Override
-            public void execute(Object args) {
-                
-                CardGame.instance.getTriggers();
-            }
-        };
-        
-        @Override
-        public void resolve () {
-            target = CardGame.instance.getCurrentAdversary();
-            CardGame.instance.getTriggers().register(Triggers.START_TURN_FILTER, AdversaryTurn);
-        }
-
-
         @Override
         public boolean isTargetEffect() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return false;
         }
 
         @Override
         public void setTarget() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
         }
 
         @Override
         public Object getTarget() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
         }
     }
     @Override
@@ -70,40 +54,57 @@ public class ArgothianEnchantress implements Card {
     
     
     private class ArgothianEnchantressCreature extends AbstractCreature {
-        ArrayList<Effect> all_effects= new ArrayList<>();
-        ArrayList<Effect> tap_effects= new ArrayList<>();
+        TriggerAction t1rem;
+        TriggerAction t2readd;
+        TriggerAction t3draw;
         
-        ArgothianEnchantressCreature(Player owner) { 
+        private class HideTrigger implements TriggerAction{
+            CreatureImage cr;
+            public HideTrigger(CreatureImage c){
+                cr = c;
+            }
+            @Override
+            public void execute(Object args) {
+                cr.getOwner().getCreatures().remove(cr);
+            }
+        }
+        
+        private class UnHideTrigger implements TriggerAction{
+            CreatureImage cr;
+            public UnHideTrigger(CreatureImage c){
+                cr = c;
+            }
+            @Override
+            public void execute(Object args) {
+                cr.getOwner().getCreatures().add(cr);
+            }
+        }
+        
+        private class ArgothianEnchantressDrawTrigger implements TriggerAction{
+            Player owner;
+            public ArgothianEnchantressDrawTrigger(Player p){
+                this.owner = p;
+            }
+            @Override
+            public void execute(Object args) {
+                if(args != null)
+                    if(args instanceof Player)
+                        if(owner.equals(args))
+                            this.owner.draw();
+            }
+        }
+        
+        public ArgothianEnchantressCreature(final Player owner) { 
             super(owner);
-            all_effects.add( new Effect() { 
-                                    @Override
-                                    public boolean play() { 
-                                        CardGame.instance.getStack().add(this);
-                                        return tap(); 
-                                    }
-                                    @Override
-                                    public void resolve() {}
-                                    @Override
-                                    public String toString() 
-                                        { return "ArgothianEnchantress :Shroud this creature can't be the target of spells or abilities"
-                                                + "tap: ArgothianEnchantress does whenever you cast an enchantment spell, draw a card"; }
-
-                @Override
-                public boolean isTargetEffect() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public void setTarget() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public Object getTarget() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-                                }
-                ); 
+        }
+        
+        public void activateATriggers(CreatureImage c){
+            t1rem = new HideTrigger(c);
+            t2readd = new UnHideTrigger(c);
+            t3draw = new ArgothianEnchantressDrawTrigger(owner);
+            CardGame.instance.getTriggers().register(Triggers.STACK_CHARGING_STARTED_EVENT, t1rem);
+            CardGame.instance.getTriggers().register(Triggers.STACK_CHARGING_COMPLETED_EVENT, t2readd);
+            CardGame.instance.getTriggers().register(Triggers.ENTER_ENCHANTMENT_FILTER, t3draw);
         }
         
         @Override
@@ -112,11 +113,17 @@ public class ArgothianEnchantress implements Card {
         public int getPower() { return 0; }
         @Override
         public int getToughness() { return 1; }
-
         @Override
-        public List<Effect> effects() { return all_effects; }
+        public boolean remove(){
+            CardGame.instance.getTriggers().deregister(t1rem);
+            CardGame.instance.getTriggers().deregister(t2readd);
+            CardGame.instance.getTriggers().deregister(t3draw);
+            return true;
+        }
         @Override
-        public List<Effect> avaliableEffects() { return (isTapped)?tap_effects:all_effects; }
+        public List<Effect> effects() { return null; }
+        @Override
+        public List<Effect> avaliableEffects() { return null; }
     }
     
     

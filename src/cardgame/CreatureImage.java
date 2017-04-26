@@ -9,6 +9,10 @@ public class CreatureImage implements Creature{
     private Player owner;
     private Creature pointer;
     
+    public Player getOwner(){
+        return owner;
+    }
+    
     public CreatureImage(Player owner, Creature pointer){
         this.owner = owner;
         this.pointer = pointer;
