@@ -16,6 +16,9 @@ public interface Effect {
     // resolves the effect
     void resolve();
     
+    @Override
+    String toString();
+    
     boolean isTargetEffect();
     void setTarget();
     Object getTarget();
