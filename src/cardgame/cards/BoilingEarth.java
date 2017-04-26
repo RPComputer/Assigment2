@@ -17,7 +17,7 @@ public class BoilingEarth implements Card {
             return new BoilingEarth();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("BoilingEarth", new BoilingEarthFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new BoilingEarthFactory());
     
     private class BoilingEarthEffect extends AbstractEffect {
         

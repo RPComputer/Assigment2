@@ -16,7 +16,7 @@ public class DayOfJudgment implements Card{
             return new DayOfJudgment();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("DayOfJudgment", new DayOfJudgmentFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new DayOfJudgmentFactory());
     
     private class DayOfJudgmentEffect extends AbstractEffect {
         

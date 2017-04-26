@@ -19,7 +19,7 @@ public class AuraBlast implements Card {
             return new AuraBlast();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("AuraBlast", new AuraBlastFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new AuraBlastFactory());
     
     private class AuraBlastEffect extends AbstractCardEffect {
         Enchantment target = null;

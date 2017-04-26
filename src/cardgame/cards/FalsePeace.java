@@ -20,7 +20,7 @@ public class FalsePeace implements Card {
             return new FalsePeace();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("FalsePeace", new FalsePeaceFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new FalsePeaceFactory());
     
     private class FalsePeaceEffect extends AbstractEffect {
         Player target = null; // target player 

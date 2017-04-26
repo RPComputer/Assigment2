@@ -21,7 +21,7 @@ public class SavorTheMoment implements Card {
             return new FalsePeace();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("SavorTheMoment", new SavorTheMomentFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new SavorTheMomentFactory());
     
     private class SavorTheMomentEffect extends AbstractCardEffect {
         Player ownerr = this.owner; 

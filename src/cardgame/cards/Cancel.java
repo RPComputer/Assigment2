@@ -18,7 +18,7 @@ public class Cancel implements Card {
             return new Cancel();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("Cancel", new CancelFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new CancelFactory());
     
     private class CancelEffect extends AbstractCardEffect {
         Effect target = null;

@@ -20,7 +20,7 @@ public class Fatigue implements Card {
             return new Fatigue();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("Fatigue", new FatigueFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new FatigueFactory());
     
     private class FatigueEffect extends AbstractEffect {
         Player target = null; // target player 

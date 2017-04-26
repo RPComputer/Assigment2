@@ -16,7 +16,7 @@ public class CalmingVerse implements Card {
             return new CalmingVerse();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("CalmingVerse", new CalmingVerseFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new CalmingVerseFactory());
     
     private class CalmingVerseEffect extends AbstractCardEffect {
         Player to;

@@ -20,7 +20,7 @@ public class Abduction implements Card{
             return new Abduction();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("Abduction", new AbductionFactory());
+    private static StaticInitializer initializer = new StaticInitializer( new AbductionFactory());
     
     private class AbductionEffect extends AbstractCardEffect {
         CreatureImage c;

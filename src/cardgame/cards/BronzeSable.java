@@ -21,7 +21,7 @@ public class BronzeSable implements Card {
             return new BronzeSable();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("BronzeSable", new BronzeSableFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new BronzeSableFactory());
     
     private class BronzeSableEffect extends AbstractCreatureCardEffect {
         public BronzeSableEffect(Player p, Card c) { super(p,c); }

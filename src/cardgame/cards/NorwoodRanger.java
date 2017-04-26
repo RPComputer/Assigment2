@@ -19,7 +19,7 @@ public class NorwoodRanger implements Card {
             return new NorwoodRanger();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("NorwoodRanger", new NorwoodRangerFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new NorwoodRangerFactory());
     
     private class NorwoodRangerEffect extends AbstractCreatureCardEffect {
         public NorwoodRangerEffect(Player p, Card c) { super(p,c); }

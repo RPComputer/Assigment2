@@ -22,7 +22,7 @@ public class ArgothianEnchantress implements Card {
             return new ArgothianEnchantress();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("ArgothianEnchantress", new ArgothianEnchantressFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new ArgothianEnchantressFactory());
     
     private class ArgothianEnchantressEffect extends AbstractCreatureCardEffect {
         

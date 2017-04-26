@@ -23,7 +23,7 @@ public class Afflict implements Card {
             return new Afflict();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("Afflict", new AfflictFactory());
+    private static StaticInitializer initializer = new StaticInitializer( new AfflictFactory());
     
     private class AfflictEffect extends AbstractCardEffect {
         CreatureImage c;

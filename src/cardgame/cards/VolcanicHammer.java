@@ -19,7 +19,7 @@ public class VolcanicHammer implements Card {
             return new VolcanicHammer();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("VolcanicHammer", new VolcanicHammerFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new VolcanicHammerFactory());
     
     private class VolcanicHammerEffect extends AbstractCardEffect {
         Player target1 = null;

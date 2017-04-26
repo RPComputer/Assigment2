@@ -23,7 +23,7 @@ public class AggressiveUrge implements Card {
             return new AggressiveUrge();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("AggressiveUrge", new AggressiveUrgeFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new AggressiveUrgeFactory());
     
     private class AggressiveUrgeEffect extends AbstractCardEffect {
         CreatureImage c;

@@ -20,7 +20,7 @@ public class AetherFlash implements Card {
             return new AetherFlash();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("AetherFlash", new AetherFlashFactory());
+    private static StaticInitializer initializer = new StaticInitializer( new AetherFlashFactory());
     
     private class AetherFlashEffect extends AbstractEnchantmentCardEffect {
         public AetherFlashEffect(Player p, Card c) { super(p,c); }
