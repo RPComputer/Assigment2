@@ -23,21 +23,15 @@ public class Fatigue implements Card {
     
     private class FatigueEffect extends AbstractEffect {
         Player target = null; // target player 
-        private final TriggerAction AdversarySkipsDRAW = new TriggerAction() {
+        
+        private final TriggerAction AdversaryTurn = new TriggerAction() { // wait until adversary turn starts
             SkipPhase phase;
             @Override
             public void execute(Object args) {
-                phase=new SkipPhase(target.currentPhaseId());
+                phase=new SkipPhase(target.nextPhaseId());
                 phase.execute();
+                CardGame.instance.getTriggers().deregister(AdversaryTurn);
             }
-        };
-        
-        private final TriggerAction AdversaryTurn = new TriggerAction() { // wait until adversary turn starts
-                @Override
-                public void execute(Object args) {
-                    CardGame.instance.getTriggers().register(Triggers.DRAW_FILTER, AdversarySkipsDRAW);
-                    // start AdversarySkipsDRAW Trigger action
-                }
         };
         
         @Override

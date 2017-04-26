@@ -23,27 +23,21 @@ public class FalsePeace implements Card {
     
     private class FalsePeaceEffect extends AbstractEffect {
         Player target = null; // target player 
-        private final TriggerAction AdversarySkipsCombat = new TriggerAction() {
+        
+        private final TriggerAction AdversaryTurn = new TriggerAction() { // wait until adversary turn starts
             SkipPhase phase;
             @Override
             public void execute(Object args) {
-                phase=new SkipPhase(target.currentPhaseId());
+                phase=new SkipPhase(target.nextPhaseId());
                 phase.execute();
+                CardGame.instance.getTriggers().deregister(AdversaryTurn);
             }
-        };
-        
-        private final TriggerAction AdversaryTurn = new TriggerAction() { // wait until adversary turn starts
-                @Override
-                public void execute(Object args) {
-                    CardGame.instance.getTriggers().register(Triggers.DRAW_FILTER, AdversarySkipsCombat);
-                    // start AdversarySkipsCombat Trigger action
-                }
         };
         
         @Override
         public void resolve () {
             target = CardGame.instance.getCurrentAdversary();
-            CardGame.instance.getTriggers().register(Triggers.START_TURN_FILTER, AdversaryTurn);
+            CardGame.instance.getTriggers().register(Triggers.UNTAP_FILTER, AdversaryTurn);
         }
     }
     @Override
