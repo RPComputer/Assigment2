@@ -5,13 +5,11 @@ import cardgame.AbstractCreature;
 import cardgame.AbstractCreatureCardEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
-import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NorwoodRanger implements Card {
@@ -30,32 +28,32 @@ public class NorwoodRanger implements Card {
             Creature c =  new NorwoodRangerCreature(owner);
             return new CreatureImage(owner, c);
         }
+
+        @Override
+        public boolean isTargetEffect() {
+            return false;
+        }
+
+        @Override
+        public void setTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public Object getTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
     }
     @Override
     public Effect getEffect(Player p) { return new NorwoodRangerEffect(p,this); }
     
     
     private class NorwoodRangerCreature extends AbstractCreature {
-        ArrayList<Effect> all_effects= new ArrayList<>();
-        ArrayList<Effect> tap_effects= new ArrayList<>();
         
         NorwoodRangerCreature(Player owner) { 
             super(owner);
-            all_effects.add( new Effect() { 
-                                    @Override
-                                    public boolean play() { 
-                                        CardGame.instance.getStack().add(this);
-                                        return tap(); 
-                                    }
-                                    @Override
-                                    public void resolve() {}
-                                    @Override
-                                    public String toString() 
-                                        { return "tap: NorwoodRanger does nothing"; }
-                                }
-                ); 
         }
-        
+
         @Override
         public String name() { return "NorwoodRanger"; }
         @Override
@@ -64,9 +62,9 @@ public class NorwoodRanger implements Card {
         public int getToughness() { return 2; }
 
         @Override
-        public List<Effect> effects() { return all_effects; }
+        public List<Effect> effects() { return null;}
         @Override
-        public List<Effect> avaliableEffects() { return (isTapped)?tap_effects:all_effects; }
+        public List<Effect> avaliableEffects() { return null; }
     }
     
     
