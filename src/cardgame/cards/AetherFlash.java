@@ -26,6 +26,21 @@ public class AetherFlash implements Card {
         public AetherFlashEffect(Player p, Card c) { super(p,c); }
         @Override
         protected Enchantment createEnchantment() { return new AetherFlashEnchantment(owner); }
+
+        @Override
+        public boolean isTargetEffect() {
+            return false;
+        }
+
+        @Override
+        public void setTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public Object getTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
     }
     @Override
     public Effect getEffect(Player p) { return new AetherFlashEffect(p,this); }

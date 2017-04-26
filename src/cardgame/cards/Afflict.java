@@ -26,11 +26,69 @@ public class Afflict implements Card {
     private static StaticInitializer initializer = new StaticInitializer("Afflict", new AfflictFactory());
     
     private class AfflictEffect extends AbstractCardEffect {
-        CreatureImage target;        
-        public AfflictEffect(Player p, Card c, CreatureImage cr) { super(p,c); target = cr;}
+        CreatureImage c;
+        Player opponent;
+        public AfflictEffect(Player p, Card c) { super(p,c);}
         @Override
         public void resolve() {
-            AfflictDecorator d = new AfflictDecorator(target);
+            AfflictDecorator d = new AfflictDecorator(c);
+        }
+
+        @Override
+        public boolean isTargetEffect() {
+            return true;
+        }
+
+        @Override
+        public void setTarget() {
+            System.out.println("Choose a creature to power up, 0 to see the other player creatures:\n");
+            Scanner reader = CardGame.instance.getScanner();
+            int choosen;
+            
+            showCreatures(owner.getCreatures());
+
+            int length = owner.getCreatures().size();
+
+            do {
+                try{
+                    choosen = reader.nextInt();
+                }catch (NumberFormatException error) {
+                    System.out.println("The input is not valid, try again.\n");
+                    choosen = -1;
+                }
+            }while(choosen<0 || choosen> length); 
+
+            if(choosen > 0){
+                CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
+                this.c = cr;  
+            }
+            else{
+                Player opponent = CardGame.instance.getOpponent(owner);
+                System.out.println("Choose a creature to power up, 0 to do nothing\n");
+                showCreatures(opponent.getCreatures());
+
+                length = opponent.getCreatures().size();
+
+                do {
+                    try{
+                        choosen = reader.nextInt();
+                    }catch (NumberFormatException error) {
+                        System.out.println("The input is not valid, try again.\n");
+                        choosen = -1;
+                    }
+                }while(choosen<0 || choosen> length);     
+
+                if(choosen > 0){
+                    CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+                    this.opponent = opponent;
+                    this.c = cr;
+                }                
+            }
+        }
+
+        @Override
+        public Object getTarget() {
+            return c;
         }
     }
     
@@ -54,49 +112,10 @@ public class Afflict implements Card {
     }
     
     @Override
-    public Effect getEffect(Player owner) {
-        int choosen;
-        Player opponent = CardGame.instance.getOpponent(owner);
-        Scanner reader = CardGame.instance.getScanner();
-        System.out.println("Choose a creature to afflict, 0 to see the your creatures:\n");
-        this.showCreatures(opponent.getCreatures());
-        
-        int length = opponent.getCreatures().size();
-        
-        do {
-            try{
-                choosen = reader.nextInt();
-            }catch (NumberFormatException error) {
-                System.out.println("The input is not valid, try again.\n");
-                choosen = -1;
-            }
-        }while(choosen<0 || choosen>length); 
-        
-        if(choosen > 0){
-            CreatureImage c = (CreatureImage) opponent.getCreatures().get(choosen);
-            return new AfflictEffect(owner, this, c);
-        }
-        else{
-            System.out.println("Choose a creature to afflict, 0 to do nothing\n");
-            this.showCreatures(owner.getCreatures());
-            
-            length = owner.getCreatures().size();
-            
-            do {
-                try{
-                    choosen = reader.nextInt();
-                }catch (NumberFormatException error) {
-                    System.out.println("The input is not valid, try again.\n");
-                    choosen = -1;
-                }
-            }while(choosen<0 || choosen> length); 
-            
-            if(choosen > 0){
-                CreatureImage c = (CreatureImage) owner.getCreatures().get(choosen);
-                return new AfflictEffect(owner, this, c);
-            };
-        }
-        return null;
+    public Effect getEffect(Player p) {
+        AfflictEffect e = new AfflictEffect(p, this);
+        e.setTarget();
+        return e;
     }
     
     

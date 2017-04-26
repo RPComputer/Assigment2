@@ -27,6 +27,21 @@ public class AetherBarrier implements Card {
         public AetherBarrierEffect(Player p, Card c) { super(p,c); }
         @Override
         protected Enchantment createEnchantment() { return new AetherBarrierEnchantment(owner); }
+
+        @Override
+        public boolean isTargetEffect() {
+            return false;
+        }
+
+        @Override
+        public void setTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public Object getTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
     }
         
     private class AetherBarrierEnchantment extends AbstractEnchantment {
@@ -40,12 +55,12 @@ public class AetherBarrier implements Card {
                     int i = 0, split, choice;
                     Scanner reader = CardGame.instance.getScanner();
                     System.out.println("Choose a permanent to be sacrificed\n");
-                    for(Creature c:CardGame.instance.getCurrentPlayer().getCreatures()){
+                    for(Creature c: owner.getCreatures()){
                         System.out.println( i + ") " + c.name() + "\n");
                         i++;
                     }
                     split = i;
-                    for(Enchantment e:CardGame.instance.getCurrentPlayer().getEnchantments()){
+                    for(Enchantment e: owner.getEnchantments()){
                         System.out.println( i + ") " + e.name() + "\n");
                         i++;
                     }
@@ -61,10 +76,10 @@ public class AetherBarrier implements Card {
                     } while (choice<0 || choice>i-1);
                     
                     if(choice > split){
-                        CardGame.instance.getCurrentPlayer().getEnchantments().remove(choice-split);
+                        owner.getEnchantments().remove(choice-split);
                     }
                     else{
-                        CardGame.instance.getCurrentPlayer().getCreatures().remove(choice);
+                        owner.getCreatures().remove(choice);
                     }
                 }
             };
