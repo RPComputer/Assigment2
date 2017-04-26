@@ -117,7 +117,7 @@ public class Abduction implements Card{
     
     public String name() { return "Abduction"; }
     public String type() { return "Enchant creature"; }
-    public String ruleText() { return "Untap enchanted creature, take control of the creature. When the enchanted creature should die, return it to it's owner"; }
+    public String ruleText() { return "Untap enchanted creature, take control of the creature. When the enchanted creature should die, return it to its owner's control"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     public boolean isInstant() { return false; }

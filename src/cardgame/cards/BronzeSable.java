@@ -5,13 +5,11 @@ import cardgame.AbstractCreature;
 import cardgame.AbstractCreatureCardEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
-import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BronzeSable implements Card {
