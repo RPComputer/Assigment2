@@ -58,9 +58,9 @@ public class AggressiveUrge implements Card {
         int choosen;
         Scanner reader = CardGame.instance.getScanner();
         System.out.println("Choose a creature to power up, 0 to see the other player creatures:\n");
-        this.showCreatures(CardGame.instance.getCurrentAdversary().getCreatures());
+        this.showCreatures(owner.getCreatures());
         
-        int length = CardGame.instance.getCurrentAdversary().getCreatures().size();
+        int length = owner.getCreatures().size();
         
         do {
             try{
@@ -72,14 +72,15 @@ public class AggressiveUrge implements Card {
         }while(choosen<0 || choosen> length); 
         
         if(choosen > 0){
-            CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
+            CreatureImage c = (CreatureImage) owner.getCreatures().get(choosen);
             return new AggressiveUrgeEffect(owner, this, c);
         }
         else{
+            Player opponent = CardGame.instance.getOpponent(owner);
             System.out.println("Choose a creature to power up, 0 to do nothing\n");
-            this.showCreatures(CardGame.instance.getCurrentPlayer().getCreatures());
+            this.showCreatures(opponent.getCreatures());
             
-            length = CardGame.instance.getCurrentPlayer().getCreatures().size();
+            length = opponent.getCreatures().size();
             
             do {
                 try{
@@ -91,7 +92,7 @@ public class AggressiveUrge implements Card {
             }while(choosen<0 || choosen> length);     
             
             if(choosen > 0){
-                CreatureImage c = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choosen);
+                CreatureImage c = (CreatureImage) opponent.getCreatures().get(choosen);
                 return new AggressiveUrgeEffect(owner, this, c);
             }
             else return new AggressiveUrgeEffect(owner, this, null);

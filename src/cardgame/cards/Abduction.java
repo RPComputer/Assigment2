@@ -1,6 +1,7 @@
 
 package cardgame.cards;
 
+import cardgame.AbstractCardEffect;
 import cardgame.AbstractDecorator;
 import cardgame.AbstractEffect;
 import cardgame.Card;
@@ -22,14 +23,13 @@ public class Abduction implements Card{
     }
     private static StaticInitializer initializer = new StaticInitializer("Abduction", new AbductionFactory());
     
-    private class AbductionEffect extends AbstractEffect {
+    private class AbductionEffect extends AbstractCardEffect {
         CreatureImage c;
         Player opponent;
-        Player owner;
-        public AbductionEffect(Player p, Player p2, CreatureImage c){
-            this.c = c;
+        public AbductionEffect(Player p, Card c, Player p2, CreatureImage cr){
+            super(p, c);
+            this.c = cr;
             opponent = p2;
-            owner = p;
         }
         
         @Override
@@ -81,10 +81,7 @@ public class Abduction implements Card{
         System.out.println("Choose one creature to enchant:\n");
         Scanner reader = CardGame.instance.getScanner();
         int i = 0, choosen;
-        Player opponent;
-        if(p.equals(CardGame.instance.getCurrentAdversary()))
-            opponent = CardGame.instance.getCurrentPlayer();
-        else opponent = CardGame.instance.getCurrentAdversary();
+        Player opponent = CardGame.instance.getOpponent(p);
         for(Creature c : opponent.getCreatures()){
             System.out.println(i + ") " + c.name() + " - ");
             i++;
@@ -99,7 +96,7 @@ public class Abduction implements Card{
             }
         }while(choosen < 0 || choosen > opponent.getCreatures().size());
         CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
-        return new AbductionEffect(p, opponent, cr);
+        return new AbductionEffect(p, this, opponent, cr);
     }
     
     

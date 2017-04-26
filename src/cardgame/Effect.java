@@ -15,4 +15,8 @@ public interface Effect {
     
     // resolves the effect
     void resolve();
+    
+    boolean isTargetEffect();
+    void setTarget();
+    Object getTarget();
 }

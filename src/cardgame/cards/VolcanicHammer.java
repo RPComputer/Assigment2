@@ -83,11 +83,12 @@ public class VolcanicHammer implements Card {
             
             if (choice==0) {
                 // OPPONENT PLAYER'S CREATURES
+                Player opponent = CardGame.instance.getOpponent(p);
                 int i;
                 do{
                     System.out.println("Choose your opponent player's creatures:\n");
                     i = 0;
-                    for ( Creature c: CardGame.instance.getCurrentAdversary().getCreatures()) {
+                    for ( Creature c: opponent.getCreatures()) {
                         System.out.println( i + ") for " + c.name() + "\n");
                         i++;
                     }
@@ -105,7 +106,7 @@ public class VolcanicHammer implements Card {
 
                 } while(choice < 0 || choice >= i);
                 
-                CreatureImage creatureTarget = (CreatureImage) CardGame.instance.getCurrentAdversary().getCreatures().get(choice);
+                CreatureImage creatureTarget = (CreatureImage) opponent.getCreatures().get(choice);
                 
                 return new VolcanicHammerEffect(p, this, creatureTarget);
                 
@@ -116,7 +117,7 @@ public class VolcanicHammer implements Card {
                     System.out.println("Choose your creatures:\n");
                     
                     i = 0;
-                    for ( Creature c: CardGame.instance.getCurrentPlayer().getCreatures()) {
+                    for ( Creature c: p.getCreatures()) {
                         System.out.println( i + ") for " + c.name() + "\n");
                         i++;
                     }
@@ -136,7 +137,7 @@ public class VolcanicHammer implements Card {
 
                 } while(choice < 0 || choice >= i);
                 
-                CreatureImage creatureTarget = (CreatureImage) CardGame.instance.getCurrentPlayer().getCreatures().get(choice);
+                CreatureImage creatureTarget = (CreatureImage) p.getCreatures().get(choice);
                 
                 return new VolcanicHammerEffect(p, this, creatureTarget);
    
@@ -164,15 +165,13 @@ public class VolcanicHammer implements Card {
             if (choice==0) {
                 // OPPONENT PLAYER
                 
-                Player playerTarget = CardGame.instance.getCurrentAdversary();
+                Player playerTarget = CardGame.instance.getOpponent(p);
                
                 return new VolcanicHammerEffect(p, this, playerTarget);
             } else /*choice == 1*/ {
                 // CURRENT PLAYER
                 
-                Player playerTarget = CardGame.instance.getCurrentPlayer();
-                
-                return new VolcanicHammerEffect(p, this, playerTarget);
+                return new VolcanicHammerEffect(p, this, p);
             }
             
         }
