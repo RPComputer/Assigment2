@@ -3,11 +3,21 @@ package cardgame.cards;
 
 import cardgame.AbstractEffect;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.CardGame;
 import cardgame.Effect;
 import cardgame.Player;
+import cardgame.StaticInitializer;
 
 public class DayOfJudgment implements Card{
+    private static class DayOfJudgmentFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new DayOfJudgment();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("DayOfJudgment", new DayOfJudgmentFactory());
+    
     private class DayOfJudgmentEffect extends AbstractEffect {
         
         @Override

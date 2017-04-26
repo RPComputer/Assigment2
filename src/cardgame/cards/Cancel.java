@@ -4,12 +4,22 @@ package cardgame.cards;
 import cardgame.AbstractCardEffect;
 import java.util.ArrayList;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
+import cardgame.StaticInitializer;
 import java.util.Scanner;
 
 public class Cancel implements Card {
+    private static class CancelFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new Cancel();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("Cancel", new CancelFactory());
+    
     private class CancelEffect extends AbstractCardEffect {
         Effect target = null;
         

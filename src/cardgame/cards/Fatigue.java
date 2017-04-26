@@ -3,14 +3,24 @@ package cardgame.cards;
 
 import cardgame.AbstractEffect;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.SkipPhase;
+import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
 
 public class Fatigue implements Card {
+    private static class FatigueFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new Fatigue();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("Fatigue", new FatigueFactory());
+    
     private class FatigueEffect extends AbstractEffect {
         Player target = null; // target player 
         private final TriggerAction AdversarySkipsDRAW = new TriggerAction() {

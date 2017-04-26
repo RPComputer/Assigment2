@@ -3,14 +3,25 @@ package cardgame.cards;
 
 import cardgame.AbstractDecorator;
 import cardgame.AbstractEffect;
+import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
+import cardgame.StaticInitializer;
 import java.util.Scanner;
 
-public class Abduction {
+public class Abduction implements Card{
+    private static class AbductionFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new Abduction();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("Abduction", new AbductionFactory());
+    
     private class AbductionEffect extends AbstractEffect {
         CreatureImage c;
         Player opponent;

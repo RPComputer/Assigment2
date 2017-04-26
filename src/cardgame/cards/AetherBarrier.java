@@ -15,13 +15,12 @@ import cardgame.Triggers;
 import java.util.Scanner;
 
 public class AetherBarrier implements Card {
-    private class AetherBarrierFactory implements CardFactory{
+    private static class AetherBarrierFactory implements CardFactory{
         @Override
         public Card create(){
             return new AetherBarrier();
         }
     }
-    @SuppressWarnings("FieldMayBeFinal")
     private static StaticInitializer initializer = new StaticInitializer("AetherBarrier", new AetherBarrierFactory());
     
     private class AetherBarrierEffect extends AbstractEnchantmentCardEffect {

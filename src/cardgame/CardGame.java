@@ -13,6 +13,7 @@ import java.util.Scanner;
 import cardgame.cards.Homeopathy;
 import cardgame.cards.Reflexologist;
 import cardgame.cards.FriendlyEnvironment;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -27,9 +28,10 @@ public class CardGame {
     public static void main(String[] args) {
         //create decks
         ArrayList<Card> deck = new ArrayList<>();
-        for (int i=0; i!=5; ++i) deck.add(new Homeopathy());
-        for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
-        for (int i=0; i!=5; ++i) deck.add(new FriendlyEnvironment());
+        Collection<CardFactory> fact = factoryMap.values();
+        for(CardFactory f : fact){
+            deck.add(f.create());
+        }
         
         instance.getPlayer(0).setDeck(deck.iterator());
         instance.getPlayer(1).setDeck(deck.iterator());

@@ -6,12 +6,22 @@ import cardgame.Enchantment;
 import cardgame.Player;
 import cardgame.AbstractEnchantmentCardEffect;
 import cardgame.AbstractEnchantment;
+import cardgame.CardFactory;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
 
 public class AetherFlash implements Card {
+    private static class AetherFlashFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new AetherFlash();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("AetherFlash", new AetherFlashFactory());
+    
     private class AetherFlashEffect extends AbstractEnchantmentCardEffect {
         public AetherFlashEffect(Player p, Card c) { super(p,c); }
         @Override

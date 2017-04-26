@@ -3,14 +3,24 @@ package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
+import cardgame.StaticInitializer;
 import java.util.Scanner;
 
 public class VolcanicHammer implements Card {
+    private static class VolcanicHammerFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new VolcanicHammer();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("VolcanicHammer", new VolcanicHammerFactory());
+    
     private class VolcanicHammerEffect extends AbstractCardEffect {
         Player target1 = null;
         CreatureImage target2 = null;

@@ -3,12 +3,22 @@ package cardgame.cards;
 
 import cardgame.AbstractEffect;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.StaticInitializer;
 
 public class BoilingEarth implements Card {
+    private static class BoilingEarthFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new BoilingEarth();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("BoilingEarth", new BoilingEarthFactory());
+    
     private class BoilingEarthEffect extends AbstractEffect {
         
         @Override

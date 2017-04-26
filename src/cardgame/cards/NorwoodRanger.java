@@ -1,26 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
 import cardgame.AbstractCreature;
 import cardgame.AbstractCreatureCardEffect;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
+import cardgame.StaticInitializer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author atorsell
- */
 public class NorwoodRanger implements Card {
+    private static class NorwoodRangerFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new NorwoodRanger();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("NorwoodRanger", new NorwoodRangerFactory());
     
     private class NorwoodRangerEffect extends AbstractCreatureCardEffect {
         public NorwoodRangerEffect(Player p, Card c) { super(p,c); }

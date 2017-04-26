@@ -2,7 +2,7 @@
 package cardgame;
 
 public class StaticInitializer {
-    public StaticInitializer(String s, Class c) throws InstantiationException, IllegalAccessException {
-        CardGame.register(s, (CardFactory) c.newInstance());
+    public StaticInitializer(String s, CardFactory c){
+        CardGame.register(s, c);
     }
 }

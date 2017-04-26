@@ -4,17 +4,26 @@ package cardgame.cards;
 import cardgame.AbstractCardEffect;
 import cardgame.AbstractDecorator;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.DecoratorTrigger;
 import cardgame.Effect;
 import cardgame.Player;
+import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.List;
 import java.util.Scanner;
 
 public class Afflict implements Card {
+    private static class AfflictFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new Afflict();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("Afflict", new AfflictFactory());
     
     private class AfflictEffect extends AbstractCardEffect {
         CreatureImage target;        

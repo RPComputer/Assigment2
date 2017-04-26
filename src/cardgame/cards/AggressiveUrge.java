@@ -4,17 +4,26 @@ package cardgame.cards;
 import cardgame.AbstractCardEffect;
 import cardgame.AbstractDecorator;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.DecoratorTrigger;
 import cardgame.Effect;
 import cardgame.Player;
+import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.List;
 import java.util.Scanner;
 
 public class AggressiveUrge implements Card {
+    private static class AggressiveUrgeFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new AggressiveUrge();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("AggressiveUrge", new AggressiveUrgeFactory());
     
     private class AggressiveUrgeEffect extends AbstractCardEffect {
         CreatureImage target;        

@@ -3,14 +3,24 @@ package cardgame.cards;
 
 import cardgame.AbstractEffect;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.SkipPhase;
+import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
 
 public class FalsePeace implements Card {
+    private static class FalsePeaceFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new FalsePeace();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("FalsePeace", new FalsePeaceFactory());
+    
     private class FalsePeaceEffect extends AbstractEffect {
         Player target = null; // target player 
         private final TriggerAction AdversarySkipsCombat = new TriggerAction() {

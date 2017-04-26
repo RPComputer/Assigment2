@@ -4,13 +4,23 @@ package cardgame.cards;
 import cardgame.AbstractCardEffect;
 import java.util.ArrayList;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.Enchantment;
+import cardgame.StaticInitializer;
 import java.util.Scanner;
 
 public class AuraBlast implements Card {
+    private static class AuraBlastFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new AuraBlast();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer("AuraBlast", new AuraBlastFactory());
+    
     private class AuraBlastEffect extends AbstractCardEffect {
         Enchantment target = null;
         Player to;
