@@ -193,6 +193,21 @@ public class Darkness implements Card {
         public void resolve() {
             CardGame.instance.getTriggers().register(Triggers.UNTAP_FILTER, NewCombat);
         }
+
+        @Override
+        public boolean isTargetEffect() {
+            return false;
+        }
+
+        @Override
+        public void setTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public Object getTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
     }
     
     @Override

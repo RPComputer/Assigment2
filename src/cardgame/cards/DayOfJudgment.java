@@ -26,6 +26,21 @@ public class DayOfJudgment implements Card{
 
             CardGame.instance.getCurrentAdversary().getCreatures().clear();
         }
+
+        @Override
+        public boolean isTargetEffect() {
+            return false;
+        }
+
+        @Override
+        public void setTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public Object getTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
     }
     public Effect getEffect(Player p) { return new DayOfJudgmentEffect(); }
     

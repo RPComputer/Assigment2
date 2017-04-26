@@ -60,4 +60,6 @@ public class Triggers {
     public static final int EXIT_ENCHANTMENT_FILTER=256;
     public static final int START_TURN_FILTER=512;
     public static final int END_TURN_FILTER=1024;
+    public static final int STACK_CHARGING_STARTED_EVENT=2048;
+    public static final int STACK_CHARGING_COMPLETED_EVENT=4096;
 }

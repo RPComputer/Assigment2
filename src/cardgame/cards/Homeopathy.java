@@ -20,6 +20,21 @@ public class Homeopathy implements Card {
         public HomeopathyEffect(Player p, Card c) { super(p,c); }
         @Override
         public void resolve() {}
+
+        @Override
+        public boolean isTargetEffect() {
+            return false;
+        }
+
+        @Override
+        public void setTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public Object getTarget() {
+            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+        }
     }
 
     @Override
