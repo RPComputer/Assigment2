@@ -3,7 +3,6 @@ package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
 import cardgame.AbstractDecorator;
-import cardgame.AbstractEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
 import cardgame.CardGame;
@@ -26,10 +25,8 @@ public class Abduction implements Card{
     private class AbductionEffect extends AbstractCardEffect {
         CreatureImage c;
         Player opponent;
-        public AbductionEffect(Player p, Card c, Player p2, CreatureImage cr){
+        public AbductionEffect(Player p, Card c){
             super(p, c);
-            this.c = cr;
-            opponent = p2;
         }
         
         @Override
@@ -38,6 +35,40 @@ public class Abduction implements Card{
             opponent.getCreatures().remove(c);
             c.untap();
             AbductionDecorator d = new AbductionDecorator(c, owner, opponent);
+        }
+
+        @Override
+        public boolean isTargetEffect() {
+            return true;
+        }
+
+        @Override
+        public void setTarget() {
+            System.out.println("Choose one creature to enchant:\n");
+            Scanner reader = CardGame.instance.getScanner();
+            int i = 0, choosen;
+            Player opponent = CardGame.instance.getOpponent(this.owner);
+            for(Creature c : opponent.getCreatures()){
+                System.out.println(i + ") " + c.name() + " - ");
+                i++;
+            }
+            System.out.println("\n");
+            do {
+                try{
+                    choosen = reader.nextInt();
+                }catch (NumberFormatException error) {
+                    System.out.println("The input is not valid, try again.\n");
+                    choosen = -1;
+                }
+            }while(choosen < 0 || choosen > opponent.getCreatures().size());
+            CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+            this.opponent = opponent;
+            this.c = cr;
+        }
+
+        @Override
+        public Object getTarget() {
+            return c;
         }
     }
     
@@ -78,25 +109,9 @@ public class Abduction implements Card{
     }
     
     public Effect getEffect(Player p) {
-        System.out.println("Choose one creature to enchant:\n");
-        Scanner reader = CardGame.instance.getScanner();
-        int i = 0, choosen;
-        Player opponent = CardGame.instance.getOpponent(p);
-        for(Creature c : opponent.getCreatures()){
-            System.out.println(i + ") " + c.name() + " - ");
-            i++;
-        }
-        System.out.println("\n");
-        do {
-            try{
-                choosen = reader.nextInt();
-            }catch (NumberFormatException error) {
-                System.out.println("The input is not valid, try again.\n");
-                choosen = -1;
-            }
-        }while(choosen < 0 || choosen > opponent.getCreatures().size());
-        CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
-        return new AbductionEffect(p, this, opponent, cr);
+        AbductionEffect e = new AbductionEffect(p, this);
+        e.setTarget();
+        return e;
     }
     
     
