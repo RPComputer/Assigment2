@@ -32,6 +32,21 @@ public class Afflict implements Card {
         public void resolve() {
             AfflictDecorator d = new AfflictDecorator(target);
         }
+
+        @Override
+        public boolean isTargetEffect() {
+            return true;
+        }
+
+        @Override
+        public void setTarget() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public Object getTarget() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
     }
     
     private class AfflictDecorator extends AbstractDecorator{
