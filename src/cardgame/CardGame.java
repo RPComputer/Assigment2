@@ -5,16 +5,16 @@
  */
 package cardgame;
 
+import cardgame.cards.Cardlist;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Scanner;
 
-import cardgame.cards.Homeopathy;
-import cardgame.cards.Reflexologist;
-import cardgame.cards.FriendlyEnvironment;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +39,7 @@ public class CardGame {
         instance.run();
     }
     
-    public static HashMap<String, CardFactory> factoryMap = new HashMap<>();
+    private static HashMap<String, CardFactory> factoryMap = new HashMap<>();
     public static void register(String s, CardFactory f) {
         factoryMap.put(s, f);
     }
@@ -50,7 +50,12 @@ public class CardGame {
     //game setup 
     private CardGame() { 
         turnManagerStack.push( new DefaultTurnManager(Players) );
-        
+        Cardlist l = new Cardlist();
+        try {
+            l.load();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CardGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Players[0]=new Player();
         Players[0].setName("Player 1");
         Players[0].setPhase(Phases.DRAW,new SkipPhase(Phases.DRAW));
@@ -82,6 +87,12 @@ public class CardGame {
     private final Deque<TurnManager>  turnManagerStack = new ArrayDeque<>();
     public void setTurnManager(TurnManager m) { turnManagerStack.push(m); }
     public void removeTurnManager(TurnManager m) { turnManagerStack.remove(m); }
+    
+    public Player getOpponent(Player p){
+        if(p == Players[0])
+            return Players[1];
+        return Players[0];
+    }
     
     public Player getPlayer(int i) { return Players[i]; }    
     public Player getCurrentPlayer() { return turnManagerStack.peek().getCurrentPlayer(); }

@@ -35,7 +35,7 @@ public class FalsePeace implements Card {
         private final TriggerAction AdversaryTurn = new TriggerAction() { // wait until adversary turn starts
                 @Override
                 public void execute(Object args) {
-                    CardGame.instance.getTriggers().register(Triggers.COMBAT_FILTER, AdversarySkipsCombat);
+                    CardGame.instance.getTriggers().register(Triggers.DRAW_FILTER, AdversarySkipsCombat);
                     // start AdversarySkipsCombat Trigger action
                 }
         };

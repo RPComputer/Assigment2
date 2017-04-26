@@ -126,7 +126,7 @@ public class Player {
     public void setPhaseManager(PhaseManager m) { phaseManagerStack.push(m); }
     public void removePhaseManager(PhaseManager m) { phaseManagerStack.remove(m); }
     public Phases currentPhaseId() { return phaseManagerStack.peek().currentPhase(); } // need public
-    Phase nextPhase() { return getPhase(phaseManagerStack.peek().nextPhase()); }
+    public Phase nextPhase() { return getPhase(phaseManagerStack.peek().nextPhase()); }
  
     
     
