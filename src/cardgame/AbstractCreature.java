@@ -17,8 +17,8 @@ public abstract class AbstractCreature implements Creature {
     protected boolean isTapped=false;
     protected int damageLeft = getToughness();
     public ArrayList target = new ArrayList();
-    public boolean att;
-    public boolean def;
+    public boolean att = true;
+    public boolean def = true;
     
     @Override
     public boolean getAtt(){return att;}
