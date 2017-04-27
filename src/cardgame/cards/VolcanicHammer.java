@@ -55,11 +55,6 @@ public class VolcanicHammer implements Card {
                     System.out.println("The input is not valid, try again.\n");
                     choice = -1;
                 }
-
-                if (choice != 0 && choice!= 1) {
-                    System.out.println("The input is not valid, try again.\n");
-                }
-
             } while(choice != 0 && choice != 1);
 
             if (choice==0) {
@@ -75,11 +70,6 @@ public class VolcanicHammer implements Card {
                         System.out.println("The input is not valid, try again.\n");
                         choice = -1;
                     }
-
-                    if (choice != 0 && choice!= 1) {
-                        System.out.println("The input is not valid, try again.\n");
-                    }
-
                 } while(choice != 0 && choice != 1);
 
                 if (choice==0) {
@@ -100,11 +90,6 @@ public class VolcanicHammer implements Card {
                             System.out.println("The input is not valid, try again.\n");
                             choice = -1;
                         }
-
-                        if (choice < 0 || choice >= i) {
-                            System.out.println("The input is not valid, try again.\n");
-                        }
-
                     } while(choice < 0 || choice >= i);
 
                     
@@ -130,11 +115,6 @@ public class VolcanicHammer implements Card {
                             System.out.println("The input is not valid, try again.\n");
                             choice = -1;
                         }
-
-                        if (choice < 0 || choice >= i) {
-                            System.out.println("The input is not valid, try again.\n");
-                        }
-
                     } while(choice < 0 || choice >= i);
 
                     this.target2 = (CreatureImage) owner.getCreatures().get(choice);
@@ -153,11 +133,6 @@ public class VolcanicHammer implements Card {
                         System.out.println("The input is not valid, try again.\n");
                         choice = -1;
                     }
-
-                    if (choice != 0 && choice!= 1) {
-                        System.out.println("The input is not valid, try again.\n");
-                    }
-
                 } while(choice != 0 && choice != 1);
 
                 if (choice==0) {

@@ -1,19 +1,13 @@
 
 package cardgame.cards;
 
-import cardgame.AbstractCardEffect;
 import cardgame.AbstractEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
-import cardgame.CardStack;
-import cardgame.Enchantment;
-import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
-import cardgame.TriggerAction;
-import cardgame.Triggers;
 import java.util.Scanner;
 
 public class Deflection implements Card {
@@ -23,23 +17,14 @@ public class Deflection implements Card {
             return new Deflection();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer("Deflection", new DeflectionFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new DeflectionFactory());
     
     private class DeflectionEffect extends AbstractEffect {
         AbstractEffect target;
         
         @Override
         public void resolve () {
-            Scanner reader = CardGame.instance.getScanner();
-            int i=0;
-            for(Effect e : CardGame.instance.getStack()){
-                if()
-            }
-            System.out.print("Choose a spell to change it's target : ");
-            int r = reader.nextInt();
-            CardStack stack = CardGame.instance.getStack();
-            
-            
+            target.setTarget();
         }
 
         @Override
@@ -49,12 +34,17 @@ public class Deflection implements Card {
 
         @Override
         public void setTarget() {
-            System.out.println("Choose the player who will skip his next combat phase, 0 for the first, 1 for second.\n");
-            System.out.println(CardGame.instance.getCurrentPlayer().name() + "   " + CardGame.instance.getCurrentAdversary().name());
-            
-            int choice;
+            //da sistemare
+            int choice, i = 1, j = 1;
             Scanner s = new Scanner (System.in);
-            
+            System.out.println("Choose the effect target to change.\n");
+            for(Effect e : CardGame.instance.getStack()){
+                if(e.isTargetEffect()){
+                    System.out.println(i + ") " + e.toString());
+                    j++;
+                }
+                i++;
+            }
             do{
                 try{
                     choice = s.nextInt();
@@ -63,13 +53,8 @@ public class Deflection implements Card {
                     System.out.println("The input is not valid, try again.\n");
                     choice = -1;
                 }
-            }while(choice!=0 && choice!=1);
-            
-            if (choice==0) {
-                this.target = CardGame.instance.getCurrentPlayer();
-            } else {
-                this.target = CardGame.instance.getCurrentAdversary(); 
-            }
+            }while(choice<=0 && choice>j);
+            //finire
         }
 
         @Override
@@ -86,14 +71,13 @@ public class Deflection implements Card {
     
     
     @Override
-    public String name() { return "Fatigue"; }
+    public String name() { return "Deflection"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Instant"; }
     @Override
-    public String ruleText() { return "Target player skips his next draw step"; }
+    public String ruleText() { return "Change the target of a target spell with a single target"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override
-    public boolean isInstant() { return false; }
+    public boolean isInstant() { return true; }
 }
-
