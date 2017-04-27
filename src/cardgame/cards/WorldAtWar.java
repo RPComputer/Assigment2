@@ -1,4 +1,3 @@
-
 package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
@@ -7,32 +6,36 @@ import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
+import cardgame.DefaultCombatPhase;
 import cardgame.DefaultTurnManager;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
+import cardgame.Phases;
 
-public class SavorTheMoment implements Card {
-    private static class SavorTheMomentFactory implements CardFactory{
+public class WorldAtWar implements Card {
+    private static class WorldAtWarFactory implements CardFactory{
         @Override
         public Card create(){
-            return new SavorTheMoment();
+            return new WorldAtWar();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer(new SavorTheMomentFactory());
+    private static StaticInitializer initializer = new StaticInitializer(new WorldAtWarFactory());
     
-    private class SavorTheMomentEffect extends AbstractCardEffect {
+    private class WorldAtWarEffect extends AbstractCardEffect {
         Player ownerr = this.owner;
         DefaultTurnManager newturn;
-        private SavorTheMomentEffect(Player p, Card c) {
+        private WorldAtWarEffect(Player p, Card c) {
             super(p,c);
         }
         
-        private final TriggerAction TheNewTurn = new TriggerAction() { 
+        private final TriggerAction NewCombat = new TriggerAction() { 
+            SkipPhase phase;
             @Override
             public void execute(Object args) {
-                CardGame.instance.getTriggers().register(Triggers.COMBAT_FILTER, SkipUntapPhase);
+                CardGame.instance.getCurrentPlayer().currentPhaseId().next().
+                CardGame.instance.getTriggers().register(Triggers.MAIN_FILTER, SkipUntapPhase);
             }
         };
         
@@ -49,8 +52,8 @@ public class SavorTheMoment implements Card {
         private final TriggerAction DeleteTurnAndDeregister = new TriggerAction() { 
             @Override
             public void execute(Object args) {
-                CardGame.instance.removeTurnManager(newturn);
-                CardGame.instance.getTriggers().deregister(TheNewTurn);
+                CardGame.instance.getCurrentAdversary().currentPhaseId();
+                CardGame.instance.getTriggers().deregister(NewCombat);
                 CardGame.instance.getTriggers().deregister(SkipUntapPhase);
                 CardGame.instance.getTriggers().deregister(DeleteTurnAndDeregister);
             }
@@ -58,12 +61,7 @@ public class SavorTheMoment implements Card {
         
         @Override
         public void resolve () {
-            Player[] players = new Player[2];
-            players[0]=this.ownerr;
-            players[1]=CardGame.instance.getCurrentAdversary();
-            newturn = new DefaultTurnManager(players);
-            CardGame.instance.setTurnManager(newturn);
-            CardGame.instance.getTriggers().register(Triggers.START_TURN_FILTER, TheNewTurn);
+            CardGame.instance.getTriggers().register(Triggers.COMBAT_FILTER, NewCombat);
         }
 
         @Override
@@ -80,15 +78,15 @@ public class SavorTheMoment implements Card {
         }
     }
     @Override
-    public Effect getEffect(Player p) { return new SavorTheMomentEffect(p,this); }
+    public Effect getEffect(Player p) { return new WorldAtWarEffect(p,this); }
     
     
     @Override
-    public String name() { return "SavorTheMoment"; }
+    public String name() { return "WorldAtWar"; }
     @Override
     public String type() { return "Enchantment"; }
     @Override
-    public String ruleText() { return "Take an extra turn after this one. Skip the untap step of that turn"; }
+    public String ruleText() { return "After the first postcombat main phase this \n turn , there's an additional combat phase \n followed "; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override

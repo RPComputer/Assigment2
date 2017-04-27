@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DefaultCombatPhase implements Phase {
+    public ArrayList<Creature> attackingCreatures;
+    ArrayList<Creature> canAttackCreatures;
+    ArrayList<Creature> canDefendCreatures;
+    public DefaultCombatPhase() {
+        this.attackingCreatures = new ArrayList<>();
+    }
     @Override
     public void execute() {
         Player currentPlayer = CardGame.instance.getCurrentPlayer();
         Player opponentPlayer = CardGame.instance.getCurrentAdversary();
         int attacking = 1, defending = 1;
         Scanner reader = CardGame.instance.getScanner();
-        ArrayList<AbstractCreature> attackingCreatures = new ArrayList<>();
-        ArrayList<AbstractCreature> canAttackCreatures;
-        ArrayList<AbstractCreature> canDefendCreatures;
+        
         Creature c;
         System.out.println(currentPlayer.name() + ": combat phase");
         
@@ -31,12 +35,12 @@ public class DefaultCombatPhase implements Phase {
                     c = canAttackCreatures.get(attacking-1);
                     c.tap();
                     c.addTarget(opponentPlayer);
-                    attackingCreatures.add((AbstractCreature) c);
+                    attackingCreatures.add((Creature) c);
                 }
             }
         }
         //assunto parte dichiarazione attaccanti effettuata
-        chargeCombatStack(opponentPlayer); // primo caricamento dello stack e risoluzione
+        chargeCombatStack(opponentPlayer); // primo caricamento dello stack e risoluzione// primo caricamento dello stack e risoluzione
         //definizione di chi difende
         if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){
             while(defending > 0){
@@ -56,7 +60,7 @@ public class DefaultCombatPhase implements Phase {
                 }
             }
         }
-        chargeCombatStack(currentPlayer); // secondo caricamneto dello stack e risoluzione
+        chargeCombatStack(currentPlayer); // secondo caricamneto dello stack e risoluzione// secondo caricamneto dello stack e risoluzione
         
         //risoluzione del danno
         for(Creature a : attackingCreatures){
@@ -144,7 +148,7 @@ public class DefaultCombatPhase implements Phase {
         return untapped;
     }
     
-    private void showCreatures(ArrayList<AbstractCreature> l){
+    private void showCreatures(ArrayList<Creature> l){
         int i = 0;
         for( Creature c: l) {
             System.out.println(Integer.toString(i+1)+") " + c.toString());
