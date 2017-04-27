@@ -6,13 +6,18 @@ import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
+import cardgame.Creature;
 import cardgame.DefaultCombatPhase;
-import cardgame.DefaultTurnManager;
-import cardgame.SkipPhase;
+import cardgame.DefaultMainPhase;
+import cardgame.Phase;
+import cardgame.PhaseManager;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
 import cardgame.Phases;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.EnumMap;
 
 public class WorldAtWar implements Card {
     private static class WorldAtWarFactory implements CardFactory{
@@ -24,44 +29,65 @@ public class WorldAtWar implements Card {
     private static StaticInitializer initializer = new StaticInitializer(new WorldAtWarFactory());
     
     private class WorldAtWarEffect extends AbstractCardEffect {
-        Player ownerr = this.owner;
-        DefaultTurnManager newturn;
-        private WorldAtWarEffect(Player p, Card c) {
-            super(p,c);
+        
+        public WorldAtWarEffect(Player p, Card c){
+            super(p, c);
         }
         
-        private final TriggerAction NewCombat = new TriggerAction() { 
-            SkipPhase phase;
+        private class WorldAtWarTrigger implements TriggerAction{
+            
+            Player p;
+            WorldAtWarPhaseManager m;
+            public WorldAtWarTrigger(Player p, WorldAtWarPhaseManager m){
+                this.p = p;
+                this.m = m;
+            }
+            
             @Override
             public void execute(Object args) {
-                CardGame.instance.getCurrentPlayer().currentPhaseId().next().
-                CardGame.instance.getTriggers().register(Triggers.MAIN_FILTER, SkipUntapPhase);
+                p.removePhaseManager(m);
+                CardGame.instance.getTriggers().deregister(this);
             }
-        };
+            
+        }
         
-        private final TriggerAction SkipUntapPhase = new TriggerAction() { 
-            SkipPhase phase;
-            @Override
-            public void execute(Object args) {
-                phase=new SkipPhase(CardGame.instance.getCurrentPlayer().nextPhaseId());
-                phase.execute();
-                CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, DeleteTurnAndDeregister);
+        private class WorldAtWarPhaseManager implements PhaseManager{
+
+            private final EnumMap<Phases, Deque<Phase> > phases = new EnumMap<>(Phases.class);
+            private Phases currentPhaseIdx=Phases.NULL;
+
+            public WorldAtWarPhaseManager() {
+                phases.put(Phases.COMBAT, new ArrayDeque<Phase>());
+                phases.get(Phases.COMBAT).push(new DefaultCombatPhase());
+
+                phases.put(Phases.MAIN, new ArrayDeque<Phase>());
+                phases.get(Phases.MAIN).push(new DefaultMainPhase());
+
+                phases.put(Phases.NULL, new ArrayDeque<Phase>());
             }
-        };
-        
-        private final TriggerAction DeleteTurnAndDeregister = new TriggerAction() { 
+
+
             @Override
-            public void execute(Object args) {
-                CardGame.instance.getCurrentAdversary().currentPhaseId();
-                CardGame.instance.getTriggers().deregister(NewCombat);
-                CardGame.instance.getTriggers().deregister(SkipUntapPhase);
-                CardGame.instance.getTriggers().deregister(DeleteTurnAndDeregister);
+            public Phases currentPhase() { return currentPhaseIdx; }
+
+            @Override
+            public Phases nextPhase() { 
+                currentPhaseIdx = currentPhaseIdx.next();
+                return currentPhase();
             }
-        };
+            
+        }
         
         @Override
-        public void resolve () {
-            CardGame.instance.getTriggers().register(Triggers.COMBAT_FILTER, NewCombat);
+        public void resolve() {
+            WorldAtWarPhaseManager m = new WorldAtWarPhaseManager();
+            WorldAtWarTrigger t = new WorldAtWarTrigger(owner, m);
+            CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, t);
+            owner.setPhaseManager(m);
+            DefaultCombatPhase co = (DefaultCombatPhase) owner.getPhase(Phases.COMBAT);
+            for(Creature c: co.attackingCreatures){
+                c.untap();
+            }
         }
 
         @Override
@@ -70,21 +96,24 @@ public class WorldAtWar implements Card {
         }
 
         @Override
-        public void setTarget() {}
+        public void setTarget() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
         @Override
         public Object getTarget() {
-            return null;
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
+        
     }
     @Override
-    public Effect getEffect(Player p) { return new WorldAtWarEffect(p,this); }
+    public Effect getEffect(Player p) { return new WorldAtWarEffect(p, this); }
     
     
     @Override
     public String name() { return "WorldAtWar"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Sorcery"; }
     @Override
     public String ruleText() { return "After the first postcombat main phase this \n turn , there's an additional combat phase \n followed "; }
     @Override
