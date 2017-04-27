@@ -153,6 +153,9 @@ public class VolcanicHammer implements Card {
                     return target2;
             return target1;
         }
+        
+        @Override
+        public String toString(){return "VolcanicHammer";}
     }
     
     @Override

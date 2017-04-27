@@ -45,6 +45,8 @@ public class BenevolentAncestor implements Card {
         public Object getTarget() {
             throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
         }
+        @Override
+        public String toString(){return "BenevolentAncestor";}
     }
     @Override
     public Effect getEffect(Player p) { return new BenevolentAncestorEffect(p,this); }
@@ -214,7 +216,9 @@ public class BenevolentAncestor implements Card {
                     return target2;
                 return target1;
             }
-            
+
+            @Override
+            public String toString(){return "BenevolentAncestor";}
         }
         
         @Override

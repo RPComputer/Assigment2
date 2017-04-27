@@ -69,6 +69,8 @@ public class Cancel implements Card {
         public Object getTarget() {
             return target;
         }
+        @Override
+        public String toString(){return "Cancel";}
     }
    
 

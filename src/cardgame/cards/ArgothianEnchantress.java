@@ -48,6 +48,8 @@ public class ArgothianEnchantress implements Card {
         public Object getTarget() {
             throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
         }
+        @Override
+        public String toString(){return "ArgothianEnchantress";}
     }
     @Override
     public Effect getEffect(Player p) { return new ArgothianEnchantressEffect(p,this); }
