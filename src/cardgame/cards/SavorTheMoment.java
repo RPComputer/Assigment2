@@ -1,4 +1,4 @@
-/*
+
 package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
@@ -17,7 +17,7 @@ public class SavorTheMoment implements Card {
     private static class SavorTheMomentFactory implements CardFactory{
         @Override
         public Card create(){
-            return new FalsePeace();
+            return new SavorTheMoment();
         }
     }
     private static StaticInitializer initializer = new StaticInitializer(new SavorTheMomentFactory());
@@ -96,4 +96,3 @@ public class SavorTheMoment implements Card {
     @Override
     public boolean isInstant() { return false; }
 }
-*/
