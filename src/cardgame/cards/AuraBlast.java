@@ -116,7 +116,6 @@ public class AuraBlast implements Card {
     @Override
     public Effect getEffect(Player p) {
         AuraBlastEffect e = new AuraBlastEffect(p, this);
-        e.setTarget();
         return e;  
     }
     

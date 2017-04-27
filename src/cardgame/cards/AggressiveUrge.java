@@ -122,7 +122,6 @@ public class AggressiveUrge implements Card {
     @Override
     public Effect getEffect(Player p) {
         AggressiveUrgeEffect e = new AggressiveUrgeEffect(p, this);
-        e.setTarget();
         return e;
     }
     

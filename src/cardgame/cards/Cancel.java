@@ -23,7 +23,7 @@ public class Cancel implements Card {
     private class CancelEffect extends AbstractCardEffect {
         Effect target = null;
         
-        public CancelEffect(Player p, Card c, Effect t) { super(p,c); target = t;}
+        public CancelEffect(Player p, Card c) { super(p,c);}
         
         @Override
         public void resolve () {
@@ -32,50 +32,49 @@ public class Cancel implements Card {
 
         @Override
         public boolean isTargetEffect() {
-            return false;
+            return true;
         }
 
         @Override
         public void setTarget() {
-            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+            ArrayList <Effect> l = new ArrayList<>();
+            int i=0;
+            int choice;
+
+            for (Effect c: CardGame.instance.getStack()){
+                l.add(c);                                 
+            }    
+
+            System.out.println("Choose an effect to cancel\n");
+            for (Effect e: l){
+                System.out.println(i+") " + e.toString() + "\n");
+                i++;
+            }  
+
+            Scanner s = new Scanner (System.in);
+            do{
+                try{
+                    choice=s.nextInt();
+                }
+                catch (NumberFormatException error) {
+                    System.out.println("The input is not valid, try again.\n");
+                    choice=-1;
+                }
+            }while(choice<0 || choice>i-1);
+
+            target = l.get(choice);
         }
 
         @Override
         public Object getTarget() {
-            throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+            return target;
         }
     }
    
 
     @Override
     public Effect getEffect(Player p) {
-        ArrayList <Effect> l = new ArrayList<>();
-        int i=0;
-        int choice;
-
-        for (Effect c: CardGame.instance.getStack()){
-            l.add(c);                                 
-        }    
-
-        System.out.println("Choose an effect to cancel\n");
-        for (Effect e: l){
-            System.out.println(i+") " + e.toString() + "\n"); // da cambiare getString in getCardName
-            i++;
-        }  
-        
-        Scanner s = new Scanner (System.in);
-        do{
-            try{
-                choice=s.nextInt();
-            }
-            catch (NumberFormatException error) {
-                System.out.println("The input is not valid, try again.\n");
-                choice=-1;
-            }
-        }while(choice<0 || choice>i-1);
-        
-        Effect e = l.get(choice);
-        return (Effect) new CancelEffect(p, this, e);
+        return new CancelEffect(p, this);
     }
     
     

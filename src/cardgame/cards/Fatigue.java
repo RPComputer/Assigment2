@@ -79,7 +79,6 @@ public class Fatigue implements Card {
     @Override
     public Effect getEffect(Player p) {
         FatigueEffect e = new FatigueEffect();
-        e.setTarget();
         return e;
     }
     

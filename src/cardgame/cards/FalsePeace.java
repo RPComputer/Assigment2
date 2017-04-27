@@ -78,7 +78,6 @@ public class FalsePeace implements Card {
     @Override
     public Effect getEffect(Player p) {
         FalsePeaceEffect e = new FalsePeaceEffect();
-        e.setTarget();
         return e;
     }
     

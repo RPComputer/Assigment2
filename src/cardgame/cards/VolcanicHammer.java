@@ -158,7 +158,6 @@ public class VolcanicHammer implements Card {
     @Override
     public Effect getEffect(Player p) {
         VolcanicHammerEffect e = new VolcanicHammerEffect(p, this);
-        e.setTarget();
         return e;       
     }
     

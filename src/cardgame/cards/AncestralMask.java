@@ -152,7 +152,6 @@ public class AncestralMask implements Card {
     @Override
     public Effect getEffect(Player p) {
         AncestralMaskEffect e = new AncestralMaskEffect(p, this);
-        e.setTarget();
         return e;
     }
     

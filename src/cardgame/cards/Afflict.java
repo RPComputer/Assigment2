@@ -122,7 +122,6 @@ public class Afflict implements Card {
     @Override
     public Effect getEffect(Player p) {
         AfflictEffect e = new AfflictEffect(p, this);
-        e.setTarget();
         return e;
     }
     
