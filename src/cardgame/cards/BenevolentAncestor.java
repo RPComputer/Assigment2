@@ -70,8 +70,15 @@ public class BenevolentAncestor implements Card {
                 CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, a);
             }
             @Override
-            public void inflictDamage(int pts){
-                super.inflictDamage(pts-1);
+            public boolean inflictDamage(int pts){
+                return super.inflictDamage(pts-1);
+            }
+            
+            @Override
+            public ArrayList<String> getDTypes(){
+                ArrayList<String> r = super.getDTypes();
+                r.add("Instant");
+                return r;
             }
         }
         

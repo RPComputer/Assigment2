@@ -83,10 +83,13 @@ public abstract class AbstractCreature implements Creature {
             c.addTarget(this);
         } // to do in assignment 2
     @Override
-        public void inflictDamage(int dmg) { 
+        public boolean inflictDamage(int dmg) { 
             damageLeft -= dmg; 
-            if (damageLeft<=0)
-                owner.destroy(this);        
+            if (damageLeft<=0){
+                owner.destroy(this);
+                return true;
+            }
+            return false;
         }
         
     @Override
@@ -124,6 +127,6 @@ public abstract class AbstractCreature implements Creature {
         
     @Override
         public ArrayList<String> getDTypes(){
-            return null;
+            return new ArrayList();
         }
 }

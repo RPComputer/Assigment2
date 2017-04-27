@@ -11,6 +11,7 @@ import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Abduction implements Card{
@@ -84,7 +85,7 @@ public class Abduction implements Card{
             exowner = p2;
         }
         @Override
-        public void inflictDamage(int d){
+        public boolean inflictDamage(int d){
             Creature c;
             damage2 += d;
             if(damage2 >= this.getNext().getToughness()){
@@ -105,6 +106,14 @@ public class Abduction implements Card{
                     d2.setPrev(this.getPrev());
                 }
             }
+            return false;
+        }
+        
+        @Override
+        public ArrayList<String> getDTypes(){
+            ArrayList<String> r = super.getDTypes();
+            r.add("Enchantment");
+            return r;
         }
     }
     

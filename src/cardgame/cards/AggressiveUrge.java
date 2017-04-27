@@ -13,6 +13,7 @@ import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -108,6 +109,13 @@ public class AggressiveUrge implements Card {
         @Override
         public int getToughness(){
             return this.getNext().getToughness() + 1;
+        }
+        
+        @Override
+        public ArrayList<String> getDTypes(){
+            ArrayList<String> r = super.getDTypes();
+            r.add("Instant");
+            return r;
         }
     }
     

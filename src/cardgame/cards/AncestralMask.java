@@ -17,22 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Afflict implements Card {
-    private static class AfflictFactory implements CardFactory{
+public class AncestralMask implements Card {
+    private static class AncestralMaskFactory implements CardFactory{
         @Override
         public Card create(){
-            return new Afflict();
+            return new AncestralMask();
         }
     }
-    private static StaticInitializer initializer = new StaticInitializer( new AfflictFactory());
+    private static StaticInitializer initializer = new StaticInitializer( new AncestralMaskFactory());
     
-    private class AfflictEffect extends AbstractCardEffect {
+    private class AncestralMaskEffect extends AbstractCardEffect {
         CreatureImage c;
         Player opponent;
-        public AfflictEffect(Player p, Card c) { super(p,c);}
+        public AncestralMaskEffect(Player p, Card c) { super(p,c);}
         @Override
         public void resolve() {
-            AfflictDecorator d = new AfflictDecorator(c);
+            AncestralMaskDecorator d = new AncestralMaskDecorator(c);
         }
 
         @Override
@@ -93,35 +93,65 @@ public class Afflict implements Card {
         }
     }
     
-    private class AfflictDecorator extends AbstractDecorator{
+    private class AncestralMaskDecoratorTrigger implements TriggerAction{
+        AncestralMaskDecorator d;
+        public AncestralMaskDecoratorTrigger(AncestralMaskDecorator a){
+            d = a;
+        }
+        @Override
+        public void execute(Object args) {
+            d.countEnchantedCreatures();
+        }
         
-        public AfflictDecorator(CreatureImage c) {
+    }
+    
+    private class AncestralMaskDecorator extends AbstractDecorator{
+        int counter;
+        AncestralMaskDecoratorTrigger t;
+        public AncestralMaskDecorator(CreatureImage c) {
             super(c);
             c.setPointer(this);
-            TriggerAction a = new DecoratorTrigger(this);
-            CardGame.instance.getTriggers().register(1024, a);
+            this.countEnchantedCreatures();
+            t = new AncestralMaskDecoratorTrigger(this);
+            CardGame.instance.getTriggers().register(448, t);
         }
         @Override
         public int getPower(){
-            return this.getNext().getPower() - 1;
+            return this.getNext().getPower() + (2 * this.counter);
         }
         
         @Override
         public int getToughness(){
-            return this.getNext().getToughness() - 1;
+            return this.getNext().getToughness() + (2 * this.counter);
         }
         
+        public void countEnchantedCreatures(){
+            int result = 0;
+            for(Creature c : CardGame.instance.getCurrentAdversary().getCreatures())
+                if(c.getDTypes().contains("Enchantment"))
+                    result++;
+            for(Creature c : CardGame.instance.getCurrentPlayer().getCreatures())
+                if(c.getDTypes().contains("Enchantment"))
+                    result++;
+            this.counter = result-1;
+        }
         @Override
         public ArrayList<String> getDTypes(){
             ArrayList<String> r = super.getDTypes();
-            r.add("Instant");
+            r.add("Enchantment");
             return r;
+        }
+        
+        @Override
+        public void deregisterDecorator(){
+            CardGame.instance.getTriggers().deregister(t);
+            super.deregisterDecorator();
         }
     }
     
     @Override
     public Effect getEffect(Player p) {
-        AfflictEffect e = new AfflictEffect(p, this);
+        AncestralMaskEffect e = new AncestralMaskEffect(p, this);
         e.setTarget();
         return e;
     }
@@ -136,14 +166,14 @@ public class Afflict implements Card {
     }
     
     @Override
-    public String name() { return "Afflict"; }
+    public String name() { return "AncestralMask"; }
     @Override
-    public String type() { return "Instant"; }
+    public String type() { return "Enchantment"; }
     @Override
-    public String ruleText() { return name() + " this card applies -1/-1 to selected creature"; }
+    public String ruleText() { return name() + " this card applies +2/+2 for each enchanted creature to selected creature"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override
-    public boolean isInstant() { return true; }
+    public boolean isInstant() { return false; }
     
 }

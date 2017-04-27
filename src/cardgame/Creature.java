@@ -19,7 +19,7 @@ public interface Creature extends Permanent {
     boolean isTapped();
     void attack();
     void defend(Creature c);
-    void inflictDamage(int dmg);
+    boolean inflictDamage(int dmg);
     void resetDamage();
     int getPower();
     int getToughness();

@@ -63,8 +63,8 @@ public abstract class AbstractDecorator implements Creature{
     }
 
     @Override
-    public void inflictDamage(int dmg) {
-        next.inflictDamage(dmg);
+    public boolean inflictDamage(int dmg) {
+        return next.inflictDamage(dmg);
     }
 
     @Override
@@ -132,7 +132,31 @@ public abstract class AbstractDecorator implements Creature{
         return next.remove();
     }
     
+    @Override
     public ArrayList<String> getDTypes(){
         return next.getDTypes();
+    }
+    
+    public void removeDecorator(){
+        AbstractDecorator d1, d2;
+        if(this.getPrev() instanceof CreatureImage){
+            CreatureImage c = this.getHead();
+            c.setPointer(this.getNext());
+        }
+        else{
+            d1 = (AbstractDecorator) this.getPrev();
+            d1.setNext(this.getNext());
+        }
+        if(this.getNext() instanceof AbstractDecorator){
+            d2 = (AbstractDecorator) this.getNext();
+            d2.setPrev(this.getPrev());
+        }
+    }
+    
+    public void deregisterDecorator(){
+        if(next instanceof AbstractDecorator){
+            AbstractDecorator p = (AbstractDecorator)next;
+            p.deregisterDecorator();
+        }
     }
 }

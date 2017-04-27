@@ -1,4 +1,4 @@
-
+/*
 package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
@@ -97,3 +97,4 @@ public class SavorTheMoment implements Card {
     @Override
     public boolean isInstant() { return false; }
 }
+*/
