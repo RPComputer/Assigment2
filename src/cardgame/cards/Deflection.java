@@ -8,6 +8,7 @@ import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.StaticInitializer;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Deflection implements Card {
@@ -34,17 +35,19 @@ public class Deflection implements Card {
 
         @Override
         public void setTarget() {
-            //da sistemare
-            int choice, i = 1, j = 1;
+            int choice, i = 1;
+            ArrayList<Effect> effects = new ArrayList();
             Scanner s = new Scanner (System.in);
             System.out.println("Choose the effect target to change.\n");
             for(Effect e : CardGame.instance.getStack()){
-                if(e.isTargetEffect()){
-                    System.out.println(i + ") " + e.toString());
-                    j++;
-                }
+                if(e.isTargetEffect())
+                    effects.add(e);                
+            }
+            for(Effect e : effects){
+                System.out.println(i + ") " + e.toString() + "  ");
                 i++;
             }
+            System.out.println("\n");
             do{
                 try{
                     choice = s.nextInt();
@@ -53,8 +56,9 @@ public class Deflection implements Card {
                     System.out.println("The input is not valid, try again.\n");
                     choice = -1;
                 }
-            }while(choice<=0 && choice>j);
-            //finire
+            }while(choice<=0 && choice>i);
+            Effect e = effects.get(choice);
+            e.setTarget();
         }
 
         @Override
@@ -65,7 +69,6 @@ public class Deflection implements Card {
     @Override
     public Effect getEffect(Player p) {
         DeflectionEffect e = new DeflectionEffect();
-        e.setTarget();
         return e;
     }
     

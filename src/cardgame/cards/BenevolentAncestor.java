@@ -52,6 +52,7 @@ public class BenevolentAncestor implements Card {
     
     private class BenevolentAncestorCreature extends AbstractCreature {
         private CreatureImage me;
+        public boolean att = false;
         public BenevolentAncestorCreature(Player owner) { 
             super(owner);
         }   
