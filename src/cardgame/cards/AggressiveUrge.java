@@ -91,6 +91,8 @@ public class AggressiveUrge implements Card {
         public Object getTarget() {
             return c;
         }
+        @Override
+        public String toString(){return "AggressiveUrge";}
     }
     
     private class AggressiveUrgeDecorator extends AbstractDecorator{

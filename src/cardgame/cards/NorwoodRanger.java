@@ -43,6 +43,8 @@ public class NorwoodRanger implements Card {
         public Object getTarget() {
             throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
         }
+        @Override
+        public String toString(){return "NordwoodRanger";}
     }
     @Override
     public Effect getEffect(Player p) { return new NorwoodRangerEffect(p,this); }

@@ -75,6 +75,8 @@ public class Fatigue implements Card {
         public Object getTarget() {
             return target;
         }
+        @Override
+        public String toString(){return "Fatigue";}
     }
     @Override
     public Effect getEffect(Player p) {

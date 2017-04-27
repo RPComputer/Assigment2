@@ -42,6 +42,8 @@ public class AetherBarrier implements Card {
         public Object getTarget() {
             throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
         }
+        @Override
+        public String toString(){return "AetherBarrier";}
     }
         
     private class AetherBarrierEnchantment extends AbstractEnchantment {

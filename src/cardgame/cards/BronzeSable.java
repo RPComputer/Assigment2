@@ -43,6 +43,8 @@ public class BronzeSable implements Card {
         public Object getTarget() {
             throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
         }
+        @Override
+        public String toString(){return "BronzeSable";}
     }
     @Override
     public Effect getEffect(Player p) { return new BronzeSableEffect(p,this); }

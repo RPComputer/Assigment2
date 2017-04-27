@@ -65,6 +65,8 @@ public class Deflection implements Card {
         public Object getTarget() {
             return target;
         }
+        @Override
+        public String toString(){return "Deflection";}
     }
     @Override
     public Effect getEffect(Player p) {

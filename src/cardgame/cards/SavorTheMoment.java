@@ -78,6 +78,8 @@ public class SavorTheMoment implements Card {
         public Object getTarget() {
             return null;
         }
+        @Override
+        public String toString(){return "SavorTheMoment";}
     }
     @Override
     public Effect getEffect(Player p) { return new SavorTheMomentEffect(p,this); }

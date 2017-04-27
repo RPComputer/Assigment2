@@ -91,6 +91,8 @@ public class Afflict implements Card {
         public Object getTarget() {
             return c;
         }
+        @Override
+        public String toString(){return "Afflict";}
     }
     
     private class AfflictDecorator extends AbstractDecorator{

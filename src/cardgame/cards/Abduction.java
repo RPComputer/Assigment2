@@ -71,6 +71,8 @@ public class Abduction implements Card{
         public Object getTarget() {
             return c;
         }
+        @Override
+        public String toString(){return "Abduction";}
     }
     
     private class AbductionDecorator extends AbstractDecorator{

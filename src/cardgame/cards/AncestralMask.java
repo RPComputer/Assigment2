@@ -91,6 +91,8 @@ public class AncestralMask implements Card {
         public Object getTarget() {
             return c;
         }
+        @Override
+        public String toString(){return "AncestralMask";}
     }
     
     private class AncestralMaskDecoratorTrigger implements TriggerAction{
