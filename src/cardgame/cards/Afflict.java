@@ -42,7 +42,7 @@ public class Afflict implements Card {
 
         @Override
         public void setTarget() {
-            System.out.println("Choose a creature to power up, 0 to see the other player creatures:\n");
+            System.out.println("Choose a creature to afflict, 0 to see the other player creatures:\n");
             Scanner reader = CardGame.instance.getScanner();
             int choosen;
             
@@ -65,7 +65,7 @@ public class Afflict implements Card {
             }
             else{
                 Player opponent = CardGame.instance.getOpponent(owner);
-                System.out.println("Choose a creature to power up, 0 to do nothing\n");
+                System.out.println("Choose a creature to afflict, 0 to do nothing\n");
                 showCreatures(opponent.getCreatures());
 
                 length = opponent.getCreatures().size();

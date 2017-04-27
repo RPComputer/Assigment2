@@ -15,6 +15,7 @@ public abstract class AbstractDecorator implements Creature{
             this.next = c.getPointer();
             this.prev = c;
         }
+        c.checker();
     }
     
     public CreatureImage getHead(){
