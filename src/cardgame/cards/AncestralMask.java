@@ -164,6 +164,9 @@ public class AncestralMask implements Card {
             System.out.println(Integer.toString(i+1)+") " + c.toString()+ "\n");
             ++i;
         }
+        if(i==0){
+            System.out.println("There aren't any creatures\n");
+        }
     }
     
     @Override

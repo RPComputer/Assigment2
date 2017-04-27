@@ -169,6 +169,9 @@ public class Darkness implements Card {
                                     System.out.println(Integer.toString(i+1)+") " + c.toString());
                                     ++i;
                                 }
+                                if(i==0){
+                                    System.out.println("There aren't any creatures\n");
+                                }
                             }
                         
                     }

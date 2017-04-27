@@ -14,6 +14,7 @@ import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,7 +44,7 @@ public class Afflict implements Card {
         @Override
         public void setTarget() {
             System.out.println("Choose a creature to afflict, 0 to see the other player creatures:\n");
-            Scanner reader = CardGame.instance.getScanner();
+            
             int choosen;
             
             showCreatures(owner.getCreatures());
@@ -51,12 +52,7 @@ public class Afflict implements Card {
             int length = owner.getCreatures().size();
 
             do {
-                try{
-                    choosen = reader.nextInt();
-                }catch (NumberFormatException error) {
-                    System.out.println("The input is not valid, try again.\n");
-                    choosen = -1;
-                }
+                choosen = acquireInput();
             }while(choosen<0 || choosen> length); 
 
             if(choosen > 0){
@@ -71,12 +67,7 @@ public class Afflict implements Card {
                 length = opponent.getCreatures().size();
 
                 do {
-                    try{
-                        choosen = reader.nextInt();
-                    }catch (NumberFormatException error) {
-                        System.out.println("The input is not valid, try again.\n");
-                        choosen = -1;
-                    }
+                    
                 }while(choosen<0 || choosen> length);     
 
                 if(choosen > 0){
@@ -134,6 +125,9 @@ public class Afflict implements Card {
             System.out.println(Integer.toString(i+1)+") " + c.toString()+ "\n");
             ++i;
         }
+        if(i==0){
+            System.out.println("There aren't any creatures\n");
+        }
     }
     
     @Override
@@ -147,4 +141,15 @@ public class Afflict implements Card {
     @Override
     public boolean isInstant() { return true; }
     
+    public int acquireInput(){
+        int res;
+        Scanner reader = CardGame.instance.getScanner();
+        try{
+            res = reader.nextInt();
+        }catch (NumberFormatException error) {
+            System.out.println("The input is not valid, try again.\n");
+            res = -1;
+        }
+        return res;
+    }
 }
