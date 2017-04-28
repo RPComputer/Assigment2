@@ -12,6 +12,7 @@ import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
+import cardgame.TurnManager;
 
 public class SavorTheMoment implements Card {
     private static class SavorTheMomentFactory implements CardFactory{
@@ -21,6 +22,32 @@ public class SavorTheMoment implements Card {
         }
     }
     private static StaticInitializer initializer = new StaticInitializer(new SavorTheMomentFactory());
+    
+    private class SavorTheMomentTurnManager implements TurnManager{
+        private final Player[] Players;
+        int currentPlayerIdx;
+
+        public SavorTheMomentTurnManager(Player[] p, Player c) {
+            Players=p;
+            if(c == CardGame.instance.getPlayer(0))
+                this.currentPlayerIdx = 0;
+            else
+                this.currentPlayerIdx = 1;
+        }
+
+        @Override
+        public Player getCurrentPlayer() { return Players[currentPlayerIdx]; }
+
+        @Override
+        public Player getCurrentAdversary() { return Players[(currentPlayerIdx+1)%2]; }
+
+        @Override
+        public Player nextPlayer() { 
+            currentPlayerIdx = (currentPlayerIdx+1)%2;
+            return getCurrentPlayer();
+        }
+        
+    }
     
     private class SavorTheMomentEffect extends AbstractCardEffect {
         Player ownerr = this.owner;
@@ -32,7 +59,8 @@ public class SavorTheMoment implements Card {
         private final TriggerAction TheNewTurn = new TriggerAction() { 
             @Override
             public void execute(Object args) {
-                CardGame.instance.getTriggers().register(Triggers.COMBAT_FILTER, SkipUntapPhase);
+                CardGame.instance.setTurnManager(newturn);
+                CardGame.instance.getTriggers().register(Triggers.DRAW_FILTER, SkipUntapPhase);
             }
         };
         
@@ -40,8 +68,7 @@ public class SavorTheMoment implements Card {
             SkipPhase phase;
             @Override
             public void execute(Object args) {
-                phase=new SkipPhase(CardGame.instance.getCurrentPlayer().nextPhaseId());
-                phase.execute();
+                phase = new SkipPhase(CardGame.instance.getCurrentPlayer().nextPhaseId());
                 CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, DeleteTurnAndDeregister);
             }
         };
@@ -59,11 +86,10 @@ public class SavorTheMoment implements Card {
         @Override
         public void resolve () {
             Player[] players = new Player[2];
-            players[0]=this.ownerr;
-            players[1]=CardGame.instance.getCurrentAdversary();
-            newturn = new DefaultTurnManager(players);
-            CardGame.instance.setTurnManager(newturn);
-            CardGame.instance.getTriggers().register(Triggers.START_TURN_FILTER, TheNewTurn);
+            players[0] = CardGame.instance.getPlayer(0);
+            players[1] = CardGame.instance.getPlayer(1);
+            SavorTheMomentTurnManager newturn = new SavorTheMomentTurnManager(players, owner);
+            CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, TheNewTurn);
         }
 
         @Override
