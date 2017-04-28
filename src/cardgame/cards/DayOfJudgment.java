@@ -44,13 +44,18 @@ public class DayOfJudgment implements Card{
         @Override
         public String toString(){return "DayOfJudgment";}
     }
+    @Override
     public Effect getEffect(Player p) { return new DayOfJudgmentEffect(); }
     
     
+    @Override
     public String name() { return "Day of Judgment"; }
+    @Override
     public String type() { return "Enchantment"; }
+    @Override
     public String ruleText() { return "Destroy all creatures"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
+    @Override
     public boolean isInstant() { return false; }
 }

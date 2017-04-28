@@ -8,7 +8,6 @@ import cardgame.CardFactory;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
-import cardgame.DecoratorTrigger;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;

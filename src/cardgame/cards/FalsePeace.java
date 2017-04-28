@@ -45,6 +45,7 @@ public class FalsePeace implements Card {
             return true;
         }
 
+        @Override
         public void setTarget() {
             System.out.println("Choose the player who will skip his next combat phase, 0 for the first, 1 for second.\n");
             System.out.println(CardGame.instance.getCurrentPlayer().name() + "   " + CardGame.instance.getCurrentAdversary().name());
