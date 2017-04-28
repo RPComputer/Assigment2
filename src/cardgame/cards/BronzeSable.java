@@ -10,6 +10,7 @@ import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BronzeSable implements Card {
@@ -64,9 +65,9 @@ public class BronzeSable implements Card {
         public int getToughness() { return 1; }
 
         @Override
-        public List<Effect> effects() { return null; }
+        public List<Effect> effects() { return new ArrayList<>();}
         @Override
-        public List<Effect> avaliableEffects() { return null; }
+        public List<Effect> avaliableEffects() { return new ArrayList<>();}
     }
     
     

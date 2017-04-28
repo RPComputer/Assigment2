@@ -13,6 +13,7 @@ import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArgothianEnchantress implements Card {
@@ -123,9 +124,9 @@ public class ArgothianEnchantress implements Card {
             return true;
         }
         @Override
-        public List<Effect> effects() { return null; }
+        public List<Effect> effects() { return new ArrayList<>();}
         @Override
-        public List<Effect> avaliableEffects() { return null; }
+        public List<Effect> avaliableEffects() { return new ArrayList<>();}
     }
     
     
