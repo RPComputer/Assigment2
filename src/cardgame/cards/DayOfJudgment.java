@@ -5,6 +5,7 @@ import cardgame.AbstractEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
 import cardgame.CardGame;
+import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
@@ -22,9 +23,11 @@ public class DayOfJudgment implements Card{
         
         @Override
         public void resolve () {
-            CardGame.instance.getCurrentPlayer().getCreatures().clear();
+            for(Creature c:CardGame.instance.getCurrentPlayer().getCreatures())
+                c.remove();
 
-            CardGame.instance.getCurrentAdversary().getCreatures().clear();
+            for(Creature c:CardGame.instance.getCurrentAdversary().getCreatures())
+                c.remove();
         }
 
         @Override
