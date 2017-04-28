@@ -15,6 +15,8 @@ import cardgame.TriggerAction;
 import java.util.List;
 import cardgame.CardGame;
 import cardgame.DecoratorTrigger;
+import static cardgame.Interfaccia.acquireInput;
+import static cardgame.Interfaccia.showCreatures;
 import cardgame.Triggers;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -132,8 +134,10 @@ public class BenevolentAncestor implements Card {
             public void resolve() {
                 BenevolentAncestorDecorator d;
                 BenevolentAncestorDamageModifier m;
-                if(target1 == null)
-                    d = new BenevolentAncestorDecorator(target2);
+                if(target1 == null){
+                    if(target2 != null)
+                        d = new BenevolentAncestorDecorator(target2);
+                }
                 else{
                     m = new BenevolentAncestorDamageModifier();
                     target1.addModificator(m);
@@ -150,71 +154,42 @@ public class BenevolentAncestor implements Card {
                 me.tap();
                 Scanner reader = CardGame.instance.getScanner();
                 int choice;
+                System.out.println("Choose who you want to protect: 0 for creature 1 for player:\n");
                 do{
-                    System.out.println("Choose who you want to protect: 0 for creature 1 for player:\n");
-
-                    try{
-                            choice = reader.nextInt();
-                    }
-                    catch (NumberFormatException error) {
-                        System.out.println("The input is not valid, try again.\n");
-                        choice = -1;
-                    }
-
+                    choice = acquireInput();
                 } while(choice != 0 && choice != 1);
                 if(choice == 0){
-                    int i;
-                    do{
-                        System.out.println("Choose your creature, 0 for opponent's creatures:\n");
-                        i = 0;
-                        for ( Creature c: owner.getCreatures()) {
-                            System.out.println( i + ") for " + c.name() + "\n");
-                            i++;
-                        }
-                        try{
-                            choice = reader.nextInt();
-                        }
-                        catch (NumberFormatException error) {
-                            System.out.println("The input is not valid, try again.\n");
-                            choice = -1;
-                        }
-
-                    } while(choice < 0 || choice >= i);
-                    if(choice >0){
-                        target2 = (CreatureImage) owner.getCreatures().get(choice);
-                    }
-                    else{
-                        Player opponent = CardGame.instance.getOpponent(owner);
+                    System.out.println("Choose your creature, 0 for opponent's creatures:\n");
+                    boolean foo = showCreatures(owner.getCreatures());
+                    int length = owner.getCreatures().size();
+                    choice = 1;
+                    if(foo){
                         do{
-                            System.out.println("Choose opponent's creature:\n");
-                            i = 0;
-                            for ( Creature c: opponent.getCreatures()) {
-                                System.out.println( i + ") for " + c.name() + "\n");
-                                i++;
-                            }
-                            try{
-                                choice = reader.nextInt();
-                            }
-                            catch (NumberFormatException error) {
-                                System.out.println("The input is not valid, try again.\n");
-                                choice = -1;
-                            }
-
-                        } while(choice <= 0 || choice >= i);
-                        target2 = (CreatureImage) opponent.getCreatures().get(choice);
+                            choice = acquireInput();
+                        } while(choice < 0 || choice > length);
+                        if(choice >0){
+                            target2 = (CreatureImage) owner.getCreatures().get(choice);
+                        }
                     }
+                    if(choice == 0){
+                        Player opponent = CardGame.instance.getOpponent(owner);
+                        System.out.println("Choose opponent's creature:\n");
+                        foo = showCreatures(opponent.getCreatures());
+                        length = opponent.getCreatures().size();
+                        if(foo){
+                            do{
+                                choice = acquireInput();
+                            } while(choice <= 0 || choice > length);
+                            target2 = (CreatureImage) opponent.getCreatures().get(choice);
+                        }
+                        else target2 = null;
+                    }
+                    else target2 = null;
                 }
                 else{
                     System.out.println("Defaut target is yourself, 0 to confirm 1 to set other player\n");
                     do{                      
-                        try{
-                                choice = reader.nextInt();
-                        }
-                        catch (NumberFormatException error) {
-                            System.out.println("The input is not valid, try again.\n");
-                            choice = -1;
-                        }
-
+                        choice = acquireInput();
                     } while(choice != 0 && choice != 1);
                     if(choice == 0)
                         this.target1 = owner;
