@@ -28,7 +28,8 @@ public class Cancel implements Card {
         
         @Override
         public void resolve () {
-            CardGame.instance.getStack().remove(target);
+            if(target != null)
+                CardGame.instance.getStack().remove(target);
         }
 
         @Override
@@ -50,14 +51,15 @@ public class Cancel implements Card {
             for (Effect e: l){
                 System.out.println(i+") " + e.toString() + "\n");
                 i++;
-            }  
+            }
+            if(i>0){
+                do{
+                    choice = acquireInput();
+                }while(choice<0 || choice>i-1);
 
-            Scanner s = new Scanner (System.in);
-            do{
-                choice = acquireInput();
-            }while(choice<0 || choice>i-1);
-
-            target = l.get(choice);
+                target = l.get(choice);
+            }
+            else target = null;
         }
 
         @Override

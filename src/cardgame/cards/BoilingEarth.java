@@ -57,7 +57,7 @@ public class BoilingEarth implements Card {
     @Override
     public String name() { return "Boiling Earth"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Sorcery"; }
     @Override
     public String ruleText() { return "Deals 1 damage to each creature"; }
     @Override

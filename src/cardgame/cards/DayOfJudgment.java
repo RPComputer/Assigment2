@@ -54,7 +54,7 @@ public class DayOfJudgment implements Card{
     @Override
     public String name() { return "Day of Judgment"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Sorcery"; }
     @Override
     public String ruleText() { return "Destroy all creatures"; }
     @Override

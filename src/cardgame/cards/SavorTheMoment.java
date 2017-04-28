@@ -114,7 +114,7 @@ public class SavorTheMoment implements Card {
     @Override
     public String name() { return "SavorTheMoment"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Sorcery"; }
     @Override
     public String ruleText() { return "Take an extra turn after this one. Skip the untap step of that turn"; }
     @Override

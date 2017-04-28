@@ -31,8 +31,10 @@ public class AuraBlast implements Card {
         
         @Override
         public void resolve () {
-            to.getEnchantments().remove(target);
-            owner.draw();
+            if(target != null){
+                to.getEnchantments().remove(target);
+                owner.draw();
+            }
         }
 
         @Override
@@ -60,20 +62,19 @@ public class AuraBlast implements Card {
                     System.out.println( i + ") for " + e.name() + "\n");
                     i++;
                 }
+                if(i>0){
+                    do{
+                        choice = acquireInput();
+                    } while (choice<0 || choice>i-1);
 
-                do{
-                    try{
-                        choice = s.nextInt();
-                    }
-                    catch (NumberFormatException error) {
-                        System.out.println("The input is not valid, try again.\n");
-                        choice = -1;
-                    }
-                } while (choice<0 || choice>i-1);
+                    Enchantment e = opponent.getEnchantments().get(choice);
 
-                Enchantment e = opponent.getEnchantments().get(choice);
-                
-                this.target = e;
+                    this.target = e;
+                }
+                else {
+                    System.out.println("There aren't enchantments to destroy.\n");
+                    this.target = null;
+                }
             }
             else{
 
@@ -84,20 +85,19 @@ public class AuraBlast implements Card {
                     System.out.println( i + ") for " + e.name() + "\n");
                     i++;
                 }
+                if(i>0){
+                    do{
+                        choice = acquireInput();
+                    } while (choice<0 || choice>i-1);
 
-                do{
-                    try{
-                        choice = s.nextInt();
-                    }
-                    catch (NumberFormatException error) {
-                        System.out.println("The input is not valid, try again.\n");
-                        choice = s.nextInt();
-                    }
-                } while (choice<0 || choice>i-1);
+                    Enchantment e = owner.getEnchantments().get(choice);
 
-                Enchantment e = owner.getEnchantments().get(choice);
-                
-                this.target = e;
+                    this.target = e;
+                }
+                else {
+                    System.out.println("There aren't enchantments to destroy.\n");
+                    this.target = null;
+                }
             }
         }
 

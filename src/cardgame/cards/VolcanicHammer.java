@@ -32,8 +32,10 @@ public class VolcanicHammer implements Card {
         }
         @Override
         public void resolve () {
-            if(target1 == null)
-                target2.inflictDamage(3);
+            if(target1 == null){
+                if(target2 != null)
+                    target2.inflictDamage(3);
+            }
             else target1.inflictDamage(3);
         }
 
@@ -66,28 +68,32 @@ public class VolcanicHammer implements Card {
                     Player opponent = CardGame.instance.getOpponent(owner);
                     System.out.println("Choose your opponent player's creatures:\n");
                     
-                    showCreatures(opponent.getCreatures());
+                    boolean foo = showCreatures(opponent.getCreatures());
                     int length = opponent.getCreatures().size();
-                    
-                    do{
-                        choice = acquireInput();
-                    } while(choice < 0 || choice > length);
+                    if(foo){
+                        do{
+                            choice = acquireInput();
+                        } while(choice < 0 || choice > length);
 
-                    
-                    this.target2 = (CreatureImage) opponent.getCreatures().get(choice);
+
+                        this.target2 = (CreatureImage) opponent.getCreatures().get(choice);
+                    }
+                    else target2 = null;
 
                 } else /*choice == 1*/ {
                     // YOUR OWN CREATURES
                     System.out.println("Choose your creatures:\n");
-                    showCreatures(owner.getCreatures());
+                    boolean foo = showCreatures(owner.getCreatures());
                     int length = owner.getCreatures().size();
-                    
-                    do{
-                        choice = acquireInput();
-                    } while(choice < 0 || choice > length);
+                    if(foo){
+                        do{
+                            choice = acquireInput();
+                        } while(choice < 0 || choice > length);
 
-                    this.target2 = (CreatureImage) owner.getCreatures().get(choice);
 
+                        this.target2 = (CreatureImage) owner.getCreatures().get(choice);
+                    }
+                    else target2 = null;
                 }
 
             } else /*choice == 1*/ {
@@ -130,7 +136,7 @@ public class VolcanicHammer implements Card {
     @Override
     public String name() { return "Volcanic Hammer"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Sorcery"; }
     @Override
     public String ruleText() { return "Deals 3 damage to each creature or player"; }
     @Override

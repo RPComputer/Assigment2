@@ -34,8 +34,10 @@ public class AncestralMask implements Card {
         public AncestralMaskEffect(Player p, Card c) { super(p,c);}
         @Override
         public void resolve() {
-            AncestralMaskDecorator d = new AncestralMaskDecorator(c);
-            CardGame.instance.getTriggers().trigger(Triggers.ENTER_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
+            if(c != null){
+                AncestralMaskDecorator d = new AncestralMaskDecorator(c);
+                CardGame.instance.getTriggers().trigger(Triggers.ENTER_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
+            }
         }
 
         @Override
@@ -49,14 +51,15 @@ public class AncestralMask implements Card {
             Scanner reader = CardGame.instance.getScanner();
             int choosen;
             
-            showCreatures(owner.getCreatures());
+            boolean foo = showCreatures(owner.getCreatures());
 
             int length = owner.getCreatures().size();
-
-            do {
-                choosen = acquireInput();
-            }while(choosen<0 || choosen> length); 
-
+            if(foo){
+                do {
+                    choosen = acquireInput();
+                }while(choosen<0 || choosen> length);
+            }
+            else choosen = 0;
             if(choosen > 0){
                 CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
                 this.c = cr;  
@@ -64,24 +67,21 @@ public class AncestralMask implements Card {
             else{
                 Player opponent = CardGame.instance.getOpponent(owner);
                 System.out.println("Choose a creature to power up, 0 to do nothing\n");
-                showCreatures(opponent.getCreatures());
+                foo = showCreatures(opponent.getCreatures());
 
                 length = opponent.getCreatures().size();
+                if(foo){
+                    do {
+                        choosen = acquireInput();
+                    }while(choosen<0 || choosen> length);     
 
-                do {
-                    try{
-                        choosen = reader.nextInt();
-                    }catch (NumberFormatException error) {
-                        System.out.println("The input is not valid, try again.\n");
-                        choosen = -1;
+                    if(choosen > 0){
+                        CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+                        this.opponent = opponent;
+                        this.c = cr;
                     }
-                }while(choosen<0 || choosen> length);     
-
-                if(choosen > 0){
-                    CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
-                    this.opponent = opponent;
-                    this.c = cr;
-                }                
+                }
+                else c = null;
             }
         }
 
@@ -163,7 +163,7 @@ public class AncestralMask implements Card {
     @Override
     public String name() { return "AncestralMask"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Enchant creature"; }
     @Override
     public String ruleText() { return name() + " this card applies +2/+2 for each enchanted creature to selected creature"; }
     @Override

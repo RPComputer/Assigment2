@@ -23,7 +23,7 @@ public class Interfaccia {
         return res;
     }
     
-    public static void showCreatures(List<Creature> l){
+    public static boolean showCreatures(List<Creature> l){
 	int i = 0;
 	for( Creature c: l) {
             System.out.println(Integer.toString(i+1)+") " + c.toString()+ "\n");
@@ -31,7 +31,9 @@ public class Interfaccia {
 	}
 	if(i==0){
             System.out.println("There are no creatures\n");
+            return false;
 	}
+        return true;
     }
 
     

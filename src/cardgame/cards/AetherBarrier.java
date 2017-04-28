@@ -9,6 +9,7 @@ import cardgame.AbstractEnchantment;
 import cardgame.CardFactory;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.Interfaccia;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
@@ -66,22 +67,17 @@ public class AetherBarrier implements Card {
                         System.out.println( i + ") " + e.name() + "\n");
                         i++;
                     }
+                    if(i > 0){
+                        do{
+                            choice = Interfaccia.acquireInput();
+                        } while (choice<0 || choice>i-1);
                     
-                    do{
-                        try{
-                            choice = reader.nextInt();
+                        if(choice > split){
+                            owner.getEnchantments().remove(choice-split);
                         }
-                        catch (NumberFormatException error) {
-                            System.out.println("The input is not valid, try again.\n");
-                            choice = -1;
+                        else{
+                            owner.getCreatures().remove(choice);
                         }
-                    } while (choice<0 || choice>i-1);
-                    
-                    if(choice > split){
-                        owner.getEnchantments().remove(choice-split);
-                    }
-                    else{
-                        owner.getCreatures().remove(choice);
                     }
                 }
             };

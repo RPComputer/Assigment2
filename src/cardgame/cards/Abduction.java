@@ -9,6 +9,9 @@ import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.Effect;
+import cardgame.Interfaccia;
+import static cardgame.Interfaccia.acquireInput;
+import static cardgame.Interfaccia.showCreatures;
 import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.Triggers;
@@ -33,11 +36,13 @@ public class Abduction implements Card{
         
         @Override
         public void resolve () {
-            owner.getCreatures().add(c);
-            opponent.getCreatures().remove(c);
-            c.untap();
-            AbductionDecorator d = new AbductionDecorator(c, owner, opponent);
-            CardGame.instance.getTriggers().trigger(Triggers.ENTER_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
+            if(c != null){
+                owner.getCreatures().add(c);
+                opponent.getCreatures().remove(c);
+                c.untap();
+                AbductionDecorator d = new AbductionDecorator(c, owner, opponent);
+                CardGame.instance.getTriggers().trigger(Triggers.ENTER_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
+            }
         }
 
         @Override
@@ -51,22 +56,16 @@ public class Abduction implements Card{
             Scanner reader = CardGame.instance.getScanner();
             int i = 0, choosen;
             Player opponent = CardGame.instance.getOpponent(this.owner);
-            for(Creature c : opponent.getCreatures()){
-                System.out.println(i + ") " + c.name() + " - ");
-                i++;
+            if(showCreatures(opponent.getCreatures())){
+                do {
+                    choosen = acquireInput();
+                }while(choosen < 0 || choosen > opponent.getCreatures().size());
+                CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+                this.opponent = opponent;
+                this.c = cr;
             }
-            System.out.println("\n");
-            do {
-                try{
-                    choosen = reader.nextInt();
-                }catch (NumberFormatException error) {
-                    System.out.println("The input is not valid, try again.\n");
-                    choosen = -1;
-                }
-            }while(choosen < 0 || choosen > opponent.getCreatures().size());
-            CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
-            this.opponent = opponent;
-            this.c = cr;
+            this.opponent = null;
+            this.c = null;
         }
 
         @Override

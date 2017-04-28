@@ -31,10 +31,12 @@ public class AggressiveUrge implements Card {
     private class AggressiveUrgeEffect extends AbstractCardEffect {
         CreatureImage c;
         Player opponent;
+        AggressiveUrgeDecorator d;
         public AggressiveUrgeEffect(Player p, Card c) { super(p,c);}
         @Override
         public void resolve() {
-            AggressiveUrgeDecorator d = new AggressiveUrgeDecorator(c);
+            if(c != null)
+                d = new AggressiveUrgeDecorator(c);
         }
 
         @Override
@@ -48,13 +50,15 @@ public class AggressiveUrge implements Card {
             Scanner reader = CardGame.instance.getScanner();
             int choosen;
             
-            showCreatures(owner.getCreatures());
+            boolean foo = showCreatures(owner.getCreatures());
 
             int length = owner.getCreatures().size();
-
-            do {
-                choosen = acquireInput();
-            }while(choosen<0 || choosen> length); 
+            if(foo){
+                do {
+                    choosen = acquireInput();
+                }while(choosen<0 || choosen> length);
+            }
+            else choosen = 0;
 
             if(choosen > 0){
                 CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
@@ -63,24 +67,22 @@ public class AggressiveUrge implements Card {
             else{
                 Player opponent = CardGame.instance.getOpponent(owner);
                 System.out.println("Choose a creature to power up, 0 to do nothing\n");
-                showCreatures(opponent.getCreatures());
+                foo = showCreatures(opponent.getCreatures());
 
                 length = opponent.getCreatures().size();
 
-                do {
-                    try{
-                        choosen = reader.nextInt();
-                    }catch (NumberFormatException error) {
-                        System.out.println("The input is not valid, try again.\n");
-                        choosen = -1;
-                    }
-                }while(choosen<0 || choosen> length);     
+                if(foo){
+                    do {
+                        choosen = acquireInput();
+                    }while(choosen<0 || choosen> length);     
 
-                if(choosen > 0){
-                    CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
-                    this.opponent = opponent;
-                    this.c = cr;
-                }                
+                    if(choosen > 0){
+                        CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+                        this.opponent = opponent;
+                        this.c = cr;
+                    }
+                }
+                else c = null;
             }
         }
 

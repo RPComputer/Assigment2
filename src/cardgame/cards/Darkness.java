@@ -4,6 +4,7 @@ package cardgame.cards;
 import cardgame.AbstractCardEffect;
 import cardgame.AbstractCreature;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.Effect;
 import static cardgame.Interfaccia.acquireInput;
 import static cardgame.Interfaccia.showCreatures;
@@ -13,11 +14,19 @@ import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.Phase;
 import cardgame.SkipPhase;
+import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Darkness implements Card {
+    private static class DarknessFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new Darkness();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer(new DarknessFactory());
     
     private class DarknessEffect extends AbstractCardEffect {
         public DarknessEffect(Player p,Card c){ super (p,c); }

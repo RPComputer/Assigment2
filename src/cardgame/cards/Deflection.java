@@ -22,11 +22,12 @@ public class Deflection implements Card {
     private static StaticInitializer initializer = new StaticInitializer(new DeflectionFactory());
     
     private class DeflectionEffect extends AbstractEffect {
-        AbstractEffect target;
+        Effect target;
         
         @Override
         public void resolve () {
-            target.setTarget();
+            if(target != null)
+                target.setTarget();
         }
 
         @Override
@@ -49,11 +50,14 @@ public class Deflection implements Card {
                 i++;
             }
             System.out.println("\n");
-            do{
-                choice = acquireInput();
-            }while(choice<=0 && choice>i);
-            Effect e = effects.get(choice);
-            e.setTarget();
+            if(i>0){
+                do{
+                    choice = acquireInput();
+                }while(choice<=0 && choice>i);
+                Effect e = effects.get(choice);
+                target = e;
+            }
+            else target = null;
         }
 
         @Override

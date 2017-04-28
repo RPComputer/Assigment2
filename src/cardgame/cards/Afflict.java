@@ -34,7 +34,9 @@ public class Afflict implements Card {
         public AfflictEffect(Player p, Card c) { super(p,c);}
         @Override
         public void resolve() {
-            AfflictDecorator d = new AfflictDecorator(c);
+            if(c != null){
+                AfflictDecorator d = new AfflictDecorator(c);
+            }
         }
 
         @Override
@@ -48,14 +50,15 @@ public class Afflict implements Card {
             
             int choosen;
             
-            showCreatures(owner.getCreatures());
+            boolean foo = showCreatures(owner.getCreatures());
 
             int length = owner.getCreatures().size();
-
-            do {
-                choosen = acquireInput();
-            }while(choosen<0 || choosen> length); 
-
+            if(foo){
+                do {
+                    choosen = acquireInput();
+                }while(choosen<0 || choosen> length);
+            }
+            else choosen = 0;
             if(choosen > 0){
                 CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
                 this.c = cr;  
@@ -63,20 +66,23 @@ public class Afflict implements Card {
             else{
                 Player opponent = CardGame.instance.getOpponent(owner);
                 System.out.println("Choose a creature to afflict, 0 to do nothing\n");
-                showCreatures(opponent.getCreatures());
+                foo = showCreatures(opponent.getCreatures());
 
                 length = opponent.getCreatures().size();
+                if(foo){
+                    do {
+                        choosen = acquireInput();
+                    }while(choosen<0 || choosen> length);     
 
-                do {
-                    
-                }while(choosen<0 || choosen> length);     
-
-                if(choosen > 0){
-                    CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
-                    this.opponent = opponent;
-                    this.c = cr;
-                }                
+                    if(choosen > 0){
+                        CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+                        this.opponent = opponent;
+                        this.c = cr;
+                    }
+                }
+                else c = null;
             }
+            
         }
 
         @Override

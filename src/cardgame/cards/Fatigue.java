@@ -83,7 +83,7 @@ public class Fatigue implements Card {
     @Override
     public String name() { return "Fatigue"; }
     @Override
-    public String type() { return "Enchantment"; }
+    public String type() { return "Sorcery"; }
     @Override
     public String ruleText() { return "Target player skips his next draw step"; }
     @Override
