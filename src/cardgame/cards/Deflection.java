@@ -55,7 +55,7 @@ public class Deflection implements Card {
             if(j>0){
                 do{
                     choice = acquireInput();
-                }while(choice<=0 && choice>i);
+                }while(choice<1 && choice>=i);
                 Effect e = effects.get(choice-1);
                 target = e;
             }
