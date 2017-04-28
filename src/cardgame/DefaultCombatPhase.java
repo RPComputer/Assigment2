@@ -73,6 +73,7 @@ public class DefaultCombatPhase implements Phase {
     private void chargeCombatStack(Player currentPlayer){
         int numberPasses=0;
         int responsePlayerIdx = (CardGame.instance.getPlayer(0) == currentPlayer)?0:1;
+        System.out.println("CHARGING STACK - START");
         CardGame.instance.getTriggers().trigger(Triggers.STACK_CHARGING_STARTED_EVENT);
         while (numberPasses<2) {
             if (playAvailableEffect(CardGame.instance.getPlayer(responsePlayerIdx),false))
@@ -82,6 +83,7 @@ public class DefaultCombatPhase implements Phase {
             responsePlayerIdx = (responsePlayerIdx+1)%2;
         }
         CardGame.instance.getTriggers().trigger(Triggers.STACK_CHARGING_COMPLETED_EVENT);
+        System.out.println("CHARGING STACK - END");
         CardGame.instance.getStack().resolve();
     }
     
