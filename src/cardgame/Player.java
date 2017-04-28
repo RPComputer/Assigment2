@@ -90,11 +90,11 @@ public class Player {
     
     
     void executeTurn() {
-        System.out.println(name() + "'s turn");
+        System.out.println("CHANGE TURN: " + name() + "'s turn");
         CardGame.instance.getTriggers().trigger(Triggers.START_TURN_FILTER);
         
         // print out the fields
-        System.out.println("=== Field ===");
+        System.out.println("============== Field ==============");  
         for (int i=0; i!=2; ++i) {
             Player fieldsPlayer=CardGame.instance.getPlayer(i);
             List<Creature> creatures = fieldsPlayer.getCreatures();
@@ -114,7 +114,7 @@ public class Player {
                     System.out.println("  "+e);
             }
         }
-        System.out.println("=============");        
+        System.out.println("==================================");        
         
         Phase curPhase;
         while ((curPhase=nextPhase())!=null) {

@@ -11,6 +11,7 @@ import cardgame.CreatureImage;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
+import cardgame.Triggers;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,6 +37,7 @@ public class Abduction implements Card{
             opponent.getCreatures().remove(c);
             c.untap();
             AbductionDecorator d = new AbductionDecorator(c, owner, opponent);
+            CardGame.instance.getTriggers().trigger(Triggers.ENTER_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
         }
 
         @Override
@@ -107,6 +109,7 @@ public class Abduction implements Card{
                     d2 = (AbstractDecorator) this.getNext();
                     d2.setPrev(this.getPrev());
                 }
+                CardGame.instance.getTriggers().trigger(Triggers.EXIT_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
             }
             return false;
         }
@@ -116,6 +119,12 @@ public class Abduction implements Card{
             ArrayList<String> r = super.getDTypes();
             r.add("Enchantment");
             return r;
+        }
+        
+        @Override
+        public void removeDecorator(){
+            super.removeDecorator();
+            CardGame.instance.getTriggers().trigger(Triggers.EXIT_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
         }
     }
     

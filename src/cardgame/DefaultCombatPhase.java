@@ -19,7 +19,7 @@ public class DefaultCombatPhase implements Phase {
         Scanner reader = CardGame.instance.getScanner();
         
         Creature c;
-        System.out.println(currentPlayer.name() + ": combat phase");
+        System.out.println(currentPlayer.name() + ": starts the COMBAT PHASE");
         
         CardGame.instance.getTriggers().trigger(Triggers.COMBAT_FILTER);
         // TODO combat
@@ -73,6 +73,7 @@ public class DefaultCombatPhase implements Phase {
     private void chargeCombatStack(Player currentPlayer){
         int numberPasses=0;
         int responsePlayerIdx = (CardGame.instance.getPlayer(0) == currentPlayer)?0:1;
+        CardGame.instance.getTriggers().trigger(Triggers.STACK_CHARGING_STARTED_EVENT);
         while (numberPasses<2) {
             if (playAvailableEffect(CardGame.instance.getPlayer(responsePlayerIdx),false))
                 numberPasses=0;
@@ -80,7 +81,7 @@ public class DefaultCombatPhase implements Phase {
             
             responsePlayerIdx = (responsePlayerIdx+1)%2;
         }
-        
+        CardGame.instance.getTriggers().trigger(Triggers.STACK_CHARGING_COMPLETED_EVENT);
         CardGame.instance.getStack().resolve();
     }
     
