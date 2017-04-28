@@ -68,7 +68,7 @@ public class SavorTheMoment implements Card {
             SkipPhase phase;
             @Override
             public void execute(Object args) {
-                phase = new SkipPhase(CardGame.instance.getCurrentPlayer().nextPhaseId());
+                phase = new SkipPhase(CardGame.instance.getCurrentPlayer().currentPhaseId().next());
                 CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, DeleteTurnAndDeregister);
             }
         };

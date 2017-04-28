@@ -30,7 +30,7 @@ public class Fatigue implements Card {
             SkipPhase phase;
             @Override
             public void execute(Object args) {
-                phase=new SkipPhase(target.nextPhaseId());
+                phase=new SkipPhase(target.currentPhaseId().next());
                 phase.execute();
                 CardGame.instance.getTriggers().deregister(AdversaryTurn);
             }

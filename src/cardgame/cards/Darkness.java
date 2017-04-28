@@ -171,11 +171,11 @@ public class Darkness implements Card {
                     //*************************************************************************
                     //*************************************************************************
                     
-                    phase=new SkipPhase(CardGame.instance.getCurrentPlayer().nextPhaseId()){
+                    phase=new SkipPhase(CardGame.instance.getCurrentPlayer().currentPhaseId().next()){
                         @Override
                         public void execute() {
                             Player currentPlayer = CardGame.instance.getCurrentPlayer();
-                            currentPlayer.removePhase(CardGame.instance.getCurrentPlayer().nextPhaseId(),this);
+                            currentPlayer.removePhase(CardGame.instance.getCurrentPlayer().currentPhaseId().next(),this);
                             Phase comb = new CombatWithNoDamage();
                             comb.execute();
                         }
