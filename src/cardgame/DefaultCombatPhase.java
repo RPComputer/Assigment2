@@ -19,7 +19,7 @@ public class DefaultCombatPhase implements Phase {
         Scanner reader = CardGame.instance.getScanner();
         
         Creature c;
-        System.out.println(currentPlayer.name() + ": combat phase");
+        System.out.println(currentPlayer.name() + ": starts the COMBAT PHASE");
         
         CardGame.instance.getTriggers().trigger(Triggers.COMBAT_FILTER);
         // TODO combat
