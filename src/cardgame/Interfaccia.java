@@ -17,7 +17,7 @@ public class Interfaccia {
         try{
             res = reader.nextInt();
         }catch (NumberFormatException error) {
-            System.out.println("The input is not valid, try again.\n");
+            System.out.println("The input is not valid, try again.");
             res = -1;
         }
         return res;
@@ -26,11 +26,11 @@ public class Interfaccia {
     public static boolean showCreatures(List<Creature> l){
 	int i = 0;
 	for( Creature c: l) {
-            System.out.println(Integer.toString(i+1)+") " + c.toString()+ "\n");
+            System.out.println(Integer.toString(i+1)+") " + c.toString());
             ++i;
 	}
 	if(i==0){
-            System.out.println("There are no creatures\n");
+            System.out.println("There are no creatures");
             return false;
 	}
         return true;

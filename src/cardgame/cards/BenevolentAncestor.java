@@ -152,12 +152,12 @@ public class BenevolentAncestor implements Card {
             public void setTarget() {
                 me.tap();
                 int choice;
-                System.out.println("Choose who you want to protect: 0 for creature 1 for player:\n");
+                System.out.println("Choose who you want to protect: 0 for creature 1 for player:");
                 do{
                     choice = acquireInput();
                 } while(choice != 0 && choice != 1);
                 if(choice == 0){
-                    System.out.println("Choose your creature, 0 for opponent's creatures:\n");
+                    System.out.println("Choose your creature, 0 for opponent's creatures:");
                     boolean foo = showCreatures(owner.getCreatures());
                     int length = owner.getCreatures().size();
                     choice = 1;
@@ -171,7 +171,7 @@ public class BenevolentAncestor implements Card {
                     }
                     if(choice == 0){
                         Player opponent = CardGame.instance.getOpponent(owner);
-                        System.out.println("Choose opponent's creature:\n");
+                        System.out.println("Choose opponent's creature:");
                         foo = showCreatures(opponent.getCreatures());
                         length = opponent.getCreatures().size();
                         if(foo){
@@ -185,7 +185,7 @@ public class BenevolentAncestor implements Card {
                     else target2 = null;
                 }
                 else{
-                    System.out.println("Defaut target is yourself, 0 to confirm 1 to set other player\n");
+                    System.out.println("Defaut target is yourself, 0 to confirm 1 to set other player");
                     do{                      
                         choice = acquireInput();
                     } while(choice != 0 && choice != 1);
@@ -236,7 +236,7 @@ public class BenevolentAncestor implements Card {
     @Override
     public String type() { return "Creature"; }
     @Override
-    public String ruleText() { return "Put in play BenevolentAncestor(0/4), this creature can't attack\n with tap: prevent 1 damage to a creature or player until the end of the turn\n"; }
+    public String ruleText() { return "Put in play BenevolentAncestor(0/4), this creature can't attack\n with tap: prevent 1 damage to a creature or player until the end of the turn"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override

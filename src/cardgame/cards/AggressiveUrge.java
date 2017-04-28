@@ -45,7 +45,7 @@ public class AggressiveUrge implements Card {
 
         @Override
         public void setTarget() {
-            System.out.println("Choose a creature to power up, 0 to see the other player creatures:\n");
+            System.out.println("Choose a creature to power up, 0 to see the other player creatures:");
             int choosen;
             
             boolean foo = showCreatures(owner.getCreatures());
@@ -64,7 +64,7 @@ public class AggressiveUrge implements Card {
             }
             else{
                 Player opponent = CardGame.instance.getOpponent(owner);
-                System.out.println("Choose a creature to power up, 0 to do nothing\n");
+                System.out.println("Choose a creature to power up, 0 to do nothing");
                 foo = showCreatures(opponent.getCreatures());
 
                 length = opponent.getCreatures().size();

@@ -141,7 +141,7 @@ public class Darkness implements Card {
                                 }
 
                                 //get user choice and play it
-                                int idx= reader.nextInt()-1;
+                                int idx= acquireInput()-1;
                                 if (idx<0 || idx>=availableEffects.size()) return false;
 
                                 availableEffects.get(idx).play();

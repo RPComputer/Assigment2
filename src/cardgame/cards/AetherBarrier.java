@@ -55,14 +55,14 @@ public class AetherBarrier implements Card {
                 @Override
                 public void execute(Object args) {
                     int i = 0, split, choice;
-                    System.out.println("Choose a permanent to be sacrificed\n");
+                    System.out.println("Choose a permanent to be sacrificed");
                     for(Creature c: owner.getCreatures()){
-                        System.out.println( i + ") " + c.name() + "\n");
+                        System.out.println( i + ") " + c.name());
                         i++;
                     }
                     split = i;
                     for(Enchantment e: owner.getEnchantments()){
-                        System.out.println( i + ") " + e.name() + "\n");
+                        System.out.println( i + ") " + e.name());
                         i++;
                     }
                     if(i > 0){
