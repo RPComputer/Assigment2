@@ -87,11 +87,11 @@ public class Afflict implements Card {
     }
     
     private class AfflictDecorator extends AbstractDecorator{
-        
+        TriggerAction a;
         public AfflictDecorator(CreatureImage c) {
             super(c);
             c.setPointer(this);
-            TriggerAction a = new DecoratorTrigger(this);
+            a = new DecoratorTrigger(this);
             CardGame.instance.getTriggers().register(1024, a);
         }
         @Override
@@ -109,6 +109,18 @@ public class Afflict implements Card {
             ArrayList<String> r = super.getDTypes();
             r.add("Instant");
             return r;
+        }
+        
+        @Override
+        public void removeDecorator(){
+            super.removeDecorator();
+            CardGame.instance.getTriggers().deregister(a);
+        }
+        
+        @Override
+        public void deregisterDecorator(){
+            super.deregisterDecorator();
+            CardGame.instance.getTriggers().deregister(a);
         }
     }
     

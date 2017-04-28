@@ -27,7 +27,7 @@ public class Cardlist {
         list.add("cardgame.cards.FriendlyEnvironment");
         list.add("cardgame.cards.Homeopathy");
         list.add("cardgame.cards.NorwoodRanger");
-        list.add("cardgame.cards.Reflexolist");
+        list.add("cardgame.cards.Reflexologist");
         list.add("cardgame.cards.SavorTheMoment");
         list.add("cardgame.cards.VolcanicHammer");
         list.add("cardgame.cards.WorldAtWar");

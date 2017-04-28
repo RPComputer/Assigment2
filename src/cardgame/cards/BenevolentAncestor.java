@@ -64,11 +64,11 @@ public class BenevolentAncestor implements Card {
         }
         
         private class BenevolentAncestorDecorator extends AbstractDecorator{
-            
+            TriggerAction a;
             public BenevolentAncestorDecorator(CreatureImage c) {
                 super(c);
                 c.setPointer(this);
-                TriggerAction a = new DecoratorTrigger(this);
+                a = new DecoratorTrigger(this);
                 CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, a);
             }
             @Override
@@ -82,6 +82,18 @@ public class BenevolentAncestor implements Card {
                 r.add("Instant");
                 return r;
             }
+            @Override
+            public void removeDecorator(){
+                super.removeDecorator();
+                CardGame.instance.getTriggers().deregister(a);
+            }
+
+            @Override
+            public void deregisterDecorator(){
+                super.deregisterDecorator();
+                CardGame.instance.getTriggers().deregister(a);
+            }
+            
         }
         
         private class BenevolentAncestorDamageModifier extends AbstractPlayerDamageModificator{

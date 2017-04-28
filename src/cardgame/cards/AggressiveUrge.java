@@ -96,11 +96,11 @@ public class AggressiveUrge implements Card {
     }
     
     private class AggressiveUrgeDecorator extends AbstractDecorator{
-        
+        TriggerAction a;
         public AggressiveUrgeDecorator(CreatureImage c) {
             super(c);
             c.setPointer(this);
-            TriggerAction a = new DecoratorTrigger(this);
+            a = new DecoratorTrigger(this);
             CardGame.instance.getTriggers().register(1024, a);
         }
         @Override
@@ -118,6 +118,18 @@ public class AggressiveUrge implements Card {
             ArrayList<String> r = super.getDTypes();
             r.add("Instant");
             return r;
+        }
+        
+        @Override
+        public void removeDecorator(){
+            super.removeDecorator();
+            CardGame.instance.getTriggers().deregister(a);
+        }
+        
+        @Override
+        public void deregisterDecorator(){
+            super.deregisterDecorator();
+            CardGame.instance.getTriggers().deregister(a);
         }
     }
     

@@ -143,7 +143,11 @@ public class AncestralMask implements Card {
             r.add("Enchantment");
             return r;
         }
-        
+        @Override
+        public void removeDecorator(){
+            super.removeDecorator();
+            CardGame.instance.getTriggers().deregister(t);
+        }
         @Override
         public void deregisterDecorator(){
             CardGame.instance.getTriggers().deregister(t);
