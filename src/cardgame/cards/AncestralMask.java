@@ -13,6 +13,7 @@ import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
+import cardgame.Triggers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -33,6 +34,7 @@ public class AncestralMask implements Card {
         @Override
         public void resolve() {
             AncestralMaskDecorator d = new AncestralMaskDecorator(c);
+            CardGame.instance.getTriggers().trigger(Triggers.ENTER_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
         }
 
         @Override
@@ -115,7 +117,7 @@ public class AncestralMask implements Card {
             c.setPointer(this);
             this.countEnchantedCreatures();
             t = new AncestralMaskDecoratorTrigger(this);
-            CardGame.instance.getTriggers().register(448, t);
+            CardGame.instance.getTriggers().register(24672, t);
         }
         @Override
         public int getPower(){
@@ -147,6 +149,7 @@ public class AncestralMask implements Card {
         public void removeDecorator(){
             super.removeDecorator();
             CardGame.instance.getTriggers().deregister(t);
+            CardGame.instance.getTriggers().trigger(Triggers.EXIT_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
         }
         @Override
         public void deregisterDecorator(){

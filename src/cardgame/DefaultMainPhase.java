@@ -29,7 +29,7 @@ public class DefaultMainPhase implements Phase {
         
         if (!playAvailableEffect(currentPlayer, true))
             ++numberPasses;
-        
+        CardGame.instance.getTriggers().trigger(Triggers.STACK_CHARGING_STARTED_EVENT);
         while (numberPasses<2) {
             if (playAvailableEffect(CardGame.instance.getPlayer(responsePlayerIdx),false))
                 numberPasses=0;
@@ -37,7 +37,7 @@ public class DefaultMainPhase implements Phase {
             
             responsePlayerIdx = (responsePlayerIdx+1)%2;
         }
-        
+        CardGame.instance.getTriggers().trigger(Triggers.STACK_CHARGING_COMPLETED_EVENT);
         CardGame.instance.getStack().resolve();
     }
     

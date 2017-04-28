@@ -62,4 +62,6 @@ public class Triggers {
     public static final int END_TURN_FILTER=1024;
     public static final int STACK_CHARGING_STARTED_EVENT=2048;
     public static final int STACK_CHARGING_COMPLETED_EVENT=4096;
+    public static final int ENTER_ENCHANT_CREATURE_ENCHANTMENT_EVENT = 8192;
+    public static final int EXIT_ENCHANT_CREATURE_ENCHANTMENT_EVENT = 16384;
 }
