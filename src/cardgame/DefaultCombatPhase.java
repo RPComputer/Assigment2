@@ -44,19 +44,21 @@ public class DefaultCombatPhase implements Phase {
         //definizione di chi difende
         if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){
             while(defending > 0){
-                System.out.println(currentPlayer.name() + "choose an defending creature, 0 to pass");
-                canDefendCreatures = defenders(opponentPlayer);
-                this.showCreatures(canDefendCreatures);
                 if(canDefendCreatures.isEmpty())
-                    System.out.println("You don't have creatures that can defend.");
-                defending = reader.nextInt();
-                if(defending > 0){
-                    c = canDefendCreatures.get(defending);
-                    c.tap();
-                    System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
-                    this.showCreatures(attackingCreatures);
-                    attacking = reader.nextInt();
-                    c.defend(attackingCreatures.get(attacking));
+                    System.out.println(currentPlayer.name() + " doesn't have creatures that can defend.");
+                else{
+                    System.out.println(currentPlayer.name() + ": choose an defending creature, 0 to pass");
+                    canDefendCreatures = defenders(opponentPlayer);
+                    this.showCreatures(canDefendCreatures);
+                    defending = reader.nextInt();
+                    if(defending > 0){
+                        c = canDefendCreatures.get(defending);
+                        c.tap();
+                        System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
+                        this.showCreatures(attackingCreatures);
+                        attacking = reader.nextInt();
+                        c.defend(attackingCreatures.get(attacking));
+                    }
                 }
             }
         }
