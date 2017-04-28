@@ -7,6 +7,7 @@ import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
+import cardgame.Enchantment;
 import cardgame.StaticInitializer;
 
 public class CalmingVerse implements Card {
@@ -27,7 +28,8 @@ public class CalmingVerse implements Card {
         
         @Override
         public void resolve () {
-            to.getEnchantments().clear();
+            for(Enchantment e : to.getEnchantments())
+                e.remove();
         }
 
         @Override
