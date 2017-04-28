@@ -9,6 +9,7 @@ import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.Enchantment;
+import static cardgame.Interfaccia.acquireInput;
 import cardgame.StaticInitializer;
 import java.util.Scanner;
 
@@ -47,13 +48,7 @@ public class AuraBlast implements Card {
             ArrayList <Effect> l = new ArrayList<>();
 
             do{
-                try{
-                    choice = s.nextInt();
-                }
-                catch (NumberFormatException error) {
-                    System.out.println("The input is not valid, try again.\n");
-                    choice = -1;
-                }
+                choice = acquireInput();
             }while(choice!=0 && choice!=1);
 
             if (choice==0) {

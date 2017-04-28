@@ -7,6 +7,7 @@ import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
+import static cardgame.Interfaccia.acquireInput;
 import java.util.Scanner;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
@@ -53,13 +54,7 @@ public class FalsePeace implements Card {
             Scanner s = new Scanner (System.in);
             
             do{
-                try{
-                    choice = s.nextInt();
-                }
-                catch (NumberFormatException error) {
-                    System.out.println("The input is not valid, try again.\n");
-                    choice = -1;
-                }
+                choice = acquireInput();
             }while(choice!=0 && choice!=1);
             
             if (choice==0) {

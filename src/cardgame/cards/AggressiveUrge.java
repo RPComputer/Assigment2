@@ -10,6 +10,8 @@ import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.DecoratorTrigger;
 import cardgame.Effect;
+import static cardgame.Interfaccia.acquireInput;
+import static cardgame.Interfaccia.showCreatures;
 import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
@@ -51,12 +53,7 @@ public class AggressiveUrge implements Card {
             int length = owner.getCreatures().size();
 
             do {
-                try{
-                    choosen = reader.nextInt();
-                }catch (NumberFormatException error) {
-                    System.out.println("The input is not valid, try again.\n");
-                    choosen = -1;
-                }
+                choosen = acquireInput();
             }while(choosen<0 || choosen> length); 
 
             if(choosen > 0){
@@ -137,18 +134,6 @@ public class AggressiveUrge implements Card {
     public Effect getEffect(Player p) {
         AggressiveUrgeEffect e = new AggressiveUrgeEffect(p, this);
         return e;
-    }
-    
-    
-    private void showCreatures(List<Creature> l){
-        int i = 0;
-        for( Creature c: l) {
-            System.out.println(Integer.toString(i+1)+") " + c.toString()+ "\n");
-            ++i;
-        }
-        if(i==0){
-            System.out.println("There aren't any creatures\n");
-        }
     }
     
     @Override

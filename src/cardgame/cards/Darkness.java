@@ -5,6 +5,8 @@ import cardgame.AbstractCardEffect;
 import cardgame.AbstractCreature;
 import cardgame.Card;
 import cardgame.Effect;
+import static cardgame.Interfaccia.acquireInput;
+import static cardgame.Interfaccia.showCreatures;
 import cardgame.Player;
 import cardgame.Triggers;
 import cardgame.CardGame;
@@ -35,9 +37,9 @@ public class Darkness implements Card {
                                 Player opponentPlayer = CardGame.instance.getCurrentAdversary();
                                 int attacking = 1, defending = 1;
                                 Scanner reader = CardGame.instance.getScanner();
-                                ArrayList<AbstractCreature> attackingCreatures = new ArrayList<>();
-                                ArrayList<AbstractCreature> canAttackCreatures;
-                                ArrayList<AbstractCreature> canDefendCreatures;
+                                ArrayList<Creature> attackingCreatures = new ArrayList<>();
+                                ArrayList<Creature> canAttackCreatures;
+                                ArrayList<Creature> canDefendCreatures;
                                 Creature c;
                                 System.out.println(currentPlayer.name() + ": combat phase");
 
@@ -49,7 +51,7 @@ public class Darkness implements Card {
                                         canAttackCreatures = attackers(currentPlayer);
                                         if(canAttackCreatures.isEmpty())
                                             System.out.println("You don't have creatures that can attack.");
-                                        this.showCreatures(canAttackCreatures);
+                                        showCreatures(canAttackCreatures);
                                         attacking = reader.nextInt();
                                         if(attacking > 0){
                                             c = canAttackCreatures.get(attacking-1);
@@ -66,7 +68,7 @@ public class Darkness implements Card {
                                     while(defending > 0){
                                         System.out.println(currentPlayer.name() + "choose an defending creature, 0 to pass");
                                         canDefendCreatures = defenders(opponentPlayer);
-                                        this.showCreatures(canDefendCreatures);
+                                        showCreatures(canDefendCreatures);
                                         if(canDefendCreatures.isEmpty())
                                             System.out.println("You don't have creatures that can defend.");
                                         defending = reader.nextInt();
@@ -74,7 +76,7 @@ public class Darkness implements Card {
                                             c = canDefendCreatures.get(defending);
                                             c.tap();
                                             System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
-                                            this.showCreatures(attackingCreatures);
+                                            showCreatures(attackingCreatures);
                                             attacking = reader.nextInt();
                                             c.defend(attackingCreatures.get(attacking));
                                         }
@@ -161,17 +163,6 @@ public class Darkness implements Card {
                                     }
                                 }
                                 return untapped;
-                            }
-
-                            private void showCreatures(ArrayList<AbstractCreature> l){
-                                int i = 0;
-                                for( Creature c: l) {
-                                    System.out.println(Integer.toString(i+1)+") " + c.toString());
-                                    ++i;
-                                }
-                                if(i==0){
-                                    System.out.println("There aren't any creatures\n");
-                                }
                             }
                         
                     }

@@ -7,6 +7,7 @@ import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
+import static cardgame.Interfaccia.acquireInput;
 import cardgame.StaticInitializer;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -49,13 +50,7 @@ public class Deflection implements Card {
             }
             System.out.println("\n");
             do{
-                try{
-                    choice = s.nextInt();
-                }
-                catch (NumberFormatException error) {
-                    System.out.println("The input is not valid, try again.\n");
-                    choice = -1;
-                }
+                choice = acquireInput();
             }while(choice<=0 && choice>i);
             Effect e = effects.get(choice);
             e.setTarget();

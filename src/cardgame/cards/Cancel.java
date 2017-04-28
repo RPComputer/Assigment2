@@ -8,6 +8,7 @@ import cardgame.CardFactory;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
+import static cardgame.Interfaccia.acquireInput;
 import cardgame.StaticInitializer;
 import java.util.Scanner;
 
@@ -53,13 +54,7 @@ public class Cancel implements Card {
 
             Scanner s = new Scanner (System.in);
             do{
-                try{
-                    choice=s.nextInt();
-                }
-                catch (NumberFormatException error) {
-                    System.out.println("The input is not valid, try again.\n");
-                    choice=-1;
-                }
+                choice = acquireInput();
             }while(choice<0 || choice>i-1);
 
             target = l.get(choice);
