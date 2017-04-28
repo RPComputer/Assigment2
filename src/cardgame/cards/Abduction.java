@@ -128,6 +128,7 @@ public class Abduction implements Card{
         }
     }
     
+    @Override
     public Effect getEffect(Player p) {
         AbductionEffect e = new AbductionEffect(p, this);
         e.setTarget();
@@ -135,8 +136,11 @@ public class Abduction implements Card{
     }
     
     
+    @Override
     public String name() { return "Abduction"; }
+    @Override
     public String type() { return "Enchant creature"; }
+    @Override
     public String ruleText() { return "Untap enchanted creature, take control of the creature. When the enchanted creature should die, return it to its owner's control"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}

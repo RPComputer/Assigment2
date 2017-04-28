@@ -16,7 +16,6 @@ import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 

@@ -15,6 +15,7 @@ import java.util.Iterator;
 public class CardStack implements Iterable<Effect> {
     private final ArrayDeque<Effect> stack = new ArrayDeque<>();
     
+    @Override
     public Iterator<Effect> iterator() { return stack.iterator(); }
     
     public void add(Effect e) { 

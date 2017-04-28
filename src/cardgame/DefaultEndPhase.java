@@ -10,6 +10,7 @@ package cardgame;
  * @author atorsell
  */
 public class DefaultEndPhase implements Phase {
+    @Override
     public void execute() {
         Player currentPlayer = CardGame.instance.getCurrentPlayer();
         
