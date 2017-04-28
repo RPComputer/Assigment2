@@ -13,7 +13,6 @@ import cardgame.Interfaccia;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
-import java.util.Scanner;
 
 public class AetherBarrier implements Card {
     private static class AetherBarrierFactory implements CardFactory{
@@ -56,7 +55,6 @@ public class AetherBarrier implements Card {
                 @Override
                 public void execute(Object args) {
                     int i = 0, split, choice;
-                    Scanner reader = CardGame.instance.getScanner();
                     System.out.println("Choose a permanent to be sacrificed\n");
                     for(Creature c: owner.getCreatures()){
                         System.out.println( i + ") " + c.name() + "\n");

@@ -12,7 +12,6 @@ import cardgame.CreatureImage;
 import static cardgame.Interfaccia.acquireInput;
 import static cardgame.Interfaccia.showCreatures;
 import cardgame.StaticInitializer;
-import java.util.Scanner;
 
 public class VolcanicHammer implements Card {
     private static class VolcanicHammerFactory implements CardFactory{
@@ -46,7 +45,6 @@ public class VolcanicHammer implements Card {
 
         @Override
         public void setTarget() {
-            Scanner reader = CardGame.instance.getScanner();
             int choice;
             
             System.out.println("Choose your target: 0 for creatures, 1 for players\n");

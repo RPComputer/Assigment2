@@ -17,7 +17,6 @@ import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class AggressiveUrge implements Card {
     private static class AggressiveUrgeFactory implements CardFactory{
@@ -47,7 +46,6 @@ public class AggressiveUrge implements Card {
         @Override
         public void setTarget() {
             System.out.println("Choose a creature to power up, 0 to see the other player creatures:\n");
-            Scanner reader = CardGame.instance.getScanner();
             int choosen;
             
             boolean foo = showCreatures(owner.getCreatures());

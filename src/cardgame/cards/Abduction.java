@@ -16,7 +16,6 @@ import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.Triggers;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Abduction implements Card{
     private static class AbductionFactory implements CardFactory{
@@ -53,7 +52,6 @@ public class Abduction implements Card{
         @Override
         public void setTarget() {
             System.out.println("Choose one creature to enchant:\n");
-            Scanner reader = CardGame.instance.getScanner();
             int i = 0, choosen;
             Player opponent = CardGame.instance.getOpponent(this.owner);
             if(showCreatures(opponent.getCreatures())){

@@ -8,7 +8,6 @@ import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import static cardgame.Interfaccia.acquireInput;
-import java.util.Scanner;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
@@ -52,7 +51,6 @@ public class FalsePeace implements Card {
             System.out.println(CardGame.instance.getCurrentPlayer().name() + "   " + CardGame.instance.getCurrentAdversary().name());
             
             int choice;
-            Scanner s = new Scanner (System.in);
             
             do{
                 choice = acquireInput();

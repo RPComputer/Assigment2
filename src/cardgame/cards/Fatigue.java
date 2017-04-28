@@ -12,7 +12,6 @@ import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
-import java.util.Scanner;
 
 public class Fatigue implements Card {
     private static class FatigueFactory implements CardFactory{
@@ -53,7 +52,6 @@ public class Fatigue implements Card {
             System.out.println(CardGame.instance.getCurrentPlayer().name() + "   " + CardGame.instance.getCurrentAdversary().name());
             
             int choice;
-            Scanner s = new Scanner (System.in);
             
             do{
                 choice = acquireInput();

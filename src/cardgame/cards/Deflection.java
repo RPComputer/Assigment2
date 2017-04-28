@@ -10,7 +10,6 @@ import cardgame.CardGame;
 import static cardgame.Interfaccia.acquireInput;
 import cardgame.StaticInitializer;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Deflection implements Card {
     private static class DeflectionFactory implements CardFactory{
@@ -39,7 +38,6 @@ public class Deflection implements Card {
         public void setTarget() {
             int choice, i = 1;
             ArrayList<Effect> effects = new ArrayList();
-            Scanner s = new Scanner (System.in);
             System.out.println("Choose the effect target to change.\n");
             for(Effect e : CardGame.instance.getStack()){
                 if(e.isTargetEffect())

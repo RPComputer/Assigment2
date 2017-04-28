@@ -17,7 +17,6 @@ import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Afflict implements Card {
     private static class AfflictFactory implements CardFactory{

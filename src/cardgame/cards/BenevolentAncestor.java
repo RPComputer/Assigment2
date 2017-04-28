@@ -19,7 +19,6 @@ import static cardgame.Interfaccia.acquireInput;
 import static cardgame.Interfaccia.showCreatures;
 import cardgame.Triggers;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BenevolentAncestor implements Card {
     
@@ -152,7 +151,6 @@ public class BenevolentAncestor implements Card {
             @Override
             public void setTarget() {
                 me.tap();
-                Scanner reader = CardGame.instance.getScanner();
                 int choice;
                 System.out.println("Choose who you want to protect: 0 for creature 1 for player:\n");
                 do{

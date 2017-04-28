@@ -11,7 +11,6 @@ import cardgame.CardGame;
 import cardgame.Enchantment;
 import static cardgame.Interfaccia.acquireInput;
 import cardgame.StaticInitializer;
-import java.util.Scanner;
 
 public class AuraBlast implements Card {
     private static class AuraBlastFactory implements CardFactory{
@@ -45,7 +44,6 @@ public class AuraBlast implements Card {
         @Override
         public void setTarget() {
             System.out.println("Choose your target: 0 for your opponent's enchantments, 1 for yours\n");
-            Scanner s = new Scanner (System.in);
             int choice;
             ArrayList <Effect> l = new ArrayList<>();
 

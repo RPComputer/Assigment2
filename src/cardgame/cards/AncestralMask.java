@@ -17,7 +17,6 @@ import cardgame.TriggerAction;
 import cardgame.Triggers;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class AncestralMask implements Card {
     private static class AncestralMaskFactory implements CardFactory{
@@ -48,7 +47,6 @@ public class AncestralMask implements Card {
         @Override
         public void setTarget() {
             System.out.println("Choose a creature to power up, 0 to see the other player creatures:\n");
-            Scanner reader = CardGame.instance.getScanner();
             int choosen;
             
             boolean foo = showCreatures(owner.getCreatures());

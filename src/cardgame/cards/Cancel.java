@@ -10,7 +10,6 @@ import cardgame.Player;
 import cardgame.CardGame;
 import static cardgame.Interfaccia.acquireInput;
 import cardgame.StaticInitializer;
-import java.util.Scanner;
 
 public class Cancel implements Card {
     private static class CancelFactory implements CardFactory{
