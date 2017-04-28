@@ -32,7 +32,7 @@ public class DefaultCombatPhase implements Phase {
                     System.out.println("You don't have creatures that can attack.");
                 this.showCreatures(canAttackCreatures);
                 attacking = reader.nextInt();
-                if(attacking > 0){
+                if(attacking > 0 && attacking < canAttackCreatures.size()){
                     c = canAttackCreatures.get(attacking-1);
                     c.tap();
                     c.addTarget(opponentPlayer);
