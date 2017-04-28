@@ -74,7 +74,7 @@ public class AetherBarrier implements Card {
                             owner.getEnchantments().remove(choice-split);
                         }
                         else{
-                            owner.getCreatures().remove(choice);
+                            owner.getCreatures().remove(choice-1);
                         }
                     }
                 }

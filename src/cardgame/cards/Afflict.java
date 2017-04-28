@@ -45,43 +45,48 @@ public class Afflict implements Card {
 
         @Override
         public void setTarget() {
-            System.out.println("Choose a creature to afflict, 0 to see the other player creatures:");
-            
+            System.out.print("About your opponent: ");
+            Player owner = CardGame.instance.getOpponent(opponent);
             int choosen;
-            
-            boolean foo = showCreatures(owner.getCreatures());
-
-            int length = owner.getCreatures().size();
-            if(foo){
-                do {
-                    choosen = acquireInput();
-                }while(choosen<0 || choosen> length);
-            }
-            else choosen = 0;
-            if(choosen > 0){
-                CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
-                this.c = cr;  
+            if(!showCreatures(opponent.getCreatures())){
+                choosen=0;
             }
             else{
-                Player opponent = CardGame.instance.getOpponent(owner);
-                System.out.println("Choose a creature to afflict, 0 to do nothing");
-                foo = showCreatures(opponent.getCreatures());
-
-                length = opponent.getCreatures().size();
+                System.out.println("Choose a creature to afflict, 0 to see your creatures:");
+                boolean foo = showCreatures(opponent.getCreatures());
+                int length = opponent.getCreatures().size();
                 if(foo){
                     do {
                         choosen = acquireInput();
-                    }while(choosen<0 || choosen> length);     
-
-                    if(choosen > 0){
-                        CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
-                        this.opponent = opponent;
-                        this.c = cr;
-                    }
+                    }while(choosen<0 || choosen> length);
                 }
-                else c = null;
+                else choosen = 0;
             }
-            
+            if(choosen > 0){
+                CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+                this.opponent = opponent;
+                this.c = cr;  
+            }
+            else{
+                System.out.print("About you: ");
+                if(showCreatures(owner.getCreatures())){
+                    System.out.println("Choose a creature to afflict, 0 to do nothing");
+                    boolean foo = showCreatures(owner.getCreatures());
+                    int length = owner.getCreatures().size();
+                    if(foo){
+                        do {
+                            choosen = acquireInput();
+                        }while(choosen<0 || choosen> length);     
+
+                        if(choosen > 0){
+                            CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
+                            this.opponent = owner;
+                            this.c = cr;
+                        }
+                    }
+                    else c = null;
+                }
+            }
         }
 
         @Override
