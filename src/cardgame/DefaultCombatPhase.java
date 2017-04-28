@@ -46,8 +46,10 @@ public class DefaultCombatPhase implements Phase {
         if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){
             canDefendCreatures = defenders(opponentPlayer);
             while(defending > 0){
-                if(canDefendCreatures.isEmpty())
+                if(canDefendCreatures.isEmpty()){
                     System.out.println(currentPlayer.name() + " doesn't have creatures that can defend.");
+                    defending = 0;
+                }
                 else{
                     System.out.println(currentPlayer.name() + ": choose an defending creature, 0 to pass");
                     this.showCreatures(canDefendCreatures);
