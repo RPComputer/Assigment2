@@ -134,11 +134,11 @@ public class DefaultCombatPhase implements Phase {
     
     private ArrayList attackers(Player p){
         ArrayList<Creature> untapped = new ArrayList<>();
-        int i = 0;
+        int i = 1;
         for( Creature c:p.getCreatures()) {
             if ( !c.isTapped() && c.getAtt()) {
                 untapped.add(c);
-                System.out.println(Integer.toString(i+1)+") " + c.toString());
+                System.out.println(i+") " + c.name());
                 ++i;
             }
         }
