@@ -134,8 +134,7 @@ public class ArgothianEnchantress implements Card {
     @Override
     public String type() { return "Creature"; }
     @Override
-    public String ruleText() { return "Put in play a creature ArgothianEnchantress(0/1) \n \"Shroud: this creature can't be the target of spells or abilities\"\n" +
-"                                                + \"tap: ArgothianEnchantress does whenever you cast an enchantment spell, draw a card\"; }"; }
+    public String ruleText() { return "Put in play a creature ArgothianEnchantress(0/1)\n\t\t\t\t    Shroud: this creature can't be the target of spells or abilities\n\t\t\t\t    Whenever you cast an enchantment spell, draw a card"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override
