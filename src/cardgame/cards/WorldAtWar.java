@@ -115,7 +115,7 @@ public class WorldAtWar implements Card {
     @Override
     public String type() { return "Sorcery"; }
     @Override
-    public String ruleText() { return "After the first postcombat main phase this \n turn , there's an additional combat phase \n followed "; }
+    public String ruleText() { return "After the first postcombat main phase this turn , there's an additional combat phase followed "; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override
