@@ -47,7 +47,7 @@ public class VolcanicHammer implements Card {
         public void setTarget() {
             int choice;
             
-            System.out.println("Choose your target: 0 for creatures, 1 for players\n");
+            System.out.println("Choose your target: 0 for creatures, 1 for players");
             do{
                choice = acquireInput();
             } while(choice != 0 && choice != 1);
@@ -56,7 +56,7 @@ public class VolcanicHammer implements Card {
                 // CREATURES
                 CreatureImage target = null;
                 
-                System.out.println("Choose your target: 0 for your opponent's creatures, 1 for yours\n");
+                System.out.println("Choose your target: 0 for your opponent's creatures, 1 for yours");
                 do{
                     choice = acquireInput();
                 } while(choice != 0 && choice != 1);
@@ -64,7 +64,7 @@ public class VolcanicHammer implements Card {
                 if (choice==0) {
                     // OPPONENT PLAYER'S CREATURES
                     Player opponent = CardGame.instance.getOpponent(owner);
-                    System.out.println("Choose your opponent player's creatures:\n");
+                    System.out.println("Choose your opponent player's creatures:");
                     
                     boolean foo = showCreatures(opponent.getCreatures());
                     int length = opponent.getCreatures().size();
@@ -80,7 +80,7 @@ public class VolcanicHammer implements Card {
 
                 } else /*choice == 1*/ {
                     // YOUR OWN CREATURES
-                    System.out.println("Choose your creatures:\n");
+                    System.out.println("Choose your creatures:");
                     boolean foo = showCreatures(owner.getCreatures());
                     int length = owner.getCreatures().size();
                     if(foo){
@@ -97,7 +97,7 @@ public class VolcanicHammer implements Card {
             } else /*choice == 1*/ {
                 // PLAYERS
                 
-                System.out.println("Choose your target: 0 for your opponent, 1 for yourself\n");
+                System.out.println("Choose your target: 0 for your opponent, 1 for yourself");
                 do{
                     choice = acquireInput();
                 } while(choice != 0 && choice != 1);

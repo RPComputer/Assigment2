@@ -1,6 +1,7 @@
 
 package cardgame;
 
+import static cardgame.Interfaccia.acquireInput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -118,7 +119,7 @@ public class DefaultCombatPhase implements Phase {
         }
         
         //get user choice and play it
-        int idx= reader.nextInt()-1;
+        int idx= acquireInput()-1;
         if (idx<0 || idx>=availableEffects.size())
             return false;
         else{

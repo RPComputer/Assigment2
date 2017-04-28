@@ -51,7 +51,7 @@ public class Abduction implements Card{
 
         @Override
         public void setTarget() {
-            System.out.println("Choose one creature to enchant:\n");
+            System.out.println("Choose one creature to enchant:");
             int i = 0, choosen;
             Player opponent = CardGame.instance.getOpponent(this.owner);
             if(showCreatures(opponent.getCreatures())){
@@ -128,7 +128,6 @@ public class Abduction implements Card{
     @Override
     public Effect getEffect(Player p) {
         AbductionEffect e = new AbductionEffect(p, this);
-        e.setTarget();
         return e;
     }
     

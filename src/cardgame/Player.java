@@ -92,7 +92,9 @@ public class Player {
     void executeTurn() {
         System.out.println("CHANGE TURN: " + name() + "'s turn");
         CardGame.instance.getTriggers().trigger(Triggers.START_TURN_FILTER);
-        
+        System.out.println("Life of players:");
+        Player opponent = CardGame.instance.getOpponent(this);
+        System.out.println(this.name() + "  " +  this.getLife() + " -- " + opponent.name() + "  " + opponent.getLife());
         // print out the fields
         System.out.println("============== Field ==============");  
         for (int i=0; i!=2; ++i) {

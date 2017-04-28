@@ -43,7 +43,7 @@ public class AuraBlast implements Card {
 
         @Override
         public void setTarget() {
-            System.out.println("Choose your target: 0 for your opponent's enchantments, 1 for yours\n");
+            System.out.println("Choose your target: 0 for your opponent's enchantments, 1 for yours");
             int choice;
             ArrayList <Effect> l = new ArrayList<>();
 
@@ -53,11 +53,11 @@ public class AuraBlast implements Card {
 
             if (choice==0) {
                 Player opponent = CardGame.instance.getOpponent(owner);
-                System.out.println("Your target is one of your opponent's enchantments.\nChoose which one to destroy!\n");
+                System.out.println("Your target is one of your opponent's enchantments.\nChoose which one to destroy!");
 
                 int i = 0;
                 for ( Enchantment e: opponent.getEnchantments()) {
-                    System.out.println( i + ") for " + e.name() + "\n");
+                    System.out.println( i + ") for " + e.name());
                     i++;
                 }
                 if(i>0){
@@ -70,17 +70,17 @@ public class AuraBlast implements Card {
                     this.target = e;
                 }
                 else {
-                    System.out.println("There are no enchantments to destroy.\n");
+                    System.out.println("There are no enchantments to destroy.");
                     this.target = null;
                 }
             }
             else{
 
-                System.out.println("Your target is one of your enchantments.\nChoose which one to destroy!\n");
+                System.out.println("Your target is one of your enchantments.\nChoose which one to destroy!");
 
                 int i = 0;
                 for ( Enchantment e: owner.getEnchantments()) {
-                    System.out.println( i + ") for " + e.name() + "\n");
+                    System.out.println( i + ") for " + e.name());
                     i++;
                 }
                 if(i>0){
@@ -93,7 +93,7 @@ public class AuraBlast implements Card {
                     this.target = e;
                 }
                 else {
-                    System.out.println("There aren't enchantments to destroy.\n");
+                    System.out.println("There aren't enchantments to destroy.");
                     this.target = null;
                 }
             }

@@ -46,9 +46,9 @@ public class Cancel implements Card {
                 l.add(c);                                 
             }    
 
-            System.out.println("Choose an effect to cancel\n");
+            System.out.println("Choose an effect to cancel");
             for (Effect e: l){
-                System.out.println(i+") " + e.toString() + "\n");
+                System.out.println(i+") " + e.toString());
                 i++;
             }
             if(i>0){

@@ -5,6 +5,7 @@
  */
 package cardgame;
 
+import static cardgame.Interfaccia.acquireInput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,10 +27,10 @@ public class DefaultMainPhase implements Phase {
         
         // alternate in placing effect until bith players pass
         int numberPasses=0;
+        System.out.println("CHARGING STACK - START");
         
         if (!playAvailableEffect(currentPlayer, true))
             ++numberPasses;
-        System.out.println("CHARGING STACK - START");
         CardGame.instance.getTriggers().trigger(Triggers.STACK_CHARGING_STARTED_EVENT);
         while (numberPasses<2) {
             if (playAvailableEffect(CardGame.instance.getPlayer(responsePlayerIdx),false))
@@ -74,7 +75,7 @@ public class DefaultMainPhase implements Phase {
         }
         
         //get user choice and play it
-        int idx= reader.nextInt()-1;
+        int idx= acquireInput()-1;
         if (idx<0 || idx>=availableEffects.size()) return false;
 
         availableEffects.get(idx).play();
