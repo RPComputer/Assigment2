@@ -70,7 +70,7 @@ public class AuraBlast implements Card {
                     this.target = e;
                 }
                 else {
-                    System.out.println("There aren't enchantments to destroy.\n");
+                    System.out.println("There are no enchantments to destroy.\n");
                     this.target = null;
                 }
             }

@@ -27,6 +27,9 @@ public class Deflection implements Card {
         public void resolve () {
             if(target != null)
                 target.setTarget();
+            else{
+                System.out.println("Void deflection effect");
+            }
         }
 
         @Override
@@ -36,7 +39,7 @@ public class Deflection implements Card {
 
         @Override
         public void setTarget() {
-            int choice, i = 1;
+            int choice, i = 1, j=0;
             ArrayList<Effect> effects = new ArrayList();
             System.out.println("Choose the effect target to change.\n");
             for(Effect e : CardGame.instance.getStack()){
@@ -46,13 +49,14 @@ public class Deflection implements Card {
             for(Effect e : effects){
                 System.out.println(i + ") " + e.toString() + "  ");
                 i++;
+                j=1;
             }
             System.out.println("\n");
-            if(i>0){
+            if(j>0){
                 do{
                     choice = acquireInput();
                 }while(choice<=0 && choice>i);
-                Effect e = effects.get(choice);
+                Effect e = effects.get(choice-1);
                 target = e;
             }
             else target = null;
