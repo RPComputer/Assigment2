@@ -105,7 +105,7 @@ public class Player {
             } else {
                 System.out.println(fieldsPlayer.name() + "'s creatures in play:");
                 for (Creature c:creatures)
-                    System.out.println("  "+c.name());
+                    System.out.println("  "+c.name() + "(" + c.getPower() + "/" + c.getToughness() + ")");
             }
             List<Enchantment> enchantments = fieldsPlayer.getEnchantments();
             if (enchantments.isEmpty()) {

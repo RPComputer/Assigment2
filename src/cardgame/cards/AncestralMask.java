@@ -73,7 +73,7 @@ public class AncestralMask implements Card {
                     }while(choosen<0 || choosen> length);     
 
                     if(choosen > 0){
-                        CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+                        CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen-1);
                         this.opponent = opponent;
                         this.c = cr;
                     }
