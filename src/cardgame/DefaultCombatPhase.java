@@ -54,16 +54,15 @@ public class DefaultCombatPhase implements Phase {
                 }
                 else{
                     System.out.println(currentPlayer.name() + ": choose an defending creature, 0 to pass");
-                    showCreatures(canDefendCreatures);
                     defending = acquireInput();
-                    if(defending > 0 && defending < canDefendCreatures.size()){
-                        c = canDefendCreatures.get(defending);
+                    if(defending > 0 && defending <= canDefendCreatures.size()){
+                        c = canDefendCreatures.get(defending-1);
                         c.tap();
                         System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
                         showCreatures(attackingCreatures);
                         attacking = acquireInput();
-                        if(attacking > 0 && attacking < attackingCreatures.size())
-                            c.defend(attackingCreatures.get(attacking));
+                        if(attacking > 0 && attacking <= attackingCreatures.size())
+                            c.defend(attackingCreatures.get(attacking-1));
                         else System.out.println("Input not valid.");
                     }
                 }
@@ -154,12 +153,12 @@ public class DefaultCombatPhase implements Phase {
     
     private ArrayList defenders(Player p){
         ArrayList<Creature> untapped = new ArrayList<>();
-        int i = 0;
+        int i = 1;
         for( Creature c:p.getCreatures()) {
             if ( !c.isTapped() && c.getDef()) {
                 untapped.add(c);
-                System.out.println(Integer.toString(i+1)+") " + c.toString());
-                ++i;
+                System.out.println(i+") " + c.name());
+                i++;
             }
         }
         return untapped;
