@@ -16,7 +16,6 @@ import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AncestralMask implements Card {
     private static class AncestralMaskFactory implements CardFactory{
@@ -59,7 +58,7 @@ public class AncestralMask implements Card {
             }
             else choosen = 0;
             if(choosen > 0){
-                CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
+                CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen-1);
                 this.c = cr;  
             }
             else{

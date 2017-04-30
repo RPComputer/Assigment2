@@ -58,12 +58,19 @@ public class Abduction implements Card{
                 do {
                     choosen = acquireInput();
                 }while(choosen < 0 || choosen > opponent.getCreatures().size());
-                CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen-1);
-                this.opponent = opponent;
-                this.c = cr;
+                if((choosen-1) > 0){
+                    CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen-1);
+                    this.opponent = opponent;
+                    this.c = cr;
+                }else{
+                    this.opponent = null;
+                    this.c = null;
+                }
             }
-            this.opponent = null;
-            this.c = null;
+            else{
+                this.opponent = null;
+                this.c = null;
+            }
         }
 
         @Override
