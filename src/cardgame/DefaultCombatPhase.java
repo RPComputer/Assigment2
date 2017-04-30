@@ -17,7 +17,6 @@ public class DefaultCombatPhase implements Phase {
         Player currentPlayer = CardGame.instance.getCurrentPlayer();
         Player opponentPlayer = CardGame.instance.getCurrentAdversary();
         int attacking = 1, defending = 1;
-        Scanner reader = CardGame.instance.getScanner();
         
         Creature c;
         System.out.println(currentPlayer.name() + ": starts the COMBAT PHASE");
@@ -31,7 +30,7 @@ public class DefaultCombatPhase implements Phase {
                 if(canAttackCreatures.isEmpty())
                     System.out.println("You don't have creatures that can attack.");
                 this.showCreatures(canAttackCreatures);
-                attacking = reader.nextInt();
+                attacking = acquireInput();
                 if(attacking > 0 && attacking < canAttackCreatures.size()){
                     c = canAttackCreatures.get(attacking-1);
                     c.tap();
@@ -53,14 +52,16 @@ public class DefaultCombatPhase implements Phase {
                 else{
                     System.out.println(currentPlayer.name() + ": choose an defending creature, 0 to pass");
                     this.showCreatures(canDefendCreatures);
-                    defending = reader.nextInt();
-                    if(defending > 0){
+                    defending = acquireInput();
+                    if(defending > 0 && defending < canDefendCreatures.size()){
                         c = canDefendCreatures.get(defending);
                         c.tap();
                         System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
                         this.showCreatures(attackingCreatures);
-                        attacking = reader.nextInt();
-                        c.defend(attackingCreatures.get(attacking));
+                        attacking = acquireInput();
+                        if(attacking > 0 && attacking < attackingCreatures.size())
+                            c.defend(attackingCreatures.get(attacking));
+                        else System.out.println("Input not valid.");
                     }
                 }
             }
@@ -99,7 +100,6 @@ public class DefaultCombatPhase implements Phase {
     private boolean playAvailableEffect(Player activePlayer, boolean isMain) {
         //collect and display available effects...
         ArrayList<Effect> availableEffects = new ArrayList<>();
-        Scanner reader = CardGame.instance.getScanner();
 
         //...cards first
         System.out.println(activePlayer.name() + " select card/effect to play, 0 to pass");
