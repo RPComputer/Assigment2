@@ -56,8 +56,8 @@ public abstract class AbstractCreature implements Creature {
     @Override
         public void attack() {
             int attackLeft = this.getPower();
-            if(target.size() == 1 && target.get(1) instanceof Player){
-                Player p = (Player) target.get(1);
+            if(target.size() == 1 && target.get(0) instanceof Player){
+                Player p = (Player) target.get(0);
                 p.inflictDamage(attackLeft);
             }
             else{
@@ -78,7 +78,7 @@ public abstract class AbstractCreature implements Creature {
     @Override
         public void defend(Creature c) {
             ArrayList t = c.getTarget();
-            if(t.get(1) instanceof Player)
+            if(t.get(0) instanceof Player)
                 c.clearTarget();
             c.addTarget(this);
         } // to do in assignment 2

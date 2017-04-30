@@ -33,7 +33,7 @@ public class DefaultCombatPhase implements Phase {
                 }
                 else{
                     attacking = acquireInput();
-                    if(attacking > 0 && attacking < canAttackCreatures.size()){
+                    if(attacking > 0 && attacking <= canAttackCreatures.size()){
                         c = canAttackCreatures.get(attacking-1);
                         c.tap();
                         c.addTarget(opponentPlayer);
