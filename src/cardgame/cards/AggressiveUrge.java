@@ -46,16 +46,15 @@ public class AggressiveUrge implements Card {
         @Override
         public void setTarget() {
             System.out.print("About you: ");
-            Player opponent = CardGame.instance.getOpponent(owner);
+            opponent = CardGame.instance.getOpponent(owner);
             int choosen;
             if(!showCreatures(owner.getCreatures())){
                 choosen=0;
             }
             else{
-                System.out.println("Choose a creature to power up, 0 to see your opponent's creatures:");
-                boolean foo = showCreatures(owner.getCreatures());
+                System.out.println("Choose a creature to power up, 0 to see opponent's creatures:");
                 int length = owner.getCreatures().size();
-                if(foo){
+                if(length > 0){
                     do {
                         choosen = acquireInput();
                     }while(choosen<0 || choosen> length);
@@ -64,25 +63,23 @@ public class AggressiveUrge implements Card {
             }
             if(choosen > 0){
                 CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
-                this.owner = owner;
                 this.c = cr;  
             }
             else{
                 System.out.print("About your opponent: ");
                 if(showCreatures(opponent.getCreatures())){
                     System.out.println("Choose a creature to power up, 0 to do nothing");
-                    boolean foo = showCreatures(opponent.getCreatures());
                     int length = opponent.getCreatures().size();
-                    if(foo){
+                    if(length > 0){
                         do {
                             choosen = acquireInput();
                         }while(choosen<0 || choosen> length);     
 
                         if(choosen > 0){
                             CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
-                            this.opponent = opponent;
                             this.c = cr;
                         }
+                        else c = null;
                     }
                     else c = null;
                 }

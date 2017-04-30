@@ -46,16 +46,15 @@ public class Afflict implements Card {
         @Override
         public void setTarget() {
             System.out.print("About your opponent: ");
-            Player owner = CardGame.instance.getOpponent(opponent);
+            opponent = CardGame.instance.getOpponent(owner);
             int choosen;
             if(!showCreatures(opponent.getCreatures())){
                 choosen=0;
             }
             else{
                 System.out.println("Choose a creature to afflict, 0 to see your creatures:");
-                boolean foo = showCreatures(opponent.getCreatures());
                 int length = opponent.getCreatures().size();
-                if(foo){
+                if(length > 0){
                     do {
                         choosen = acquireInput();
                     }while(choosen<0 || choosen> length);
@@ -71,9 +70,8 @@ public class Afflict implements Card {
                 System.out.print("About you: ");
                 if(showCreatures(owner.getCreatures())){
                     System.out.println("Choose a creature to afflict, 0 to do nothing");
-                    boolean foo = showCreatures(owner.getCreatures());
                     int length = owner.getCreatures().size();
-                    if(foo){
+                    if(length > 0){
                         do {
                             choosen = acquireInput();
                         }while(choosen<0 || choosen> length);     
@@ -83,6 +81,7 @@ public class Afflict implements Card {
                             this.opponent = owner;
                             this.c = cr;
                         }
+                        else c = null;
                     }
                     else c = null;
                 }
