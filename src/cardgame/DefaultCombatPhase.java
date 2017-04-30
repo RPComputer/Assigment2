@@ -2,8 +2,8 @@
 package cardgame;
 
 import static cardgame.Interfaccia.acquireInput;
+import static cardgame.Interfaccia.showCreatures;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class DefaultCombatPhase implements Phase {
     public ArrayList<Creature> attackingCreatures;
@@ -25,17 +25,20 @@ public class DefaultCombatPhase implements Phase {
         // TODO combat
         if(!currentPlayer.getCreatures().isEmpty()){
             while(attacking > 0){
-                System.out.println(currentPlayer.name() + "choose an attacking creature, 0 to pass");
+                System.out.println(currentPlayer.name() + ": choose an attacking creature, 0 to pass");
                 canAttackCreatures = attackers(currentPlayer);
-                if(canAttackCreatures.isEmpty())
+                if(canAttackCreatures.isEmpty()){
                     System.out.println("You don't have creatures that can attack.");
-                this.showCreatures(canAttackCreatures);
-                attacking = acquireInput();
-                if(attacking > 0 && attacking < canAttackCreatures.size()){
-                    c = canAttackCreatures.get(attacking-1);
-                    c.tap();
-                    c.addTarget(opponentPlayer);
-                    attackingCreatures.add((Creature) c);
+                    attacking = 0;
+                }
+                else{
+                    attacking = acquireInput();
+                    if(attacking > 0 && attacking < canAttackCreatures.size()){
+                        c = canAttackCreatures.get(attacking-1);
+                        c.tap();
+                        c.addTarget(opponentPlayer);
+                        attackingCreatures.add((Creature) c);
+                    }
                 }
             }
         }
@@ -51,13 +54,13 @@ public class DefaultCombatPhase implements Phase {
                 }
                 else{
                     System.out.println(currentPlayer.name() + ": choose an defending creature, 0 to pass");
-                    this.showCreatures(canDefendCreatures);
+                    showCreatures(canDefendCreatures);
                     defending = acquireInput();
                     if(defending > 0 && defending < canDefendCreatures.size()){
                         c = canDefendCreatures.get(defending);
                         c.tap();
                         System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
-                        this.showCreatures(attackingCreatures);
+                        showCreatures(attackingCreatures);
                         attacking = acquireInput();
                         if(attacking > 0 && attacking < attackingCreatures.size())
                             c.defend(attackingCreatures.get(attacking));
@@ -73,10 +76,9 @@ public class DefaultCombatPhase implements Phase {
             a.attack();
         }
         //fine della combat
-        
     }
     
-    private void chargeCombatStack(Player currentPlayer){
+    public void chargeCombatStack(Player currentPlayer){
         int numberPasses=0;
         int responsePlayerIdx = (CardGame.instance.getPlayer(0) == currentPlayer)?0:1;
         System.out.println("CHARGING STACK - START");
@@ -123,13 +125,18 @@ public class DefaultCombatPhase implements Phase {
         }
         
         //get user choice and play it
-        int idx= acquireInput()-1;
-        if (idx<0 || idx>=availableEffects.size())
-            return false;
+        if(i == 0)
+            System.out.println("You don't have any playable effects");
         else{
-            availableEffects.get(idx).play();
-            return true;
+            int idx= acquireInput()-1;
+            if (idx<0 || idx>=availableEffects.size())
+                return false;
+            else{
+                availableEffects.get(idx).play();
+                return true;
+            }
         }
+        return false;
     }
     
     private ArrayList attackers(Player p){
@@ -139,7 +146,7 @@ public class DefaultCombatPhase implements Phase {
             if ( !c.isTapped() && c.getAtt()) {
                 untapped.add(c);
                 System.out.println(i+") " + c.name());
-                ++i;
+                i++;
             }
         }
         return untapped;
@@ -156,13 +163,5 @@ public class DefaultCombatPhase implements Phase {
             }
         }
         return untapped;
-    }
-    
-    private void showCreatures(ArrayList<Creature> l){
-        int i = 0;
-        for( Creature c: l) {
-            System.out.println(Integer.toString(i+1)+") " + c.toString());
-            ++i;
-        }
     }
 }

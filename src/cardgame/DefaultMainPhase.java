@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame;
 
 import static cardgame.Interfaccia.acquireInput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author atorsell
- */
 public class DefaultMainPhase implements Phase {
     
     @Override
@@ -75,11 +67,18 @@ public class DefaultMainPhase implements Phase {
         }
         
         //get user choice and play it
-        int idx= acquireInput()-1;
-        if (idx<0 || idx>=availableEffects.size()) return false;
-
-        availableEffects.get(idx).play();
-        return true;
+        if(i == 0)
+            System.out.println("You don't have any playable effects");
+        else{
+            int idx= acquireInput()-1;
+            if (idx<0 || idx>=availableEffects.size())
+                return false;
+            else{
+                availableEffects.get(idx).play();
+                return true;
+            }
+        }
+        return false;
     }
     
 }
