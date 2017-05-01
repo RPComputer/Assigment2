@@ -4,6 +4,7 @@ package cardgame;
 import static cardgame.Interfaccia.acquireInput;
 import static cardgame.Interfaccia.showCreatures;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DefaultCombatPhase implements Phase {
     public ArrayList<Creature> attackingCreatures;
@@ -44,6 +45,15 @@ public class DefaultCombatPhase implements Phase {
         }
         //assunto parte dichiarazione attaccanti effettuata
         chargeCombatStack(opponentPlayer); // primo caricamento dello stack e risoluzione// primo caricamento dello stack e risoluzione
+        
+        System.out.println("============== Attackers ==============");
+        if (attackingCreatures.isEmpty()) {
+            System.out.println("No creature are attacking");
+        } else {
+            for (Creature cre:attackingCreatures)
+                System.out.println("  "+cre.name() + "(" + cre.getPower() + "/" + cre.getToughness() + ")");
+        }
+        System.out.println("=======================================");
         //definizione di chi difende
         if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){
             while(defending > 0){
@@ -71,9 +81,11 @@ public class DefaultCombatPhase implements Phase {
         chargeCombatStack(currentPlayer); // secondo caricamneto dello stack e risoluzione// secondo caricamneto dello stack e risoluzione
         
         //risoluzione del danno
+        System.out.println("============== Combat results ==============");
         for(Creature a : attackingCreatures){
             a.attack();
         }
+        System.out.println("============================================");
         attackingCreatures.clear();
         //fine della combat
     }

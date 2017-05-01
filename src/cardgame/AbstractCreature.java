@@ -57,7 +57,7 @@ public abstract class AbstractCreature implements Creature {
         public boolean isTapped() { return isTapped; }
     @Override
         public void attack() {
-            int attackLeft = this.getPower();
+            int attackLeft = this.head.getPower();
             if(target.size() == 1 && target.get(0) instanceof Player){
                 Player p = (Player) target.get(0);
                 p.inflictDamage(attackLeft);
