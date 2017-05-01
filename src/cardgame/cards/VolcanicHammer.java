@@ -32,10 +32,15 @@ public class VolcanicHammer implements Card {
         @Override
         public void resolve () {
             if(target1 == null){
-                if(target2 != null)
+                if(target2 != null){
                     target2.inflictDamage(3);
+                    System.out.println("Volcanic Hamme inflicted 3 damage to: " + target2.name()+" -> ("+target2.getPower()+"/"+(target2.getToughness()-3) + ").");
+                }
             }
-            else target1.inflictDamage(3);
+            else {
+                target1.inflictDamage(3);
+                System.out.println("Volcanic Hamme inflicted 3 damage to: " + target1.name());
+            }
         }
 
         @Override
@@ -74,7 +79,7 @@ public class VolcanicHammer implements Card {
                         } while(choice < 0 || choice > length);
 
 
-                        this.target2 = (CreatureImage) opponent.getCreatures().get(choice);
+                        this.target2 = (CreatureImage) opponent.getCreatures().get(choice-1);
                     }
                     else target2 = null;
 
@@ -89,7 +94,7 @@ public class VolcanicHammer implements Card {
                         } while(choice < 0 || choice > length);
 
 
-                        this.target2 = (CreatureImage) owner.getCreatures().get(choice);
+                        this.target2 = (CreatureImage) owner.getCreatures().get(choice-1);
                     }
                     else target2 = null;
                 }
