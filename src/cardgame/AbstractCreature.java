@@ -19,14 +19,16 @@ public abstract class AbstractCreature implements Creature {
     public ArrayList target = new ArrayList();
     public boolean att = true;
     public boolean def = true;
+    private Creature head;
     
     @Override
     public boolean getAtt(){return att;}
     @Override
     public boolean getDef(){return def;}
     
-        protected AbstractCreature(Player owner) { this.owner=owner; }
+        protected AbstractCreature(Player owner) { this.owner=owner;}
         
+    public void setHead(Creature h){this.head = h;}
     @Override
         public boolean tap() { 
             if (isTapped) {
@@ -89,7 +91,8 @@ public abstract class AbstractCreature implements Creature {
         public boolean inflictDamage(int dmg) { 
             damageLeft -= dmg; 
             if (damageLeft<=0){
-                owner.destroy(this);
+                owner.destroy(this.head);
+                System.out.println("Creature " + this.name() + " is dead.");
                 return true;
             }
             return false;

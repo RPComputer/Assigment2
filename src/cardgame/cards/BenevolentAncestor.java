@@ -28,6 +28,7 @@ public class BenevolentAncestor implements Card {
         protected Creature createCreature() {
             BenevolentAncestorCreature c =  new BenevolentAncestorCreature(owner);
             CreatureImage cr =  new CreatureImage(owner, c);
+            c.setHead(cr);
             c.setCreature(cr);
             return cr;
         }

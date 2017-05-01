@@ -26,8 +26,10 @@ public class BronzeSable implements Card {
         public BronzeSableEffect(Player p, Card c) { super(p,c); }
         @Override
         protected Creature createCreature() {
-            Creature c =  new BronzeSableCreature(owner);
-            return new CreatureImage(owner, c);
+            BronzeSableCreature c =  new BronzeSableCreature(owner);
+            CreatureImage cr = new CreatureImage(owner, c);
+            c.setHead(cr);
+            return cr;
         }
 
         @Override

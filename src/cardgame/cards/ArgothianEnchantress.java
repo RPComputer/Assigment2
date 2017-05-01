@@ -32,6 +32,7 @@ public class ArgothianEnchantress implements Card {
         protected Creature createCreature() {
             ArgothianEnchantressCreature c =  new ArgothianEnchantressCreature (owner);
             CreatureImage cr = new CreatureImage(owner, c);
+            c.setHead(cr);
             c.activateATriggers(cr);
             return cr;
         }

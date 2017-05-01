@@ -26,8 +26,10 @@ public class NorwoodRanger implements Card {
         public NorwoodRangerEffect(Player p, Card c) { super(p,c); }
         @Override
         protected Creature createCreature() {
-            Creature c =  new NorwoodRangerCreature(owner);
-            return new CreatureImage(owner, c);
+            NorwoodRangerCreature c =  new NorwoodRangerCreature(owner);
+            CreatureImage cr = new CreatureImage(owner, c);
+            c.setHead(cr);
+            return cr;
         }
 
         @Override
