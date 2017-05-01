@@ -55,7 +55,7 @@ public class BoilingEarth implements Card {
     
     
     @Override
-    public String name() { return "Boiling Earth"; }
+    public String name() { return "BoilingEarth"; }
     @Override
     public String type() { return "Sorcery"; }
     @Override

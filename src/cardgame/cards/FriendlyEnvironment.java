@@ -80,7 +80,7 @@ public class FriendlyEnvironment implements Card {
     
     
     @Override
-    public String name() { return "Friendly Environment"; }
+    public String name() { return "FriendlyEnvironment"; }
     @Override
     public String type() { return "Enchantment"; }
     @Override

@@ -52,7 +52,7 @@ public class DayOfJudgment implements Card{
     
     
     @Override
-    public String name() { return "Day of Judgment"; }
+    public String name() { return "DayOfJudgment"; }
     @Override
     public String type() { return "Sorcery"; }
     @Override
