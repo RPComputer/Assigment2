@@ -9,7 +9,6 @@ import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.Effect;
-import cardgame.Interfaccia;
 import static cardgame.Interfaccia.acquireInput;
 import static cardgame.Interfaccia.showCreatures;
 import cardgame.Player;

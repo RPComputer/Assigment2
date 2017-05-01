@@ -25,10 +25,12 @@ public class BoilingEarth implements Card {
         public void resolve () {
             for(Creature a : CardGame.instance.getCurrentPlayer().getCreatures()){
                 a.inflictDamage(1);
+                System.out.println("Boiling Earth inflicted 1 damage to: " + a.name() + ".");
             }
 
             for(Creature a : CardGame.instance.getCurrentAdversary().getCreatures()){
                 a.inflictDamage(1);
+                System.out.println("Boiling Earth inflicted 1 damage to: " + a.name() + ".");
             }
         }
 
