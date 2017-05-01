@@ -137,7 +137,7 @@ public class VolcanicHammer implements Card {
     
     
     @Override
-    public String name() { return "Volcanic Hammer"; }
+    public String name() { return "VolcanicHammer"; }
     @Override
     public String type() { return "Sorcery"; }
     @Override
