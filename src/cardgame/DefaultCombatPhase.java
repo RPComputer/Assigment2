@@ -46,8 +46,8 @@ public class DefaultCombatPhase implements Phase {
         chargeCombatStack(opponentPlayer); // primo caricamento dello stack e risoluzione// primo caricamento dello stack e risoluzione
         //definizione di chi difende
         if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){
-            canDefendCreatures = defenders(opponentPlayer);
             while(defending > 0){
+                canDefendCreatures = defenders(opponentPlayer);
                 if(canDefendCreatures.isEmpty()){
                     System.out.println(currentPlayer.name() + " doesn't have creatures that can defend.");
                     defending = 0;

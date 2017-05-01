@@ -62,7 +62,7 @@ public class Afflict implements Card {
                 else choosen = 0;
             }
             if(choosen > 0){
-                CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+                CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen-1);
                 this.opponent = opponent;
                 this.c = cr;  
             }

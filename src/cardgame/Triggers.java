@@ -28,7 +28,7 @@ public class Triggers {
     }
     
     public void deregister(TriggerAction a) {
-        for(int i=actions.size(); i>=0; --i) {
+        for(int i=actions.size()-1; i>=0; --i) {
             if (a.equals(actions.get(i))) actions.remove(i);
         }
     }
