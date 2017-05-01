@@ -74,6 +74,7 @@ public class DefaultCombatPhase implements Phase {
         for(Creature a : attackingCreatures){
             a.attack();
         }
+        attackingCreatures.clear();
         //fine della combat
     }
     

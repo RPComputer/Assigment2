@@ -34,8 +34,10 @@ public class AggressiveUrge implements Card {
         public AggressiveUrgeEffect(Player p, Card c) { super(p,c);}
         @Override
         public void resolve() {
-            if(c != null)
+            if(c != null){
                 d = new AggressiveUrgeDecorator(c);
+                System.out.println(c.name() + " has been powered up by AggressiveUrge.");
+            }
         }
 
         @Override
@@ -62,7 +64,7 @@ public class AggressiveUrge implements Card {
                 else choosen = 0;
             }
             if(choosen > 0){
-                CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
+                CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen-1);
                 this.c = cr;  
             }
             else{
@@ -76,7 +78,7 @@ public class AggressiveUrge implements Card {
                         }while(choosen<0 || choosen> length);     
 
                         if(choosen > 0){
-                            CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen);
+                            CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen-1);
                             this.c = cr;
                         }
                         else c = null;
@@ -98,7 +100,6 @@ public class AggressiveUrge implements Card {
         TriggerAction a;
         public AggressiveUrgeDecorator(CreatureImage c) {
             super(c);
-            c.setPointer(this);
             a = new DecoratorTrigger(this);
             CardGame.instance.getTriggers().register(1024, a);
         }
