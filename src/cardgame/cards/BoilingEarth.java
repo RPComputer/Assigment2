@@ -9,6 +9,7 @@ import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.StaticInitializer;
+import java.util.ArrayList;
 
 public class BoilingEarth implements Card {
     private static class BoilingEarthFactory implements CardFactory{
@@ -23,12 +24,21 @@ public class BoilingEarth implements Card {
         
         @Override
         public void resolve () {
+            ArrayList<Creature> l1 = new ArrayList<>();
+            ArrayList<Creature> l2 = new ArrayList<>();
             for(Creature a : CardGame.instance.getCurrentPlayer().getCreatures()){
+                l1.add(a);
+            }
+
+            for(Creature a : CardGame.instance.getCurrentAdversary().getCreatures()){
+                l2.add(a);
+            }
+            for(Creature a : l1){
                 a.inflictDamage(1);
                 System.out.println("Boiling Earth inflicted 1 damage to: " + a.name() + ".");
             }
 
-            for(Creature a : CardGame.instance.getCurrentAdversary().getCreatures()){
+            for(Creature a : l2){
                 a.inflictDamage(1);
                 System.out.println("Boiling Earth inflicted 1 damage to: " + a.name() + ".");
             }

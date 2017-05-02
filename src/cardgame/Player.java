@@ -183,8 +183,8 @@ public class Player {
     public List<Creature> getCreatures() {return creatures;}
     // destroy a creature in play
     public void destroy(Creature c) {
-        c.remove();
-        creatures.remove(c);
+        if(c.remove());
+            creatures.remove(c);
     } 
     
     

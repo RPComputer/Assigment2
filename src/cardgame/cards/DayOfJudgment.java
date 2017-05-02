@@ -9,6 +9,7 @@ import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.Player;
 import cardgame.StaticInitializer;
+import java.util.ArrayList;
 
 public class DayOfJudgment implements Card{
     private static class DayOfJudgmentFactory implements CardFactory{
@@ -23,11 +24,19 @@ public class DayOfJudgment implements Card{
         
         @Override
         public void resolve () {
+            ArrayList<Creature> l1 = new ArrayList<>();
+            ArrayList<Creature> l2 = new ArrayList<>();
             for(Creature c:CardGame.instance.getCurrentPlayer().getCreatures())
-                c.remove();
+                l1.add(c);
 
             for(Creature c:CardGame.instance.getCurrentAdversary().getCreatures())
-                c.remove();
+                l2.add(c);
+            
+            for(Creature c:l1)
+                CardGame.instance.getCurrentPlayer().destroy(c);
+
+            for(Creature c:l2)
+                CardGame.instance.getCurrentAdversary().destroy(c);
         }
 
         @Override
