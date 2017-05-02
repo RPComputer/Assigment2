@@ -21,6 +21,8 @@ public abstract class AbstractCreature implements Creature {
     public boolean def = true;
     private Creature head;
     
+    public Player getOwner(){return owner;}
+    
     @Override
     public boolean getAtt(){return att;}
     @Override

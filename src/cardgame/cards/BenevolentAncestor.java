@@ -7,6 +7,7 @@ import cardgame.AbstractDecorator;
 import cardgame.AbstractEffect;
 import cardgame.AbstractPlayerDamageModificator;
 import cardgame.Card;
+import cardgame.CardFactory;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.Effect;
@@ -17,10 +18,18 @@ import cardgame.CardGame;
 import cardgame.DecoratorTrigger;
 import static cardgame.Interfaccia.acquireInput;
 import static cardgame.Interfaccia.showCreatures;
+import cardgame.StaticInitializer;
 import cardgame.Triggers;
 import java.util.ArrayList;
 
 public class BenevolentAncestor implements Card {
+    private static class BenevolentAncestorFactory implements CardFactory{
+        @Override
+        public Card create(){
+            return new BenevolentAncestor();
+        }
+    }
+    private static StaticInitializer initializer = new StaticInitializer(new BenevolentAncestorFactory());
     
     private class BenevolentAncestorEffect extends AbstractCreatureCardEffect {
         public BenevolentAncestorEffect(Player p, Card c) { super(p,c); }

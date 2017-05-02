@@ -11,6 +11,7 @@ package cardgame;
  */
 public interface Permanent {
     String name();
+    Player getOwner();
     void insert();
     boolean remove();    
 }

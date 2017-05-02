@@ -19,6 +19,8 @@ public abstract class AbstractDecorator implements Creature{
         }
     }
     
+    public Player getOwner(){return next.getOwner();}
+    
     public CreatureImage getHead(){
         return this.head;
     }
