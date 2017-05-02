@@ -213,7 +213,7 @@ public class BenevolentAncestor implements Card {
             }
 
             @Override
-            public String toString(){return "BenevolentAncestor";}
+            public String toString(){return "Prevent 1 damage to a creature or player until the end of the turn";}
         }
         
         @Override
@@ -246,7 +246,7 @@ public class BenevolentAncestor implements Card {
     @Override
     public String type() { return "Creature"; }
     @Override
-    public String ruleText() { return "Put in play BenevolentAncestor(0/4), this creature can't attack\n with tap: prevent 1 damage to a creature or player until the end of the turn"; }
+    public String ruleText() { return "Put in play BenevolentAncestor(0/4), this creature can't attack"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override
