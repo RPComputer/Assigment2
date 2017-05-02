@@ -1,6 +1,7 @@
 
 package cardgame.cards;
 
+import cardgame.AbstractCardEffect;
 import cardgame.AbstractEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
@@ -20,7 +21,9 @@ public class DayOfJudgment implements Card{
     }
     private static StaticInitializer initializer = new StaticInitializer(new DayOfJudgmentFactory());
     
-    private class DayOfJudgmentEffect extends AbstractEffect {
+    private class DayOfJudgmentEffect extends AbstractCardEffect {
+        
+        public DayOfJudgmentEffect(Player p, Card c) { super(p,c);}
         
         @Override
         public void resolve () {
@@ -57,7 +60,7 @@ public class DayOfJudgment implements Card{
         public String toString(){return "DayOfJudgment";}
     }
     @Override
-    public Effect getEffect(Player p) { return new DayOfJudgmentEffect(); }
+    public Effect getEffect(Player p) { return new DayOfJudgmentEffect(p, this); }
     
     
     @Override

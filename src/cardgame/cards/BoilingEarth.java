@@ -1,6 +1,7 @@
 
 package cardgame.cards;
 
+import cardgame.AbstractCardEffect;
 import cardgame.AbstractEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
@@ -20,7 +21,9 @@ public class BoilingEarth implements Card {
     }
     private static StaticInitializer initializer = new StaticInitializer(new BoilingEarthFactory());
     
-    private class BoilingEarthEffect extends AbstractEffect {
+    private class BoilingEarthEffect extends AbstractCardEffect {
+        
+        public BoilingEarthEffect(Player p, Card c) { super(p,c);}
         
         @Override
         public void resolve () {
@@ -63,7 +66,7 @@ public class BoilingEarth implements Card {
         public String toString(){return "BoilingEarth";}
     }
     @Override
-    public Effect getEffect(Player p) { return new BoilingEarthEffect(); }
+    public Effect getEffect(Player p) { return new BoilingEarthEffect(p, this); }
     
     
     @Override
