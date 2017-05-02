@@ -135,7 +135,7 @@ public class CreatureImage implements Creature{
     public void checker(){
         if(pointer.getToughness() <= 0){
             this.remove();
-            System.out.println("Creature: " + this.name() + " is dead.");
+            System.out.println(this.owner.name() + "'s creature: " + this.name() + " is dead.");
         }
     }
     

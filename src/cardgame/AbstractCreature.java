@@ -92,7 +92,7 @@ public abstract class AbstractCreature implements Creature {
             damageLeft -= dmg; 
             if (damageLeft<=0){
                 owner.destroy(this.head);
-                System.out.println("Creature " + this.name() + " is dead.");
+                System.out.println(this.owner.name() + "'s creature: " + this.name() + " is dead.");
                 return true;
             }
             return false;
