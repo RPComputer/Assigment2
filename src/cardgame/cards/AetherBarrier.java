@@ -71,10 +71,12 @@ public class AetherBarrier implements Card {
                         } while (choice<0 || choice>i-1);
                     
                         if(choice > split){
-                            owner.getEnchantments().remove(choice-split);
+                            Enchantment e = owner.getEnchantments().get(choice-split);
+                            owner.destroy(e);
                         }
                         else{
-                            owner.getCreatures().remove(choice);
+                            Creature c = owner.getCreatures().get(choice);
+                            owner.destroy(c);
                         }
                     }
                 }

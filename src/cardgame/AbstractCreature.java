@@ -71,11 +71,12 @@ public abstract class AbstractCreature implements Creature {
                     takeDamage = c.getToughness();
                     takenDamage += c.getPower();
                     if(attackLeft > 0){
-                        c.inflictDamage(attackLeft);
                         System.out.println("Damage inflicted ->" + (attackLeft-(attackLeft-takeDamage)) + " to: " + c.name()+" -> ("+c.getPower()+"/"+(c.getToughness()-(attackLeft-(attackLeft-takeDamage))) + ").");
+                        c.inflictDamage(attackLeft);
                     }
                     attackLeft -= takeDamage;
                 }
+                System.out.println("Damage inflicted ->" + takenDamage + " to: " + this.name()+" -> ("+this.getPower()+"/"+(this.getToughness()-takenDamage) + ").");
                 this.inflictDamage(takenDamage);
             }
             target.clear();
