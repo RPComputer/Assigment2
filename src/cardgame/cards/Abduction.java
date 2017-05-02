@@ -30,6 +30,8 @@ public class Abduction implements Card{
         Player opponent;
         public AbductionEffect(Player p, Card c){
             super(p, c);
+            this.c = null;
+            this.opponent = null;
         }
         
         @Override
@@ -57,18 +59,11 @@ public class Abduction implements Card{
                 do {
                     choosen = acquireInput();
                 }while(choosen < 0 || choosen > opponent.getCreatures().size());
-                if((choosen-1) > 0){
+                if(choosen > 0){
                     CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen-1);
                     this.opponent = opponent;
                     this.c = cr;
-                }else{
-                    this.opponent = null;
-                    this.c = null;
                 }
-            }
-            else{
-                this.opponent = null;
-                this.c = null;
             }
         }
 
@@ -99,19 +94,7 @@ public class Abduction implements Card{
                 c = this.getHead();
                 owner.getCreatures().remove(c);
                 exowner.getCreatures().add(c);
-                AbstractDecorator d1, d2;
-                if(this.getPrev() instanceof CreatureImage){
-                    CreatureImage c1 = this.getHead();
-                    c1.setPointer(this.getNext());
-                }
-                else{
-                    d1 = (AbstractDecorator) this.getPrev();
-                    d1.setNext(this.getNext());
-                }
-                if(this.getNext() instanceof AbstractDecorator){
-                    d2 = (AbstractDecorator) this.getNext();
-                    d2.setPrev(this.getPrev());
-                }
+                this.removeDecorator();
                 CardGame.instance.getTriggers().trigger(Triggers.EXIT_ENCHANT_CREATURE_ENCHANTMENT_EVENT);
             }
             return false;
