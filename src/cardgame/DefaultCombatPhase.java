@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultCombatPhase implements Phase {
-    public ArrayList<Creature> attackingCreatures;
+    ArrayList<Creature> attackingCreatures;
+    ArrayList<Creature> defendingCreatures;
     ArrayList<Creature> canAttackCreatures;
     ArrayList<Creature> canDefendCreatures;
     public DefaultCombatPhase() {
@@ -69,6 +70,7 @@ public class DefaultCombatPhase implements Phase {
                     if(defending > 0 && defending <= canDefendCreatures.size()){
                         c = canDefendCreatures.get(defending-1);
                         c.tap();
+                        defendingCreatures.add(c);
                         System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
                         showCreatures(attackingCreatures);
                         attacking = acquireInput();
@@ -178,5 +180,13 @@ public class DefaultCombatPhase implements Phase {
             }
         }
         return untapped;
+    }
+    
+    public ArrayList<Creature> getCreaturesWhichAttacked(){
+        return attackingCreatures;
+    }
+    
+    public ArrayList<Creature> getCreaturesWhichDefended(){
+        return defendingCreatures;
     }
 }

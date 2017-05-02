@@ -16,6 +16,7 @@ import cardgame.TriggerAction;
 import cardgame.Triggers;
 import cardgame.Phases;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.EnumMap;
 
@@ -29,9 +30,10 @@ public class WorldAtWar implements Card {
     private static StaticInitializer initializer = new StaticInitializer(new WorldAtWarFactory());
     
     private class WorldAtWarEffect extends AbstractCardEffect {
-        
-        public WorldAtWarEffect(Player p, Card c){
+        ArrayList<Creature> attackingCreatures;
+        public WorldAtWarEffect(Player p, Card c, ArrayList<Creature> att){
             super(p, c);
+            attackingCreatures = att;
         }
         
         private class WorldAtWarTrigger implements TriggerAction{
@@ -54,7 +56,7 @@ public class WorldAtWar implements Card {
         private class WorldAtWarPhaseManager implements PhaseManager{
 
             private final EnumMap<Phases, Deque<Phase> > phases = new EnumMap<>(Phases.class);
-            private Phases currentPhaseIdx=Phases.NULL;
+            private Phases currentPhaseIdx=Phases.UNTAP;
 
             public WorldAtWarPhaseManager() {
                 phases.put(Phases.COMBAT, new ArrayDeque<Phase>());
@@ -83,11 +85,10 @@ public class WorldAtWar implements Card {
             WorldAtWarPhaseManager m = new WorldAtWarPhaseManager();
             WorldAtWarTrigger t = new WorldAtWarTrigger(owner, m);
             CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, t);
-            owner.setPhaseManager(m);
-            DefaultCombatPhase co = (DefaultCombatPhase) owner.getPhase(Phases.COMBAT);
-            for(Creature c: co.attackingCreatures){
+            for(Creature c: attackingCreatures){
                 c.untap();
             }
+            owner.setPhaseManager(m);
         }
 
         @Override
@@ -106,8 +107,48 @@ public class WorldAtWar implements Card {
         }
         
     }
+    
+    private ArrayList<Creature> attack;
+    private WorldAtWarCardTrigger t;
+    
+    public WorldAtWar(){
+        super();
+        t = new WorldAtWarCardTrigger(this);
+        CardGame.instance.getTriggers().register(Triggers.STACK_CHARGING_STARTED_EVENT, t);
+    }
+    
+    private class WorldAtWarCardTrigger implements TriggerAction{
+            private ArrayList<Creature> a;
+            Phase c;
+            WorldAtWar w;
+            
+            public WorldAtWarCardTrigger(WorldAtWar w){
+                this.w = w;
+            }
+            
+            @Override
+            public void execute(Object args) {
+                c = CardGame.instance.getCurrentPlayer().getPhase(Phases.COMBAT);
+                DefaultCombatPhase co;
+                if(c instanceof DefaultCombatPhase){
+                    co = (DefaultCombatPhase) c;
+                    a = co.getCreaturesWhichAttacked();
+                    w.setAttackers(a);
+                }
+                
+            }
+            
+    }
+    
+    private void setAttackers(ArrayList<Creature> a){
+        this.attack = a;
+    }
+    
     @Override
-    public Effect getEffect(Player p) { return new WorldAtWarEffect(p, this); }
+    public Effect getEffect(Player p) {
+        CardGame.instance.getTriggers().deregister(t);
+        return new WorldAtWarEffect(p, this, attack);
+    }
     
     
     @Override
