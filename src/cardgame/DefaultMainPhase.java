@@ -20,10 +20,9 @@ public class DefaultMainPhase implements Phase {
         // alternate in placing effect until bith players pass
         int numberPasses=0;
         System.out.println("CHARGING STACK - START");
-        
+        CardGame.instance.getTriggers().trigger(Triggers.STACK_CHARGING_STARTED_EVENT);
         if (!playAvailableEffect(currentPlayer, true))
             ++numberPasses;
-        CardGame.instance.getTriggers().trigger(Triggers.STACK_CHARGING_STARTED_EVENT);
         while (numberPasses<2) {
             if (playAvailableEffect(CardGame.instance.getPlayer(responsePlayerIdx),false))
                 numberPasses=0;
