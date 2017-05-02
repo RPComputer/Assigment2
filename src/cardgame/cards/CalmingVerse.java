@@ -9,6 +9,7 @@ import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.Enchantment;
 import cardgame.StaticInitializer;
+import java.util.ArrayList;
 
 public class CalmingVerse implements Card {
     private static class CalmingVerseFactory implements CardFactory{
@@ -28,8 +29,11 @@ public class CalmingVerse implements Card {
         
         @Override
         public void resolve () {
+            ArrayList<Enchantment> l = new ArrayList<>();
             for(Enchantment e : to.getEnchantments())
-                e.remove();
+                l.add(e);
+            for(Enchantment e : l)
+                to.destroy(e);
         }
 
         @Override
