@@ -141,8 +141,6 @@ public class CreatureImage implements Creature{
     
     @Override
     public ArrayList<String> getDTypes(){
-        if(pointer != null)
-            pointer.getDTypes();
-        return null;
+        return pointer.getDTypes();
     }
 }
