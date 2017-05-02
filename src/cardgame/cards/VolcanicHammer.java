@@ -34,12 +34,12 @@ public class VolcanicHammer implements Card {
             if(target1 == null){
                 if(target2 != null){
                     target2.inflictDamage(3);
-                    System.out.println("Volcanic Hamme inflicted 3 damage to: " + target2.name()+" -> ("+target2.getPower()+"/"+(target2.getToughness()-3) + ").");
+                    System.out.println("VolcanicHammer inflicted 3 damage to: " + target2.name()+" -> ("+target2.getPower()+"/"+(target2.getToughness()-3) + ").");
                 }
             }
             else {
                 target1.inflictDamage(3);
-                System.out.println("Volcanic Hamme inflicted 3 damage to: " + target1.name());
+                System.out.println("VolcanicHammer inflicted 3 damage to: " + target1.name());
             }
         }
 

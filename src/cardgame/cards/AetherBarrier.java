@@ -74,7 +74,7 @@ public class AetherBarrier implements Card {
                             owner.getEnchantments().remove(choice-split);
                         }
                         else{
-                            owner.getCreatures().remove(choice-1);
+                            owner.getCreatures().remove(choice);
                         }
                     }
                 }
@@ -104,7 +104,7 @@ public class AetherBarrier implements Card {
     @Override
     public String type() { return "Enchantment"; }
     @Override
-    public String ruleText() { return "Whenever a player plays a creature spell, that player sacrifices a permanent unless he or she pays 1"; }
+    public String ruleText() { return "Whenever a player plays a creature spell, that player sacrifices a permanent"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override
