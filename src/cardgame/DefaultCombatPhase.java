@@ -63,7 +63,8 @@ public class DefaultCombatPhase implements Phase {
                     defending = 0;
                 }
                 else{
-                    System.out.println(currentPlayer.name() + ": choose an defending creature, 0 to pass");
+                    System.out.println(currentPlayer.name() + ": choose a defending creature, 0 to pass");
+                    showCreatures(canDefendCreatures);
                     defending = acquireInput();
                     if(defending > 0 && defending <= canDefendCreatures.size()){
                         c = canDefendCreatures.get(defending-1);
@@ -82,6 +83,9 @@ public class DefaultCombatPhase implements Phase {
         
         //risoluzione del danno
         System.out.println("============== Combat results ==============");
+        if (attackingCreatures.isEmpty()) {
+            System.out.println("No results avaiable.");
+        }
         for(Creature a : attackingCreatures){
             a.attack();
         }
@@ -170,7 +174,6 @@ public class DefaultCombatPhase implements Phase {
         for( Creature c:p.getCreatures()) {
             if ( !c.isTapped() && c.getDef()) {
                 untapped.add(c);
-                System.out.println(i+") " + c.name());
                 i++;
             }
         }
