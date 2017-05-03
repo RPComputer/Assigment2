@@ -8,6 +8,7 @@ import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import cardgame.DefaultTurnManager;
+import cardgame.Phases;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
@@ -57,32 +58,24 @@ public class SavorTheMoment implements Card {
             Player[] p1 = new Player[2];
             p1[0] = owner;
             p1[1] = CardGame.instance.getOpponent(owner);
+            p1[0].setPhase(Phases.UNTAP,new SkipPhase(Phases.UNTAP));
             newturn = new DefaultTurnManager(p1);
+            
         }
         
         private final TriggerAction TheNewTurn = new TriggerAction() { 
             @Override
             public void execute(Object args) {
                 CardGame.instance.setTurnManager(newturn);
-                CardGame.instance.getTriggers().register(Triggers.DRAW_FILTER, SkipUntapPhase);
             }
         };
         
-        private final TriggerAction SkipUntapPhase = new TriggerAction() { 
-            SkipPhase phase;
-            @Override
-            public void execute(Object args) {
-                phase = new SkipPhase(CardGame.instance.getCurrentPlayer().currentPhaseId().next());
-                CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, DeleteTurnAndDeregister);
-            }
-        };
         
         private final TriggerAction DeleteTurnAndDeregister = new TriggerAction() { 
             @Override
             public void execute(Object args) {
                 CardGame.instance.removeTurnManager(newturn);
                 CardGame.instance.getTriggers().deregister(TheNewTurn);
-                CardGame.instance.getTriggers().deregister(SkipUntapPhase);
                 CardGame.instance.getTriggers().deregister(DeleteTurnAndDeregister);
             }
         };
@@ -94,6 +87,7 @@ public class SavorTheMoment implements Card {
             players[1] = CardGame.instance.getPlayer(1);
             SavorTheMomentTurnManager newturn = new SavorTheMomentTurnManager(players, owner);
             CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, TheNewTurn);
+            CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, DeleteTurnAndDeregister);
         }
 
         @Override
