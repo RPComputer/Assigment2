@@ -54,6 +54,10 @@ public class SavorTheMoment implements Card {
         DefaultTurnManager newturn;
         private SavorTheMomentEffect(Player p, Card c) {
             super(p,c);
+            Player[] p1 = new Player[2];
+            p1[0] = owner;
+            p1[1] = CardGame.instance.getOpponent(owner);
+            newturn = new DefaultTurnManager(p1);
         }
         
         private final TriggerAction TheNewTurn = new TriggerAction() { 
