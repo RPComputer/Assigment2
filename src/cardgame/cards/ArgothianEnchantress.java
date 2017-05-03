@@ -9,6 +9,7 @@ import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.CreatureImage;
 import cardgame.Effect;
+import cardgame.Enchantment;
 import cardgame.Player;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
@@ -92,9 +93,12 @@ public class ArgothianEnchantress implements Card {
             @Override
             public void execute(Object args) {
                 if(args != null)
-                    if(args instanceof Player)
-                        if(owner.equals(args))
+                    if(args instanceof Enchantment){
+                        Enchantment e = (Enchantment) args;
+                        Player p = e.getOwner();
+                        if(p == owner)
                             this.owner.draw();
+                    }
             }
         }
         
