@@ -53,7 +53,7 @@ public class AuraBlast implements Card {
 
             if (choice==0) {
                 Player opponent = CardGame.instance.getOpponent(owner);
-                System.out.println("Your target is one of your opponent's enchantments.\nChoose which one to destroy!");
+                System.out.println("Your target is one of your opponent's enchantments.");
 
                 int i = 0;
                 for ( Enchantment e: opponent.getEnchantments()) {
@@ -61,6 +61,7 @@ public class AuraBlast implements Card {
                     i++;
                 }
                 if(i>0){
+                    System.out.println("Choose which one to destroy!");
                     do{
                         choice = acquireInput();
                     } while (choice<0 || choice>i-1);
@@ -76,7 +77,7 @@ public class AuraBlast implements Card {
             }
             else{
 
-                System.out.println("Your target is one of your enchantments.\nChoose which one to destroy!");
+                System.out.println("Your target is one of your enchantments.");
 
                 int i = 0;
                 for ( Enchantment e: owner.getEnchantments()) {
@@ -84,6 +85,7 @@ public class AuraBlast implements Card {
                     i++;
                 }
                 if(i>0){
+                    System.out.println("Choose which one to destroy!");
                     do{
                         choice = acquireInput();
                     } while (choice<0 || choice>i-1);

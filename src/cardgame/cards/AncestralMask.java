@@ -45,40 +45,44 @@ public class AncestralMask implements Card {
 
         @Override
         public void setTarget() {
-            System.out.println("Choose a creature to power up, 0 to see the other player creatures:");
+            System.out.print("About you: ");
+            opponent = CardGame.instance.getOpponent(owner);
             int choosen;
-            
-            boolean foo = showCreatures(owner.getCreatures());
-
-            int length = owner.getCreatures().size();
-            if(foo){
-                do {
-                    choosen = acquireInput();
-                }while(choosen<0 || choosen> length);
+            if(!showCreatures(owner.getCreatures())){
+                choosen=0;
             }
-            else choosen = 0;
+            else{
+                System.out.println("Choose a creature to power up, 0 to see opponent's creatures:");
+                int length = owner.getCreatures().size();
+                if(length > 0){
+                    do {
+                        choosen = acquireInput();
+                    }while(choosen<0 || choosen> length);
+                }
+                else choosen = 0;
+            }
             if(choosen > 0){
                 CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen-1);
                 this.c = cr;  
             }
             else{
-                Player opponent = CardGame.instance.getOpponent(owner);
-                System.out.println("Choose a creature to power up, 0 to do nothing");
-                foo = showCreatures(opponent.getCreatures());
+                System.out.print("About your opponent: ");
+                if(showCreatures(opponent.getCreatures())){
+                    System.out.println("Choose a creature to power up, 0 to do nothing");
+                    int length = opponent.getCreatures().size();
+                    if(length > 0){
+                        do {
+                            choosen = acquireInput();
+                        }while(choosen<0 || choosen> length);     
 
-                length = opponent.getCreatures().size();
-                if(foo){
-                    do {
-                        choosen = acquireInput();
-                    }while(choosen<0 || choosen> length);     
-
-                    if(choosen > 0){
-                        CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen-1);
-                        this.opponent = opponent;
-                        this.c = cr;
+                        if(choosen > 0){
+                            CreatureImage cr = (CreatureImage) opponent.getCreatures().get(choosen-1);
+                            this.c = cr;
+                        }
+                        else c = null;
                     }
+                    else c = null;
                 }
-                else c = null;
             }
         }
 
