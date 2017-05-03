@@ -12,7 +12,6 @@ import cardgame.Player;
 import cardgame.Triggers;
 import cardgame.CardGame;
 import cardgame.Creature;
-import cardgame.DefaultCombatPhase;
 import cardgame.DefaultDrawPhase;
 import cardgame.DefaultEndPhase;
 import cardgame.DefaultMainPhase;
@@ -20,7 +19,6 @@ import cardgame.DefaultUntapPhase;
 import cardgame.Phase;
 import cardgame.PhaseManager;
 import cardgame.Phases;
-import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.ArrayDeque;
@@ -40,7 +38,7 @@ public class Darkness implements Card {
     
     private class DarknessEffect extends AbstractCardEffect {
         public DarknessEffect(Player p,Card c){ super (p,c); }
-        
+        /*
         private class DarknessPhaseManager implements PhaseManager{
 
             private final EnumMap<Phases, Deque<Phase> > phases = new EnumMap<>(Phases.class);
@@ -92,14 +90,14 @@ public class Darkness implements Card {
                 CardGame.instance.getTriggers().deregister(this);
             }
             
-        }
+        }*/
         
         @Override
         public void resolve() {
-            DarknessPhaseManager m = new DarknessPhaseManager();
-            DarknessTrigger t = new DarknessTrigger(owner, m);
-            CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, t);
-            owner.setPhaseManager(m);
+            //DarknessPhaseManager m = new DarknessPhaseManager();
+            //DarknessTrigger t = new DarknessTrigger(owner, m);
+            //CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, t);
+            owner.setPhase(Phases.COMBAT,new CombatWithNoDamage());
         }
 
         @Override
