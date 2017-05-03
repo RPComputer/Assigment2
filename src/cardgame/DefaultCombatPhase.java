@@ -13,6 +13,7 @@ public class DefaultCombatPhase implements Phase {
     ArrayList<Creature> canDefendCreatures;
     public DefaultCombatPhase() {
         this.attackingCreatures = new ArrayList<>();
+        this.defendingCreatures = new ArrayList<>();
     }
     @Override
     public void execute() {
