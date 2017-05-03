@@ -12,6 +12,7 @@ import cardgame.Player;
 import cardgame.Triggers;
 import cardgame.CardGame;
 import cardgame.Creature;
+import cardgame.DefaultCombatPhase;
 import cardgame.DefaultDrawPhase;
 import cardgame.DefaultEndPhase;
 import cardgame.DefaultMainPhase;
@@ -74,30 +75,38 @@ public class Darkness implements Card {
             }
             
         }
-        
+        */
         private class DarknessTrigger implements TriggerAction{
-            
-            Player p;
-            DarknessPhaseManager m;
-            public DarknessTrigger(Player p, DarknessPhaseManager m){
-                this.p = p;
-                this.m = m;
-            }
             
             @Override
             public void execute(Object args) {
-                p.removePhaseManager(m);
-                CardGame.instance.getTriggers().deregister(this);
+                DefaultCombatPhase c = (DefaultCombatPhase) CardGame.instance.getCurrentPlayer().getPhase(Phases.COMBAT);
+                c.setCreaturesWhichAttacked(new ArrayList<Creature>());
             }
             
-        }*/
+        }
+        
+        private class DeleteDarknessTrigger implements TriggerAction{
+            DarknessTrigger t;
+            public DeleteDarknessTrigger(DarknessTrigger t){
+                this.t = t;
+            }
+            @Override
+            public void execute(Object args) {
+                CardGame.instance.getTriggers().deregister(t);
+                CardGame.instance.getTriggers().deregister(this);
+            }
+        }
         
         @Override
         public void resolve() {
             //DarknessPhaseManager m = new DarknessPhaseManager();
-            //DarknessTrigger t = new DarknessTrigger(owner, m);
+            DarknessTrigger t = new DarknessTrigger();
+            DeleteDarknessTrigger t1 = new DeleteDarknessTrigger(t);
+            CardGame.instance.getTriggers().register(Triggers.STACK_CHARGING_COMPLETED_EVENT, t);
+            CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, t1);
             //CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, t);
-            owner.setPhase(Phases.COMBAT,new CombatWithNoDamage());
+            
         }
 
         @Override
@@ -135,7 +144,7 @@ public class Darkness implements Card {
     @Override
     public boolean isInstant() { return true; }
     
-    private class CombatWithNoDamage implements Phase{
+    /*private class CombatWithNoDamage implements Phase{
         @Override
         public void execute() {
             Player currentPlayer = CardGame.instance.getCurrentPlayer();
@@ -271,5 +280,5 @@ public class Darkness implements Card {
         }
 
     }
-    
+    */
 }

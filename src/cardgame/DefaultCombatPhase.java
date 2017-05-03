@@ -188,7 +188,15 @@ public class DefaultCombatPhase implements Phase {
         return attackingCreatures;
     }
     
+    public void setCreaturesWhichAttacked(ArrayList<Creature> c){
+        this.attackingCreatures = c;
+    }
+    
     public ArrayList<Creature> getCreaturesWhichDefended(){
         return defendingCreatures;
+    }
+    
+    public void setCreaturesWhichDefended(ArrayList<Creature> c){
+        this.defendingCreatures = c; 
     }
 }
