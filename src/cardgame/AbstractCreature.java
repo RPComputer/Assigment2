@@ -99,8 +99,8 @@ public abstract class AbstractCreature implements Creature {
                 c.clearTarget();
             c.addTarget(this);
         } // to do in assignment 2
-    @Override
-        public boolean inflictDamage(int dmg) { 
+    
+        public boolean inflictRealDamage(int dmg) { 
             damageLeft -= dmg; 
             if (damageLeft<=0){
                 owner.destroy(this.head);
@@ -109,7 +109,10 @@ public abstract class AbstractCreature implements Creature {
             }
             return false;
         }
-        
+    @Override
+    public boolean inflictDamage(int dmg){
+        return this.head.inflictDamage(dmg);
+    } 
     @Override
         public void resetDamage() { damageLeft = getToughness(); }
     

@@ -78,7 +78,13 @@ public class CreatureImage implements Creature{
 
     @Override
     public boolean inflictDamage(int dmg) {
-        boolean b = pointer.inflictDamage(dmg);
+        boolean b;
+        AbstractCreature cr;
+        if(pointer instanceof AbstractCreature){
+            cr = (AbstractCreature) pointer;
+            b = cr.inflictRealDamage(dmg);
+        }
+        else b = pointer.inflictDamage(dmg);
         if(b)
             if(pointer instanceof AbstractDecorator){
                 AbstractDecorator p = (AbstractDecorator)pointer;

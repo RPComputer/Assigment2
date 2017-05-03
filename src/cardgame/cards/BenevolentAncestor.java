@@ -83,8 +83,9 @@ public class BenevolentAncestor implements Card {
             }
             @Override
             public boolean inflictDamage(int pts){
-                boolean b = this.getNext().inflictDamage(pts-1);
-                this.removeDecorator();
+                boolean b = super.inflictDamage(pts-1);
+                CardGame.instance.getTriggers().deregister(a);
+                this.remove();
                 return b;
             }
             

@@ -68,7 +68,12 @@ public abstract class AbstractDecorator implements Creature{
 
     @Override
     public boolean inflictDamage(int dmg) {
-        return next.inflictDamage(dmg);
+        AbstractCreature cr;
+        if(next instanceof AbstractCreature){
+            cr = (AbstractCreature) next;
+            return cr.inflictRealDamage(dmg);
+        }
+        else return next.inflictDamage(dmg);
     }
 
     @Override
