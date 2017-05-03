@@ -78,7 +78,6 @@ public class BenevolentAncestor implements Card {
             TriggerAction a;
             public BenevolentAncestorDecorator(CreatureImage c) {
                 super(c);
-                c.setPointer(this);
                 a = new DecoratorTrigger(this);
                 CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, a);
             }
@@ -120,7 +119,8 @@ public class BenevolentAncestor implements Card {
                 }
             }
             
-            public BenevolentAncestorDamageModifier(){
+            public BenevolentAncestorDamageModifier(Player p){
+                super(p);
                 BenevolentAncestorDamageModifierTrigger t = new BenevolentAncestorDamageModifierTrigger(this);
                 CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, t);
             }
@@ -148,7 +148,7 @@ public class BenevolentAncestor implements Card {
                         d = new BenevolentAncestorDecorator(target2);
                 }
                 else{
-                    m = new BenevolentAncestorDamageModifier();
+                    m = new BenevolentAncestorDamageModifier(target1);
                     target1.addModificator(m);
                 }
             }

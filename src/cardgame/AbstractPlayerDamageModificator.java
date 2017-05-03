@@ -3,9 +3,15 @@ package cardgame;
 
 public abstract class AbstractPlayerDamageModificator implements PlayerDamageModificator{
     private Player owner;
-    private PlayerDamageModificator next = null;
-    private PlayerDamageModificator prev = null;
+    private PlayerDamageModificator next;
+    private PlayerDamageModificator prev;
 
+    public AbstractPlayerDamageModificator(Player p){
+        this.owner = p;
+        next = null;
+        prev = null;
+    }
+    
     @Override
     public void inflictDamage(int p) {
         if(next != null)
@@ -56,8 +62,10 @@ public abstract class AbstractPlayerDamageModificator implements PlayerDamageMod
 
     @Override
     public void insert(PlayerDamageModificator m) {
-        if(next == null)
+        if(next == null){
             next = m;
+            m.setPrev(this);
+        }
         else owner.modificators.insert(this);
     }
     
