@@ -50,7 +50,7 @@ public class DefaultCombatPhase implements Phase {
         
         System.out.println("============== Attackers ==============");
         if (attackingCreatures.isEmpty()) {
-            System.out.println("No creature are attacking");
+            System.out.println("No creatures are attacking");
         } else {
             for (Creature cre:attackingCreatures)
                 System.out.println("  "+cre.name() + "(" + cre.getPower() + "/" + cre.getToughness() + ")");
@@ -61,7 +61,7 @@ public class DefaultCombatPhase implements Phase {
             while(defending > 0){
                 canDefendCreatures = defenders(opponentPlayer);
                 if(canDefendCreatures.isEmpty()){
-                    System.out.println(currentPlayer.name() + " doesn't have creatures that can defend.");
+                    System.out.println(currentPlayer.name() + ": doesn't have creatures that can defend.");
                     defending = 0;
                 }
                 else{
@@ -72,7 +72,7 @@ public class DefaultCombatPhase implements Phase {
                         c = canDefendCreatures.get(defending-1);
                         c.tap();
                         defendingCreatures.add(c);
-                        System.out.println(currentPlayer.name() + "choose an attacking creature to stop");
+                        System.out.println(currentPlayer.name() + ": choose an attacking creature to stop");
                         showCreatures(attackingCreatures);
                         attacking = acquireInput();
                         if(attacking > 0 && attacking <= attackingCreatures.size())
