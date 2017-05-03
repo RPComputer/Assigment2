@@ -8,6 +8,7 @@ import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import static cardgame.Interfaccia.acquireInput;
+import cardgame.Phases;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
@@ -25,19 +26,10 @@ public class FalsePeace implements Card {
     private class FalsePeaceEffect extends AbstractEffect {
         Player target = null; // target player 
         
-        private final TriggerAction AdversaryTurn = new TriggerAction() { // wait until adversary turn starts
-            SkipPhase phase;
-            @Override
-            public void execute(Object args) {
-                phase=new SkipPhase(target.currentPhaseId().next());
-                phase.execute();
-                CardGame.instance.getTriggers().deregister(AdversaryTurn);
-            }
-        };
-        
         @Override
         public void resolve () {
-            CardGame.instance.getTriggers().register(Triggers.UNTAP_FILTER, AdversaryTurn);
+            //CardGame.instance.getTriggers().register(Triggers.UNTAP_FILTER, AdversaryTurn);
+            target.setPhase(Phases.COMBAT,new SkipPhase(Phases.COMBAT));
         }
 
         @Override

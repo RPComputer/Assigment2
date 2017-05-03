@@ -8,6 +8,7 @@ import cardgame.Effect;
 import cardgame.Player;
 import cardgame.CardGame;
 import static cardgame.Interfaccia.acquireInput;
+import cardgame.Phases;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
@@ -25,20 +26,10 @@ public class Fatigue implements Card {
     private class FatigueEffect extends AbstractEffect {
         Player target = null; // target player 
         
-        private final TriggerAction AdversaryTurn = new TriggerAction() { // wait until adversary turn starts
-            SkipPhase phase;
-            @Override
-            public void execute(Object args) {
-                phase=new SkipPhase(target.currentPhaseId().next());
-                phase.execute();
-                CardGame.instance.getTriggers().deregister(AdversaryTurn);
-            }
-        };
         
         @Override
         public void resolve () {
-            target = CardGame.instance.getCurrentAdversary();
-            CardGame.instance.getTriggers().register(Triggers.START_TURN_FILTER, AdversaryTurn);
+            target.setPhase(Phases.DRAW,new SkipPhase(Phases.DRAW));
         }
 
         @Override
