@@ -83,7 +83,9 @@ public class BenevolentAncestor implements Card {
             }
             @Override
             public boolean inflictDamage(int pts){
-                return super.inflictDamage(pts-1);
+                boolean b = this.getNext().inflictDamage(pts-1);
+                this.removeDecorator();
+                return b;
             }
             
             @Override
@@ -128,6 +130,7 @@ public class BenevolentAncestor implements Card {
             @Override
             public void inflictDamage(int p){
                 super.inflictDamage(p-1);
+                this.remove();
             }
         }
         
@@ -176,7 +179,7 @@ public class BenevolentAncestor implements Card {
                             choice = acquireInput();
                         } while(choice < 0 || choice > length);
                         if(choice >0){
-                            target2 = (CreatureImage) owner.getCreatures().get(choice);
+                            target2 = (CreatureImage) owner.getCreatures().get(choice-1);
                         }
                     }
                     if(choice == 0){
@@ -188,7 +191,7 @@ public class BenevolentAncestor implements Card {
                             do{
                                 choice = acquireInput();
                             } while(choice <= 0 || choice > length);
-                            target2 = (CreatureImage) opponent.getCreatures().get(choice);
+                            target2 = (CreatureImage) opponent.getCreatures().get(choice-1);
                         }
                         else target2 = null;
                     }
