@@ -125,7 +125,6 @@ public class CreatureImage implements Creature{
     @Override
     public boolean remove() {
         if(pointer.remove()){
-            owner.getCreatures().remove(this);
             CardGame.instance.getTriggers().trigger(Triggers.EXIT_CREATURE_FILTER,this);
             return true;
         }
@@ -134,7 +133,7 @@ public class CreatureImage implements Creature{
     
     public void checker(){
         if(pointer.getToughness() <= 0){
-            this.remove();
+            owner.destroy(this);
             System.out.println(this.owner.name() + "'s creature: " + this.name() + " is dead.");
         }
     }

@@ -193,5 +193,8 @@ public class Player {
     private final ArrayList<Enchantment> enchantments = new ArrayList<>();
     public List<Enchantment> getEnchantments() {return enchantments;}
     // destroy a creature in play
-    public void destroy(Enchantment c) {enchantments.remove(c);} 
+    public void destroy(Enchantment c) {
+        if(c.remove())
+            enchantments.remove(c);
+    } 
 }

@@ -31,7 +31,7 @@ public class AuraBlast implements Card {
         @Override
         public void resolve () {
             if(target != null){
-                target.remove();
+                to.destroy(target);
                 owner.draw();
             }
         }
