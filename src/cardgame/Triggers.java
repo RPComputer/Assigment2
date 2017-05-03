@@ -1,23 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
-/**
- *
- * @author atorsell
- */
 public class Triggers {
     private class Entry { 
         public int filter; 
         public TriggerAction action;
         public Entry(int f, TriggerAction a) { filter=f; action=a; }
-        
+        private boolean getTriggerAction(TriggerAction a){
+            if(this.action.equals(a))
+                return true;
+            else return false;
+        }
     }
     
     ArrayList<Triggers.Entry> actions = new ArrayList<>();
@@ -29,7 +25,8 @@ public class Triggers {
     
     public void deregister(TriggerAction a) {
         for(int i=actions.size()-1; i>=0; --i) {
-            if (a.equals(actions.get(i))) actions.remove(i);
+            if (actions.get(i).getTriggerAction(a))
+                actions.remove(i);
         }
     }
     
