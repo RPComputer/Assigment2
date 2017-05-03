@@ -48,8 +48,8 @@ public class Fatigue implements Card {
 
         @Override
         public void setTarget() {
-            System.out.println("Choose the player who will skip his next combat phase, 0 for the first, 1 for second.");
-            System.out.println(CardGame.instance.getCurrentPlayer().name() + "   " + CardGame.instance.getCurrentAdversary().name());
+            System.out.println("Choose the player who will skip his next draw phase, 0 for your opponent, 1 for you.");
+            System.out.println("\t\t      [0]-->" + CardGame.instance.getCurrentAdversary().name() + "     ||     " + "[1]-->" + CardGame.instance.getCurrentPlayer().name());
             
             int choice;
             
@@ -58,9 +58,9 @@ public class Fatigue implements Card {
             }while(choice!=0 && choice!=1);
             
             if (choice==0) {
-                this.target = CardGame.instance.getCurrentPlayer();
+                this.target = CardGame.instance.getCurrentAdversary();
             } else {
-                this.target = CardGame.instance.getCurrentAdversary(); 
+                this.target = CardGame.instance.getCurrentPlayer(); 
             }
         }
 
@@ -83,7 +83,7 @@ public class Fatigue implements Card {
     @Override
     public String type() { return "Sorcery"; }
     @Override
-    public String ruleText() { return "Target player skips his next draw step"; }
+    public String ruleText() { return "Target player skips his next draw phase"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     @Override

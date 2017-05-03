@@ -103,6 +103,7 @@ public class VolcanicHammer implements Card {
                 // PLAYERS
                 
                 System.out.println("Choose your target: 0 for your opponent, 1 for yourself");
+                System.out.println("\t[0]-->" + CardGame.instance.getCurrentAdversary().name() + "     ||     " + "[1]-->" + CardGame.instance.getCurrentPlayer().name());
                 do{
                     choice = acquireInput();
                 } while(choice != 0 && choice != 1);
