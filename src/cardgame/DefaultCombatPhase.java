@@ -16,6 +16,7 @@ public class DefaultCombatPhase implements Phase {
     }
     @Override
     public void execute() {
+        attackingCreatures.clear();
         Player currentPlayer = CardGame.instance.getCurrentPlayer();
         Player opponentPlayer = CardGame.instance.getCurrentAdversary();
         int attacking = 1, defending = 1;
@@ -92,7 +93,7 @@ public class DefaultCombatPhase implements Phase {
             a.attack();
         }
         System.out.println("============================================");
-        attackingCreatures.clear();
+        
         //fine della combat
     }
     
