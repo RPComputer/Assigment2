@@ -11,8 +11,6 @@ import static cardgame.Interfaccia.acquireInput;
 import cardgame.Phases;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
-import cardgame.TriggerAction;
-import cardgame.Triggers;
 
 public class Fatigue implements Card {
     private static class FatigueFactory implements CardFactory{

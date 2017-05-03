@@ -2,7 +2,6 @@
 package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
-import cardgame.AbstractEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
 import cardgame.Effect;

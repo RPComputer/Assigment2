@@ -4,7 +4,6 @@ package cardgame;
 import static cardgame.Interfaccia.acquireInput;
 import static cardgame.Interfaccia.showCreatures;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DefaultCombatPhase implements Phase {
     ArrayList<Creature> attackingCreatures;

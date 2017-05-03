@@ -11,8 +11,6 @@ import static cardgame.Interfaccia.acquireInput;
 import cardgame.Phases;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
-import cardgame.TriggerAction;
-import cardgame.Triggers;
 
 public class FalsePeace implements Card {
     private static class FalsePeaceFactory implements CardFactory{
