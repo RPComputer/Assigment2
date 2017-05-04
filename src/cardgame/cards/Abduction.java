@@ -74,7 +74,7 @@ public class Abduction implements Card{
         @Override
         public String toString(){return "Abduction";}
     }
-    
+     
     private class AbductionDecorator extends AbstractDecorator{
         int damage2;
         Player owner;
@@ -129,5 +129,6 @@ public class Abduction implements Card{
     public String ruleText() { return "Untap enchanted creature, take control of the creature.\n\t\t\t\t When the enchanted creature should die, return it to its owner's control"; }
     @Override
     public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
+    @Override
     public boolean isInstant() { return false; }
 }

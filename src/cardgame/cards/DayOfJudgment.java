@@ -24,6 +24,12 @@ public class DayOfJudgment implements Card{
         
         public DayOfJudgmentEffect(Player p, Card c) { super(p,c);}
         
+        /*
+            Per uccidere tutte le creature in campo si esegue la destroy() 
+            per ognuna di loro in modo che anche i loro trigger vengano 
+            deregistrati.
+            Lo si fa per entrambi i giocatori.
+        */
         @Override
         public void resolve () {
             ArrayList<Creature> l1 = new ArrayList<>();

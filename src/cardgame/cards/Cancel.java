@@ -11,6 +11,7 @@ import cardgame.CardGame;
 import static cardgame.Interfaccia.acquireInput;
 import cardgame.StaticInitializer;
 
+// Per eliminare l'effetto scelto come target si applica il remove() sullo stack degli effetti attivi nel campo.
 public class Cancel implements Card {
     private static class CancelFactory implements CardFactory{
         @Override
@@ -25,6 +26,7 @@ public class Cancel implements Card {
         
         public CancelEffect(Player p, Card c) { super(p,c);}
         
+        // si fa la remove del targer
         @Override
         public void resolve () {
             if(target != null)
@@ -36,6 +38,10 @@ public class Cancel implements Card {
             return true;
         }
 
+        /*
+            Per scegliere il target viene stampata la lista degli effetti attivi nello stack
+            poi la scelta viene impostata come target.
+        */
         @Override
         public void setTarget() {
             ArrayList <Effect> l = new ArrayList<>();

@@ -27,6 +27,10 @@ public class CalmingVerse implements Card {
             to = targetOwner;
         }
         
+        /*
+            Si prende la lista degli incantesimi non controllati dal giocatore owner
+            e per ogni elemento si fa destroy() 
+        */
         @Override
         public void resolve () {
             ArrayList<Enchantment> l = new ArrayList<>();

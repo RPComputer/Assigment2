@@ -24,6 +24,10 @@ public class BoilingEarth implements Card {
         
         public BoilingEarthEffect(Player p, Card c) { super(p,c);}
         
+        /*
+            Si prendono le liste delle creature in campo dei due giocatori 
+            e si usa il metodo inflictDamage per infliggere un danno a ogni creatura.
+        */
         @Override
         public void resolve () {
             ArrayList<Creature> l1 = new ArrayList<>();
