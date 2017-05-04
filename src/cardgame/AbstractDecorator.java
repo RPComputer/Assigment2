@@ -4,11 +4,18 @@ package cardgame;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    Questa classe astratta contiene l'implementazione fondamentale di tutti i metodi necessari per utilizzare il
+    decorator pattern. Poichè deve mascherare una creatura la classe implementa tutti i metodi dell'interfaccia
+    Creature. Inoltre contiene metodi legati alla gestione stessa del decorator.
+*/
+
 public abstract class AbstractDecorator implements Creature{
     private final CreatureImage head;
     private Creature next;
     private Creature prev;
     
+    //Il costruttore si occupa oltre di creare il decorator, di aggiungerlo alla lista della creatura
     public AbstractDecorator(CreatureImage c){
         this.head = c;
         if(c != null){
@@ -146,6 +153,11 @@ public abstract class AbstractDecorator implements Creature{
         return next.getDTypes();
     }
     
+    /*
+        Questi due metodi servono per l'eliminazione del decorator e per eliminare tutti i trigger connessi ai
+        vari decorator nel caso muoia la creatura. Quest'ultimo deve essere richiamato in quel caso, non si attiva
+        in automatico.
+    */
     public void removeDecorator(){
         AbstractDecorator d1, d2;
         if(this.getPrev() instanceof CreatureImage){

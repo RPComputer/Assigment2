@@ -101,6 +101,12 @@ public class Abduction implements Card{
         }
         
         @Override
+        public void resetDamage(){
+            super.resetDamage();
+            damage2 = 0;
+        }
+        
+        @Override
         public ArrayList<String> getDTypes(){
             ArrayList<String> r = super.getDTypes();
             r.add("Enchantment");

@@ -21,8 +21,11 @@ public abstract class AbstractCreature implements Creature {
     public boolean def = true;
     private Creature head;
     
+    //Metodo per ottenere il posessore della creatura, utile quando si ha solo la creatura a disposizione
     public Player getOwner(){return owner;}
     
+    
+    //Questi metodi servono per conoscere se una creatura può per sua definizione attaccare e/o difendere
     @Override
     public boolean getAtt(){return att;}
     @Override
@@ -30,7 +33,9 @@ public abstract class AbstractCreature implements Creature {
     
         protected AbstractCreature(Player owner) { this.owner=owner;}
         
+    //Poichè per implementare il pattern decorator, la creatura ha bisogno di poter conoscere il puntatore alla suo rappresentante
     public void setHead(Creature h){this.head = h;}
+    
     @Override
         public boolean tap() { 
             if (isTapped) {
@@ -57,6 +62,13 @@ public abstract class AbstractCreature implements Creature {
         
     @Override
         public boolean isTapped() { return isTapped; }
+        
+    /*
+        Il metodo attack delle creature consiste nel calcolo del danno da infliggere sia agli attaccati sia a se stessi
+        funziona tramite lo scorrimento della lista dei target che per default viene inizializzata dalla phase combat
+        al giocatore avversario. Successivamente al calcolo esso viene inflitto richiamando i metodi appropriati e
+        notificando con un output il il risultato.
+    */
     @Override
         public void attack() {
             int attackLeft = this.head.getPower();
@@ -91,7 +103,13 @@ public abstract class AbstractCreature implements Creature {
                 this.inflictDamage(takenDamage);
             }
             target.clear();
-        } // to do in assignment 2
+        }
+    
+    /*
+        Il metodo defend è complementare al metodo attack, tuttavia si occupa solo di effettuare un'integrazione:
+        si assicura di porre la creatura che deve difendere nella lista dei target dell'attaccante e se in quella lista
+        è ancora presente il giocatore che la creatura deve difendere esso viene rimosso.
+    */
     @Override
         public void defend(Creature c) {
             ArrayList t = c.getTarget();
@@ -100,6 +118,10 @@ public abstract class AbstractCreature implements Creature {
             c.addTarget(this);
         } // to do in assignment 2
     
+        /*
+            Quando un decorator o il rappresentante della creatura devono infliggere realmente il danno alla creatura viene
+            chiamato questo metodo
+        */
         public boolean inflictRealDamage(int dmg) { 
             damageLeft -= dmg; 
             if (damageLeft<=0){
@@ -109,6 +131,8 @@ public abstract class AbstractCreature implements Creature {
             }
             return false;
         }
+    
+    //Per consentire il lavoro dei decorator, il danno viene reindirizzato
     @Override
     public boolean inflictDamage(int dmg){
         return this.head.inflictDamage(dmg);
@@ -131,6 +155,10 @@ public abstract class AbstractCreature implements Creature {
             return name() + " (Creature)";
         }
         
+        /*
+            Funzioni di servizio delle liste legate alla creatura: target e insieme dei tipi di effetti applicati
+            alla creatura.
+        */
     @Override
         public void addTarget (Object t){
             this.target.add(t);
