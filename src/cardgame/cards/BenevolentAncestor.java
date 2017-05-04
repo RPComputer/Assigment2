@@ -196,10 +196,9 @@ public class BenevolentAncestor implements Card {
                         }
                         else target2 = null;
                     }
-                    else target2 = null;
                 }
                 else{
-                    System.out.println("Defaut target is yourself, 0 to confirm 1 to set other player");
+                    System.out.println("Defaut target is yourself, 0 to confirm 1 to set the other player");
                     do{                      
                         choice = acquireInput();
                     } while(choice != 0 && choice != 1);
