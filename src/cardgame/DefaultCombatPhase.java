@@ -48,14 +48,14 @@ public class DefaultCombatPhase implements Phase {
         //assunto parte dichiarazione attaccanti effettuata
         chargeCombatStack(opponentPlayer); // primo caricamento dello stack e risoluzione// primo caricamento dello stack e risoluzione
         
-        System.out.println("============== Attackers ==============");
+        System.out.println("\n============== Attackers ==============");
         if (attackingCreatures.isEmpty()) {
             System.out.println("No creatures are attacking");
         } else {
             for (Creature cre:attackingCreatures)
                 System.out.println("  "+cre.name() + "(" + cre.getPower() + "/" + cre.getToughness() + ")");
         }
-        System.out.println("=======================================");
+        System.out.println("=======================================\n");
         //definizione di chi difende
         if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){
             while(defending > 0){

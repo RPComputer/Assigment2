@@ -96,7 +96,7 @@ public class Player {
         Player opponent = CardGame.instance.getOpponent(this);
         System.out.println(this.name() + "  " +  this.getLife() + " -- " + opponent.name() + "  " + opponent.getLife());
         // print out the fields
-        System.out.println("============== Field ==============");  
+        System.out.println("\n============== Field ==============");  
         for (int i=0; i!=2; ++i) {
             Player fieldsPlayer=CardGame.instance.getPlayer(i);
             List<Creature> creatures = fieldsPlayer.getCreatures();
@@ -116,7 +116,7 @@ public class Player {
                     System.out.println("  "+e.name());
             }
         }
-        System.out.println("==================================");        
+        System.out.println("===================================\n");        
         
         Phase curPhase;
         while ((curPhase=nextPhase())!=null) {
