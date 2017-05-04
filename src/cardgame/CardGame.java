@@ -14,9 +14,11 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author atorsell
+/*
+    In questa classe abbiamo aggiunto i metodi e sfruttato l'inizializzazione tramite il sistema factory; inoltre
+    è stato aggiunto il metodo getOpponent: si è dimostrata necessaria in molte implementazioni delle varie carte
+    la conoscenza dell'avversario del giocatore proprietario della carta. Di conseguenza è risultato più
+    semplice creare un metodo in CardGame che dato un Player restituisce l'avversario.
  */
 public class CardGame {
 
@@ -85,6 +87,7 @@ public class CardGame {
     public void setTurnManager(TurnManager m) { turnManagerStack.push(m); }
     public void removeTurnManager(TurnManager m) { turnManagerStack.remove(m); }
     
+    //Metodo aggiuntivo descritto nel commento della classe
     public Player getOpponent(Player p){
         if(p == Players[0])
             return Players[1];

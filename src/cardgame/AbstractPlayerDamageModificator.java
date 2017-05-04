@@ -1,6 +1,13 @@
 
 package cardgame;
 
+/*
+    Questa classe astratta contiene l'implementazione fondamentale di tutti i metodi necessari per far funzionare
+    uno schema di oggetti che si occupano di modificare il danno inflitto a un giocatore. Serve per implementare
+    effetti come scudi o amplificatori del danno. Lo schema segue una funzionalità simile a quella del decorator pattern.
+    L'implementazione di ciò ha comportato la modifica della classe Player.
+*/
+
 public abstract class AbstractPlayerDamageModificator implements PlayerDamageModificator{
     private Player owner;
     private PlayerDamageModificator next;

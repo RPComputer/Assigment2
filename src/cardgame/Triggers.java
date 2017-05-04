@@ -4,6 +4,13 @@ package cardgame;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
+/*
+    In questa classe, oltre ad aggiungere dei nuovi FILTER abbiamo modificato la classe Entry e il metodo deregister.
+    Deregister non funzionava perchè effettuava l'equals tra un oggetto di tipo entry e uno di tipo triggeraction.
+    Modificando deregister è stato necessario creare una funzione all'interno di entry che consentisse di effettuare
+    correttamente l'equals.
+*/
+
 public class Triggers {
     private class Entry { 
         public int filter; 

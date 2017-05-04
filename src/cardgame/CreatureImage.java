@@ -4,15 +4,23 @@ package cardgame;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    Questa classe astratta contiene l'implementazione fondamentale di tutti i metodi necessari per l'implementazione
+    del design pattern decorator. Noi abbiamo adottato la soluzione dove i decorator nella lista sono sempre
+    compresi fra un testa che fa da rappresentante per la creatura e la creatura stessa. Questa classe appunto
+    implementa i metodi necessari al rappresentante, ovviamente implementa l'interfaccia Creature.
+*/
+
 public class CreatureImage implements Creature{
     
     private Player owner;
-    private Creature pointer;
+    private Creature pointer; //elemento successivo della lista, può essere la creatura o un decorator
     
     public Player getOwner(){
         return owner;
     }
     
+    //Il costruttore si occupa di settare i due attributi fondamentali
     public CreatureImage(Player owner, Creature pointer){
         this.owner = owner;
         this.pointer = pointer;
@@ -137,6 +145,10 @@ public class CreatureImage implements Creature{
         else return false;
     }
     
+    /*
+        Questo metodo è stato realizzato per consentire al temine dell'applicazione di un decorator se la somma
+        degli effetti applicati comporta la morte della creatura o meno.
+    */
     public void checker(){
         if(pointer.getToughness() <= 0){
             owner.destroy(this);

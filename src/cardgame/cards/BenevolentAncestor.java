@@ -220,6 +220,11 @@ public class BenevolentAncestor implements Card {
         }
         
         @Override
+        public boolean getAtt(){
+            return false;
+        }
+        
+        @Override
         public String name() { return "BenevolentAncestor"; }
         
         @Override
