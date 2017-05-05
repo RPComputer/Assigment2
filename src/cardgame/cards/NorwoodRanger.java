@@ -13,6 +13,9 @@ import cardgame.StaticInitializer;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    Questa è una carta creatura senza effetti di vita 2 e attacco 1
+*/
 public class NorwoodRanger implements Card {
     private static class NorwoodRangerFactory implements CardFactory{
         @Override
