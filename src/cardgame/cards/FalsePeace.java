@@ -1,7 +1,7 @@
 
 package cardgame.cards;
 
-import cardgame.AbstractEffect;
+import cardgame.AbstractCardEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
 import cardgame.Effect;
@@ -26,8 +26,12 @@ public class FalsePeace implements Card {
     }
     private static StaticInitializer initializer = new StaticInitializer(new FalsePeaceFactory());
     
-    private class FalsePeaceEffect extends AbstractEffect {
+    private class FalsePeaceEffect extends AbstractCardEffect {
         Player target = null; // target player 
+
+        private FalsePeaceEffect(Player p, Card c) {
+            super(p, c);
+        }
         
         @Override
         public void resolve () {
@@ -68,7 +72,7 @@ public class FalsePeace implements Card {
     }
     @Override
     public Effect getEffect(Player p) {
-        FalsePeaceEffect e = new FalsePeaceEffect();
+        FalsePeaceEffect e = new FalsePeaceEffect(p, this);
         return e;
     }
     

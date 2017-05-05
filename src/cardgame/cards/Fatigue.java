@@ -1,7 +1,7 @@
 
 package cardgame.cards;
 
-import cardgame.AbstractEffect;
+import cardgame.AbstractCardEffect;
 import cardgame.Card;
 import cardgame.CardFactory;
 import cardgame.Effect;
@@ -26,8 +26,12 @@ public class Fatigue implements Card {
     }
     private static StaticInitializer initializer = new StaticInitializer(new FatigueFactory());
     
-    private class FatigueEffect extends AbstractEffect {
+    private class FatigueEffect extends AbstractCardEffect {
         Player target = null; // target player 
+
+        private FatigueEffect(Player p, Card c) {
+            super(p, c);
+        }
         
         
         @Override
@@ -67,7 +71,7 @@ public class Fatigue implements Card {
     }
     @Override
     public Effect getEffect(Player p) {
-        FatigueEffect e = new FatigueEffect();
+        FatigueEffect e = new FatigueEffect(p, this);
         return e;
     }
     

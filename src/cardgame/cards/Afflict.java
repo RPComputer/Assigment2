@@ -80,7 +80,7 @@ public class Afflict implements Card {
                         }while(choosen<0 || choosen> length);     
 
                         if(choosen > 0){
-                            CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen);
+                            CreatureImage cr = (CreatureImage) owner.getCreatures().get(choosen-1);
                             this.opponent = owner;
                             this.c = cr;
                         }
