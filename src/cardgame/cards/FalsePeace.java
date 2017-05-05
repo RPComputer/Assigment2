@@ -12,6 +12,10 @@ import cardgame.Phases;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 
+/*
+    Applica il metodo setPhase() creando una nuova SkipPhase() di combat al giocatore scelto come target.
+*/
+
 public class FalsePeace implements Card {
     private static class FalsePeaceFactory implements CardFactory{
         @Override

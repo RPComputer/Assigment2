@@ -16,6 +16,11 @@ import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.ArrayList;
 
+/*
+    Questa carta applica un decoratore ad una delle creature attive in campo (scelta come target),
+     diminuendo sia la difesa che l'attacco di 1 punto.
+*/
+
 public class Afflict implements Card {
     private static class AfflictFactory implements CardFactory{
         @Override

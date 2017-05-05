@@ -13,6 +13,9 @@ import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
 
+/*
+ infligge 2 danni a ogni creatura che entra in gioco
+*/
 public class AetherFlash implements Card {
     private static class AetherFlashFactory implements CardFactory{
         @Override
@@ -52,10 +55,12 @@ public class AetherFlash implements Card {
             super(owner);
         }
         
+        /* trigger che infligge due danni ad ogni creatura che entra in campo,
+        */
         private final TriggerAction EnterDamage = new TriggerAction() {
                 @Override
                 public void execute(Object args) {
-                    if (args != null  && args instanceof Creature) {
+                    if (args != null  && args instanceof Creature) { /* controllo che venga inserita una creatura*/
                         Creature c = (Creature)args;
                         c.inflictDamage(2);
                     }

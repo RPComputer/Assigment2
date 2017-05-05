@@ -16,6 +16,11 @@ import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.ArrayList;
 
+/*
+    Questa carta applica un decoratore ad una delle creature attive in campo (scelta come target),
+     aumentando sia la difesa che l'attacco di 1 punto.
+*/
+
 public class AggressiveUrge implements Card {
     private static class AggressiveUrgeFactory implements CardFactory{
         @Override

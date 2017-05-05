@@ -13,6 +13,9 @@ import cardgame.StaticInitializer;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    Questa è una carta creatura senza effetti di vita 1 e attacco 2
+*/
 public class BronzeSable implements Card {
     private static class BronzeSableFactory implements CardFactory{
         @Override

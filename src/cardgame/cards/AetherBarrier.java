@@ -14,6 +14,12 @@ import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
 
+/*
+    Dal momento in cui questa crta viene giocata, ogni volta che viene messa in campo una nuova creatura,
+     il suo possessore deve sacrificare un permanente già in campo.
+    Utilizza i trigger per sapere ogni volta che una nuova creatura viene messa in campo.
+*/
+
 public class AetherBarrier implements Card {
     private static class AetherBarrierFactory implements CardFactory{
         @Override
