@@ -3,6 +3,14 @@ package cardgame.cards;
 
 import java.util.ArrayList;
 
+/*
+    Questa classe serve per l'implementazione del factory pattern, svolge la funzione di far caricare alla JVM le classi
+    di tutte le carte, ciò poi comporta l'istanziamento statico dei metodi factory che di conseguenza aggiungono la carta
+    alla lista in CardGame.
+    In futuro se si volesse aggiungere una carta all'insieme è sufficiente aggiugnere la classe che la implementa
+    nel package e inserire il suo add in questa lista.
+*/
+
 public class Cardlist {
     ArrayList<String> list = new ArrayList();
     public Cardlist(){

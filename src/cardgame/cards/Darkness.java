@@ -15,6 +15,14 @@ import cardgame.StaticInitializer;
 import cardgame.TriggerAction;
 import java.util.ArrayList;
 
+/*
+    Questa classe implementa la carta Darkness che annulla tutti i danni da combattimento di questo turno.
+    Ciò è reso possibile tramite un trigger che setta, a termine del caricamento dello stack, la lista degli
+    attaccanti nell'istanza della combat phase a lista vuota. Di conseguenza la combat phase non potrà risolvere
+    nessun danno in quanto non chiamerà il metodo attack di nessuna creatura.
+    La rimozione del suo effetto viene effettuata da un altro trigger che ha come filter code la fine del turno.
+*/
+
 public class Darkness implements Card {
     private static class DarknessFactory implements CardFactory{
         @Override

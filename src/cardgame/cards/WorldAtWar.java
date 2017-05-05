@@ -20,6 +20,15 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.EnumMap;
 
+/*
+    Questa classe implementa la carta world at war, questa carta da al giocatore che la attiva una combat e una
+    main phase supplementari, successive alla prima main phase; inoltre, effettua l'untap di tutte le creature
+    che hanno attaccato nella prima combat.
+    L'effetto è implementato sfruttando la creazione di un nuovo phase manager, a cui viene detto di effetturare una combat
+    e una main, che viene sovrapposto a quello di base. L'untap viene effettuato tramite il get della lista della combat phase.
+    Al termine del turno un trigger rimuove il phase manager, quindi ritorna quello di default.
+*/
+
 public class WorldAtWar implements Card {
     private static class WorldAtWarFactory implements CardFactory{
         @Override

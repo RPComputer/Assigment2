@@ -15,6 +15,15 @@ import cardgame.TriggerAction;
 import cardgame.Triggers;
 import cardgame.TurnManager;
 
+/*
+    Questa classe implementa la carta savor the moment, questa carta da al giocatore che la attiva un turno supplementare
+    successivamente a quello in cui è giocata; di quel turno però salta la untap phase.
+    L'effetto è implementato sfruttando la creazione di un nuovo turn manager a cui viene detto qual è il primo giocatore,
+    ovvero il possessore della carta. Al termine del turno un trigger rimuove il turn manager, quindi ritorna quello di
+    default.
+    Lo skip della untap phase viene effettuato tramite la default skip phase.
+*/
+
 public class SavorTheMoment implements Card {
     private static class SavorTheMomentFactory implements CardFactory{
         @Override
