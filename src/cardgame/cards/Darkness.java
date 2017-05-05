@@ -67,6 +67,12 @@ public class Darkness implements Card {
         public void resolve() {
             DarknessTrigger t = new DarknessTrigger();
             DeleteDarknessTrigger t1 = new DeleteDarknessTrigger(t);
+            for(Creature c : CardGame.instance.getCurrentPlayer().getCreatures()){
+                    c.clearTarget();
+            }
+            for(Creature c : CardGame.instance.getCurrentAdversary().getCreatures()){
+                c.clearTarget();
+            }
             CardGame.instance.getTriggers().register(Triggers.STACK_CHARGING_COMPLETED_EVENT, t);
             CardGame.instance.getTriggers().register(Triggers.END_TURN_FILTER, t1);
             
