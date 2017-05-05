@@ -16,6 +16,10 @@ import cardgame.StaticInitializer;
 import cardgame.Triggers;
 import java.util.ArrayList;
 
+/*
+    Abduction realizza il suo effetto tramite il decorator applicato alla creatura 
+*/
+
 public class Abduction implements Card{
     private static class AbductionFactory implements CardFactory{
         @Override
