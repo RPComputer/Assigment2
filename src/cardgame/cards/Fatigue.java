@@ -12,6 +12,10 @@ import cardgame.Phases;
 import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 
+/*
+    Applica il metodo setPhase() creando una nuova SkipPhase() di draw al giocatore scelto come target.
+*/
+
 public class Fatigue implements Card {
     private static class FatigueFactory implements CardFactory{
         @Override
