@@ -5,9 +5,9 @@
  */
 package cardgame;
 
-/**
- *
- * @author atorsell
+/*
+    L'interfaccia effect è stata modiificata con le dichiarazioni dei metodi aggiunti agli effetti per il funzionamento
+    di tutti gli schemi e pattern
  */
 public interface Effect {
     // pays for effect and places it in the stack

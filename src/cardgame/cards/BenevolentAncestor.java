@@ -22,6 +22,15 @@ import cardgame.StaticInitializer;
 import cardgame.Triggers;
 import java.util.ArrayList;
 
+/*
+    Questa classe implementa la creatura più complessa dell'assignment: Benevolent Ancestor.
+    Per implementare questa creatura è stato necessario ideare lo schema del damage modificator del player
+    e utilizzare il pattern decorator. Inoltre, poichè non può attaccare, il suo metodo getAtt è posto con 
+    valore di ritorno sempre false.
+
+    Descrizione del decorator e del damage modificator all'interno del codice.
+*/
+
 public class BenevolentAncestor implements Card {
     private static class BenevolentAncestorFactory implements CardFactory{
         @Override
@@ -74,6 +83,11 @@ public class BenevolentAncestor implements Card {
             this.me = c;
         }
         
+        /*
+            Il decorator di benevolent ancestor serve per applicare il suo effetto di protezione ad altre creature.
+            Effettua l'override del metodo inflictdamage sottraendo 1 danno, per poter assicurare che l'effetto termini
+            alla fine del turno, il decorator si appoggia a un decorator trigger per la sua eliminazione.
+        */
         private class BenevolentAncestorDecorator extends AbstractDecorator{
             TriggerAction a;
             public BenevolentAncestorDecorator(CreatureImage c) {
@@ -109,6 +123,11 @@ public class BenevolentAncestor implements Card {
             
         }
         
+        /*
+            Il damage modifier di benevolent ancestor serve per applicare il suo effetto di protezione ai player.
+            Effettua l'override del metodo inflictdamage sottraendo 1 danno, per poter assicurare che l'effetto termini
+            alla fine del turno, il damage modifier si appoggia a un trigger per la sua eliminazione.
+        */
         private class BenevolentAncestorDamageModifier extends AbstractPlayerDamageModificator{
             private class BenevolentAncestorDamageModifierTrigger implements TriggerAction{
                 BenevolentAncestorDamageModifier m;

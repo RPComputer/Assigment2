@@ -1,6 +1,12 @@
 
 package cardgame;
 
+/*
+    Questa interfaccia definisce tutti i metodi per l'implementazione dello schema dei modificatori del danno
+    dei giocatori, nel nostro progetto si traduce nell'implementazione del AbstractPlayerDamageModificator
+    che è il modificatore di default.
+*/
+
 public interface PlayerDamageModificator {
     public void remove();
     public void delete(PlayerDamageModificator m);

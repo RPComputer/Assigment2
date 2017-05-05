@@ -12,6 +12,11 @@ import cardgame.Enchantment;
 import static cardgame.Interfaccia.acquireInput;
 import cardgame.StaticInitializer;
 
+/*
+    Questa classe implementa la carta Aura Blast che elimina un incantamento e fa pescare una carta al giocatore
+    che la lancia. I due metodi importanti di questa classe sono il resolve dell'effetto e il setTarget.
+*/
+
 public class AuraBlast implements Card {
     private static class AuraBlastFactory implements CardFactory{
         @Override
@@ -57,7 +62,7 @@ public class AuraBlast implements Card {
 
                 int i = 0;
                 for ( Enchantment e: opponent.getEnchantments()) {
-                    System.out.println( i + ") for " + e.name());
+                    System.out.println( i + ") " + e.name());
                     i++;
                 }
                 if(i>0){
@@ -65,10 +70,9 @@ public class AuraBlast implements Card {
                     do{
                         choice = acquireInput();
                     } while (choice<0 || choice>i-1);
-
                     Enchantment e = opponent.getEnchantments().get(choice);
-
                     this.target = e;
+                    this.to = opponent;
                 }
                 else {
                     System.out.println("There are no enchantments to destroy.");
@@ -76,12 +80,10 @@ public class AuraBlast implements Card {
                 }
             }
             else{
-
                 System.out.println("Your target is one of your enchantments.");
-
                 int i = 0;
                 for ( Enchantment e: owner.getEnchantments()) {
-                    System.out.println( i + ") for " + e.name());
+                    System.out.println( i + ") " + e.name());
                     i++;
                 }
                 if(i>0){
@@ -89,10 +91,9 @@ public class AuraBlast implements Card {
                     do{
                         choice = acquireInput();
                     } while (choice<0 || choice>i-1);
-
                     Enchantment e = owner.getEnchantments().get(choice);
-
                     this.target = e;
+                    this.to = owner;
                 }
                 else {
                     System.out.println("There aren't enchantments to destroy.");
