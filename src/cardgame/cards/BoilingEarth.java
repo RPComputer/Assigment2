@@ -11,6 +11,10 @@ import cardgame.Creature;
 import cardgame.StaticInitializer;
 import java.util.ArrayList;
 
+/*
+    Questa classe implementa la carta boiling earth che infligge 1 danno a tutte le sue creature con il suo effetto.
+*/
+
 public class BoilingEarth implements Card {
     private static class BoilingEarthFactory implements CardFactory{
         @Override

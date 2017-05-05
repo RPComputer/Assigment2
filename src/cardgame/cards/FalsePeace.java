@@ -13,6 +13,7 @@ import cardgame.SkipPhase;
 import cardgame.StaticInitializer;
 
 /*
+    Questa classe implementa la carta false peace che fa saltare la fase combat al prossimo turno del target player.
     Applica il metodo setPhase() creando una nuova SkipPhase() di combat al giocatore scelto come target.
 */
 

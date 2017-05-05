@@ -13,7 +13,8 @@ import static cardgame.Interfaccia.showCreatures;
 import cardgame.StaticInitializer;
 
 /*
-    La carta volcanic hammer infligge 3 danni a una creatura o giocatore
+    La carta volcanic hammer infligge 3 danni a una creatura o giocatore, l'effetto è implementato direttamente
+    alla risoluzione dello stack.
 */
 public class VolcanicHammer implements Card {
     private static class VolcanicHammerFactory implements CardFactory{

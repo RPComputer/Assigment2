@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-    Questa creatura utilizza i trigger per potersi nascondere all'inizio del caricamento dello stack per tutta la durata del caricamento.
+    Questa creatura utilizza i trigger per potersi nascondere dall'inizio del caricamento dello stack per tutta la durata del caricamento.
     In questo modo non può essere mai scelta come target se non durante la combat phase.
     Sempre tramite l'utilizzo dei trigger, fa pescare una carta ogni volta che viene giocato un incantamento.
 */

@@ -11,6 +11,11 @@ import cardgame.Enchantment;
 import cardgame.StaticInitializer;
 import java.util.ArrayList;
 
+/*
+    Questa classe implementa la carta calming verse che distrugge tutti gli incantamenti dell'avversario, l'effetto
+    è implementato direttamente nella risoluzione dello stack.
+*/
+
 public class CalmingVerse implements Card {
     private static class CalmingVerseFactory implements CardFactory{
         @Override

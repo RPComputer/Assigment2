@@ -14,7 +14,8 @@ import cardgame.TriggerAction;
 import cardgame.Triggers;
 
 /*
- infligge 2 danni a ogni creatura che entra in gioco
+    Questa carta infligge 2 danni a ogni creatura quando entra in gioco. L'implementazione dell'effetto è 
+    effettuata tramite la creazione di un incantamento permanente e un trigger.
 */
 public class AetherFlash implements Card {
     private static class AetherFlashFactory implements CardFactory{

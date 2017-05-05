@@ -17,7 +17,9 @@ import cardgame.Triggers;
 import java.util.ArrayList;
 
 /*
-    Abduction realizza il suo effetto tramite il decorator applicato alla creatura 
+    Questa classe implementa la carta abduction il cui effetto consiste nel prendere il controllo di una creatura
+    che resterà nel campo del giocatore che lancia la carta fino a quando non muore. Alla morte però non viene eliminata
+    ma ritorna sotto il controllo del posessore originale. L'implementazione realizza l'effetto tramite un decorator.
 */
 
 public class Abduction implements Card{

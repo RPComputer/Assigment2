@@ -18,9 +18,8 @@ import cardgame.Triggers;
 import java.util.ArrayList;
 
 /*
-    Questa carta può essere utilizzata solamente sulle creature incantate (tramite Abduction).
     Applica, alla creatura scelta come target, un decoratore che, aggiornato tramite trigger,
-     assegna +2/+2 per tante volte quanti incantamenti sono attivi in campo.
+     assegna +2/+2 tante volte quante creature incantate vi sono in campo.
 */
 
 public class AncestralMask implements Card {
