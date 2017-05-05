@@ -5,19 +5,33 @@ import static cardgame.Interfaccia.acquireInput;
 import static cardgame.Interfaccia.showCreatures;
 import java.util.ArrayList;
 
+/*
+    La DefaultCombatPhase è uno dei punti più importanti del secondo assignment. Implementa la fase di combattimento
+    standard del gioco di magic che consiste in:
+    - dichiarazione attaccanti
+    - caricamento dello stack senza sorcery o enchantments, a partire dall'avversario
+    - dichiarazione difensori
+    - caricamento dello stack senza sorcery o enchantments, a partire dal giocatore di questo turno
+
+    Questa classe si occupa anche dell'output specifico per il combattimento.
+
+    La spiegazione del codice è all'interno dello stesso.
+*/
+
 public class DefaultCombatPhase implements Phase {
-    ArrayList<Creature> attackingCreatures;
-    ArrayList<Creature> defendingCreatures;
-    ArrayList<Creature> canAttackCreatures;
-    ArrayList<Creature> canDefendCreatures;
+    ArrayList<Creature> attackingCreatures; //lista delle creature che attaccano
+    ArrayList<Creature> defendingCreatures; //lista delle creature che difendono
+    ArrayList<Creature> canAttackCreatures; //lista di appoggio per sapere chi può attaccare
+    ArrayList<Creature> canDefendCreatures; //lista di appoggio per sapere chi può difendere
     public DefaultCombatPhase() {
         this.attackingCreatures = new ArrayList<>();
         this.defendingCreatures = new ArrayList<>();
     }
     @Override
     public void execute() {
-        attackingCreatures.clear();
-        Player currentPlayer = CardGame.instance.getCurrentPlayer();
+        attackingCreatures.clear(); //reset delle liste
+        defendingCreatures.clear();
+        Player currentPlayer = CardGame.instance.getCurrentPlayer(); //acquisizione e attribuzione del ruolo dei giocatori
         Player opponentPlayer = CardGame.instance.getCurrentAdversary();
         int attacking = 1, defending = 1;
         
@@ -26,28 +40,28 @@ public class DefaultCombatPhase implements Phase {
         
         CardGame.instance.getTriggers().trigger(Triggers.COMBAT_FILTER);
         // TODO combat
-        if(!currentPlayer.getCreatures().isEmpty()){
-            while(attacking > 0){
+        if(!currentPlayer.getCreatures().isEmpty()){ //se il giocatore attaccante ha creature
+            while(attacking > 0){ //finchè non dichiara di non voler più attaccare o non ha più creature che possono farlo
                 System.out.println(currentPlayer.name() + ": choose an attacking creature, 0 to pass");
-                canAttackCreatures = attackers(currentPlayer);
+                canAttackCreatures = attackers(currentPlayer); //sceglie una creatura che deve attaccare
                 if(canAttackCreatures.isEmpty()){
                     System.out.println("You don't have creatures that can attack.");
                     attacking = 0;
                 }
                 else{
                     attacking = acquireInput();
-                    if(attacking > 0 && attacking <= canAttackCreatures.size()){
+                    if(attacking > 0 && attacking <= canAttackCreatures.size()){ //settaggio valori in preparazione della risoluzione del danno
                         c = canAttackCreatures.get(attacking-1);
-                        c.tap();
-                        c.addTarget(opponentPlayer);
+                        c.tap(); //la creeatura viene tappata per poter attaccare
+                        c.addTarget(opponentPlayer); //per default il target delle creature è il giocatore avversario
                         attackingCreatures.add((Creature) c);
                     }
                 }
             }
         }
-        //assunto parte dichiarazione attaccanti effettuata
-        chargeCombatStack(opponentPlayer); // primo caricamento dello stack e risoluzione// primo caricamento dello stack e risoluzione
-        
+        //parte dichiarazione attaccanti effettuata
+        chargeCombatStack(opponentPlayer); // primo caricamento dello stack e risoluzione
+        //visto che il caricamento dello stack comporta un considerevole output, questo output riepiloga la situazione
         System.out.println("\n============== Attackers ==============");
         if (attackingCreatures.isEmpty()) {
             System.out.println("No creatures are attacking");
@@ -57,8 +71,8 @@ public class DefaultCombatPhase implements Phase {
         }
         System.out.println("=======================================\n");
         //definizione di chi difende
-        if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){
-            while(defending > 0){
+        if(!attackingCreatures.isEmpty() || opponentPlayer.getCreatures().isEmpty()){ //se ci sono delle creature che attaccano e il difensore ha delle creature
+            while(defending > 0){//finchè non dichiara di non voler più difendere o non ha più creature che possono farlo
                 canDefendCreatures = defenders(opponentPlayer);
                 if(canDefendCreatures.isEmpty()){
                     System.out.println(currentPlayer.name() + ": doesn't have creatures that can defend.");
@@ -67,22 +81,22 @@ public class DefaultCombatPhase implements Phase {
                 else{
                     System.out.println(currentPlayer.name() + ": choose a defending creature, 0 to pass");
                     showCreatures(canDefendCreatures);
-                    defending = acquireInput();
+                    defending = acquireInput(); //sceglie una creatura che deve difendere
                     if(defending > 0 && defending <= canDefendCreatures.size()){
                         c = canDefendCreatures.get(defending-1);
-                        c.tap();
+                        c.tap(); //la creatura viene tappata per poter difendere
                         defendingCreatures.add(c);
                         System.out.println(currentPlayer.name() + ": choose an attacking creature to stop");
                         showCreatures(attackingCreatures);
-                        attacking = acquireInput();
+                        attacking = acquireInput(); //il giocatore sceglie la creatura attaccante che la propria creatura deve fronteggiare
                         if(attacking > 0 && attacking <= attackingCreatures.size())
-                            c.defend(attackingCreatures.get(attacking-1));
+                            c.defend(attackingCreatures.get(attacking-1)); //la creatura difensore modifica il target dell'attaccante
                         else System.out.println("Input not valid.");
                     }
                 }
             }
         }
-        chargeCombatStack(currentPlayer); // secondo caricamneto dello stack e risoluzione// secondo caricamneto dello stack e risoluzione
+        chargeCombatStack(currentPlayer); // secondo caricamneto dello stack e risoluzione
         
         //risoluzione del danno
         System.out.println("============== Combat results ==============");
@@ -97,6 +111,7 @@ public class DefaultCombatPhase implements Phase {
         //fine della combat
     }
     
+    //funzione che effettua output e input e il caricamento dello stack senza sorcery o enchantments
     public void chargeCombatStack(Player currentPlayer){
         int numberPasses=0;
         int responsePlayerIdx = (CardGame.instance.getPlayer(0) == currentPlayer)?0:1;
@@ -114,7 +129,7 @@ public class DefaultCombatPhase implements Phase {
         CardGame.instance.getStack().resolve();
     }
     
-    
+    //funzione per charge combat stack presa dalla main phase in quanto serve lo stesso servizio
     // looks for all playable effects from cards in hand and creatures in play
     // and asks player for which one to play
     // includes creatures and sorceries only if isMain is true
@@ -158,6 +173,7 @@ public class DefaultCombatPhase implements Phase {
         return false;
     }
     
+    //funzione che mostra quali creature possono attaccare e acquisisce la scelta del giocatore
     private ArrayList attackers(Player p){
         ArrayList<Creature> untapped = new ArrayList<>();
         int i = 1;
@@ -171,6 +187,7 @@ public class DefaultCombatPhase implements Phase {
         return untapped;
     }
     
+    //funzione che mostra quali creature possono difendere e acquisisce la scelta del giocatore
     private ArrayList defenders(Player p){
         ArrayList<Creature> untapped = new ArrayList<>();
         int i = 1;
@@ -183,6 +200,8 @@ public class DefaultCombatPhase implements Phase {
         return untapped;
     }
     
+    
+    //getter e setter delle liste principali della fase combat
     public ArrayList<Creature> getCreaturesWhichAttacked(){
         return attackingCreatures;
     }

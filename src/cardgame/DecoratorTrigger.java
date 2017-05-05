@@ -1,6 +1,12 @@
 
 package cardgame;
 
+/*
+    Questa classe implementa il trigger di default per i decorator: l'azione più frequente da applicare è la rimozione
+    del decorator in base ad un evento (es. fine del turno). Per questo abbiamo pensato a una implementazione generale
+    per questa funzione.
+*/
+
 public class DecoratorTrigger implements TriggerAction{
     AbstractDecorator d;
     public DecoratorTrigger(AbstractDecorator d){
@@ -8,19 +14,6 @@ public class DecoratorTrigger implements TriggerAction{
     }
     @Override
     public void execute(Object args) {
-        AbstractDecorator d1, d2;
-        CardGame.instance.getTriggers().deregister(this);
-        if(d.getPrev() instanceof CreatureImage){
-            CreatureImage c = d.getHead();
-            c.setPointer(d.getNext());
-        }
-        else{
-            d1 = (AbstractDecorator) d.getPrev();
-            d1.setNext(d.getNext());
-        }
-        if(d.getNext() instanceof AbstractDecorator){
-            d2 = (AbstractDecorator) d.getNext();
-            d2.setPrev(d.getPrev());
-        }
+        d.removeDecorator();
     }
 }
