@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame;
 
 import java.util.Iterator;
@@ -14,9 +10,12 @@ import java.util.List;
 import java.util.Scanner;
 
 
-/**
- *
- * @author atorsell
+/*
+    Questa classe è stata modificata per aggiungere i metodi necessari per:
+    - i modificatori del danno
+    - modifica dell'inflict damage e aggiunta di inflict pure damage per decorator e modificatori del danno
+    - modifica di destroy creature e destroy enchantment affiché richiamino prima il remove dell'oggetto in
+      questione per poter consentire il controllo dell'eliminazione da parte di decorator, trigger o altro
  */
 public class Player {
     // basic properties: name, library, deck, and life
@@ -31,6 +30,7 @@ public class Player {
     public void setDeck(Iterator<Card> deck) { library.add(deck); }
     public Library getDeck() { return library; }
     
+    //metodi per i modificatori del danno
     public PlayerDamageModificator modificators = null;
     
     public void addModificator(PlayerDamageModificator m){
