@@ -52,6 +52,12 @@ public class Darkness implements Card {
             }
             @Override
             public void execute(Object args) {
+                for(Creature c : CardGame.instance.getCurrentPlayer().getCreatures()){
+                    c.clearTarget();
+                }
+                for(Creature c : CardGame.instance.getCurrentAdversary().getCreatures()){
+                    c.clearTarget();
+                }
                 CardGame.instance.getTriggers().deregister(t);
                 CardGame.instance.getTriggers().deregister(this);
             }
